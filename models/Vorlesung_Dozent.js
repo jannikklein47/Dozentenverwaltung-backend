@@ -17,6 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "vorliebeId",
         type: DataTypes.INTEGER,
       });
+      
+      
+      
     }
   }
   Vorlesung_Dozent.init(
