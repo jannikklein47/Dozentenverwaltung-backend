@@ -7,7 +7,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: "dozentenverwaltung_db",
     host: "127.0.0.1",
-    dialect: "postgres",
+    dialect: "mysql",
     logging: (msg) => Logger.db(msg),
   },
   test: {
@@ -15,7 +15,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: "dozentenverwaltung_db",
     host: "127.0.0.1",
-    dialect: "postgres",
+    dialect: "mysql",
     logging: (msg) => Logger.db(msg),
   },
   production: {
@@ -23,7 +23,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: "dozentenverwaltung_db",
     host: "127.0.0.1",
-    dialect: "postgres",
+    dialect: "mysql",
     logging: (msg) => Logger.db(msg),
   },
 };
