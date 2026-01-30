@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "dozenten_statusId",
         type: DataTypes.INTEGER,
       });
+      Dozent.belongsTo(models.Vorliebe, {
+        foreignKey: "vorliebeId",
+        type: DataTypes.INTEGER,
+      });
     }
   }
   Dozent.init(
