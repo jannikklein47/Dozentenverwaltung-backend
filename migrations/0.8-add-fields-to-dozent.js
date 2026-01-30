@@ -27,7 +27,7 @@ module.exports = {
       allowNull: false,
     });
 
-    await queryInterface.addColumn("Dozent", "vorliebe", {
+    await queryInterface.addColumn("Dozent", "vorliebeId", {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
@@ -51,7 +51,7 @@ module.exports = {
     // reverse order to be safe
     await queryInterface.removeColumn("Dozent", "prio_master");
     await queryInterface.removeColumn("Dozent", "prio_bachelor");
-    await queryInterface.removeColumn("Dozent", "vorliebe");
+    await queryInterface.removeColumn("Dozent", "vorliebeId");
     await queryInterface.removeColumn("Dozent", "telefonnummer");
     await queryInterface.removeColumn("Dozent", "email");
     await queryInterface.removeColumn("Dozent", "vorname");
