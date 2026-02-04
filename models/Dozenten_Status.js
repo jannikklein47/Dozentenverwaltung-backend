@@ -12,8 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Dozenten_Status.init(
-    {
-      name: DataTypes.STRING,
+    { 
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,

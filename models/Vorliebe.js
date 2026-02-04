@@ -12,8 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Vorliebe.init(
-    {
-      name: DataTypes.STRING,
+    { 
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,

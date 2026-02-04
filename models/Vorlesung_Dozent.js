@@ -23,7 +23,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Vorlesung_Dozent.init(
-    {},
+    {
+      vorlesungId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+      },
+      dozentId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+      },
+      gehalten_anId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      vorliebeId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+    },
     {
       sequelize,
       modelName: "Vorlesung_Dozent",

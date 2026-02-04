@@ -17,7 +17,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Vorlesung_Status.init(
     {
-      name: DataTypes.STRING,
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,

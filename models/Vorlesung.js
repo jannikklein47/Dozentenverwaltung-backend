@@ -25,9 +25,28 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Vorlesung.init(
-    {
-      name: DataTypes.STRING,
-      semester: DataTypes.INTEGER,
+    { 
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      vorlesung_statusId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      abschluss_typId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      semester: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
     },
     {
       sequelize,

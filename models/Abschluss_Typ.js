@@ -17,7 +17,17 @@ module.exports = (sequelize, DataTypes) => {
   }
   Abschluss_Typ.init(
     {
-      name: DataTypes.STRING,
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
+
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,

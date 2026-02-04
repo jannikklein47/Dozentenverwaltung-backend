@@ -26,7 +26,51 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Dozent.init(
-    {},
+    {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
+      titel: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      vorname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      telefonnummer: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      vorliebeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      dozenten_statusId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      prio_bachelor: {
+        type: DataTypes.TINYINT,
+        allowNull: true,
+      },
+      prio_master: {
+        type: DataTypes.TINYINT,
+        allowNull: true,
+      },
+    },
+
     {
       sequelize,
       modelName: "Dozent",
