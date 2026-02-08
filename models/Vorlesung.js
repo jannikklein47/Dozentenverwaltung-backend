@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   Vorlesung.init(
     { 
       id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
