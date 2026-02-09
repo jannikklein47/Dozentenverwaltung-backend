@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: doz-api
+  IMAGE_NAME: jannikklein47/doz-api
 
 jobs:
   build-and-push:
