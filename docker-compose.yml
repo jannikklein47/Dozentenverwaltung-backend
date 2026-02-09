@@ -1,16 +1,17 @@
 services:
   db:
-    image: postgres:15-alpine
+    image: mysql:8.0
     container_name: Dozentenverwaltung_db
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: Dozentenverwaltung
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: 12345678
+      MYSQL_DATABASE: Dozentenverwaltung
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - db_data:/var/lib/mysql
 
   api:
     build: .
@@ -22,10 +23,10 @@ services:
       - db
     environment:
       - DB_HOST=db
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
+      - DB_USER=mysql
+      - DB_PASSWORD=12345678
       - DB_NAME=Dozentenverwaltung
-      - DB_PORT=5432
+      - DB_PORT=3306
       - NODE_ENV=production
 volumes:
-  postgres_data:
+  db_data:
