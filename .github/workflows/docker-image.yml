@@ -32,5 +32,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.REGISTRY }}/dozentenverwaltung_backend:${{ github.ref_name }}
-            ${{ env.REGISTRY }}/dozentenverwaltung_backend:latest
+            ${{ env.REGISTRY }}/doz-api:${{ github.ref_name }}
+            ${{ env.REGISTRY }}/doz-api:latest
