@@ -32,5 +32,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.REGISTRY }}/doz-api:${{ github.ref_name }}
-            ${{ env.REGISTRY }}/doz-api:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
