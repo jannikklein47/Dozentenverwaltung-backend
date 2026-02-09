@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Dozenten_Status.init(
     { 
       id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,

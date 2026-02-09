@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Vorliebe.init(
     { 
       id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
