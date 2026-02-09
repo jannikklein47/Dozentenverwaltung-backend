@@ -11,7 +11,6 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    environment: default
     permissions:
       contents: read
       packages: write
@@ -33,5 +32,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ secrets.PROJECT_TAG }}:${{ github.ref_name }}
-            ${{ env.REGISTRY }}/${{ secrets.PROJECT_TAG }}:latest
+            ${{ env.REGISTRY }}/dozentenverwaltung_backend:${{ github.ref_name }}
+            ${{ env.REGISTRY }}/dozentenverwaltung_backend:latest
