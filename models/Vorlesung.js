@@ -9,10 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Vorlesung.belongsToMany(models.Dozent, {
-        through: {
-          model: models.Vorlesung_Dozent,
-          unique: true,
-        },
+        through: {model: models.Vorlesung_Dozent,
+          unique: true
+          },
+          foreignKey: "vorlesungId",
+          otherKey: "dozentId",
+          as: "professors",
       });
       Vorlesung.belongsTo(models.Abschluss_Typ, {
         foreignKey: "vorlesungId",
