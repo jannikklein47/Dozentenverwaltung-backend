@@ -1,25 +1,335 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  async up(queryInterface, Sequelize) {
+    const now = new Date();
+    await queryInterface.bulkInsert("vorlesung_dozent", [
+      {
+        vorlesungId: 8,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 18,
+        dozentId: 2,
+        gehalten_anId: 2,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 7,
+        dozentId: 2,
+        gehalten_anId: 2,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 13,
+        dozentId: 2,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 3,
+        dozentId: 2,
+        gehalten_anId: 1,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 10,
+        dozentId: 3,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 19,
+        dozentId: 3,
+        gehalten_anId: 2,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 7,
+        dozentId: 3,
+        gehalten_anId: 2,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 13,
+        dozentId: 4,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 17,
+        dozentId: 5,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 18,
+        dozentId: 5,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 8,
+        dozentId: 6,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 6,
+        dozentId: 6,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 10,
+        dozentId: 6,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 11,
+        dozentId: 7,
+        gehalten_anId: 2,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 6,
+        dozentId: 7,
+        gehalten_anId: 1,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 18,
+        dozentId: 7,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 5,
+        dozentId: 7,
+        gehalten_anId: 2,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 9,
+        dozentId: 8,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 5,
+        dozentId: 8,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 10,
+        dozentId: 8,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 14,
+        dozentId: 9,
+        gehalten_anId: 2,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 13,
+        dozentId: 9,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 16,
+        dozentId: 10,
+        gehalten_anId: 2,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 3,
+        dozentId: 10,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 15,
+        dozentId: 11,
+        gehalten_anId: 2,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 4,
+        dozentId: 11,
+        gehalten_anId: 1,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 9,
+        dozentId: 11,
+        gehalten_anId: 2,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 13,
+        dozentId: 11,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 8,
+        dozentId: 12,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 4,
+        dozentId: 12,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 2,
+        dozentId: 12,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 7,
+        dozentId: 13,
+        gehalten_anId: 2,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 16,
+        dozentId: 13,
+        gehalten_anId: 2,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 3,
+        dozentId: 14,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 19,
+        dozentId: 14,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 9,
+        dozentId: 15,
+        gehalten_anId: 1,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 8,
+        dozentId: 15,
+        gehalten_anId: 2,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 21,
+        dozentId: 15,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      },
+      {
+        vorlesungId: 12,
+        dozentId: 15,
+        gehalten_anId: 2,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      },
+    ]);
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete("vorlesung_dozent", null, {});
+  },
 };
+
