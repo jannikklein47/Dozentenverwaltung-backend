@@ -1,11 +1,20 @@
 const { Dozent, Vorlesung, Abschluss_Typ, Vorlesung_Status} = require('../../../../models');
+const Joi = require('joi');
 
 exports.getAllLectures = async (req, res) => {
     try {
-        let limit = parseInt(req.query.limit) || 2000;
-        const offset = parseInt(req.query.offset) || 0;
         
-        if (limit > 5000) {limit = 5000;}
+        const schema = Joi.object({
+            limit: Joi.number().integer().min(1).max(5000).default(5000),
+            offset: Joi.number().integer().min(0).default(0),
+        });
+
+        const { error, value } = schema.validate(req.query);
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
+        
+        const { limit, offset } = value
 
         const {count, rows} = await Vorlesung.findAndCountAll({
             limit: limit,
@@ -16,7 +25,7 @@ exports.getAllLectures = async (req, res) => {
             include: [{
                 model: Dozent,
                 as: "professors", 
-                attributes: ["id", "name"],
+                attributes: ["vorname", "name"],
                 through: {attributes: []}
             },
             {
@@ -40,29 +49,4 @@ exports.getAllLectures = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Interner Serverfehler" });
-    }}
-
-
-
-
-
-// // check-role.js
-// module.exports = (allowedRoles) => {          // <--- 1. Die Äußere Hülle (Fabrik)
-//     return (req, res, next) => {              // <--- 2. Der Innere Arbeiter (Middleware)
-//         const userRole = req.userData.role;   // <--- 3. Zugriff auf Daten von checkAuth
-        
-//         if (allowedRoles.includes(userRole)) {
-//             next();                           // <--- 4. Tür auf!
-//         } else {
-//             res.status(403).json({ message: "Verboten" }); // <--- 5. Tür zu!
-//         }
-//     }
-// }
-
-// // config/roles.js
-// const ROLES = {
-//     ADMIN: 'admin',
-//     USER: 'user',
-//     LECTURER: 'lecturer'
-// };
-// module.exports = ROLES;
+    }};
