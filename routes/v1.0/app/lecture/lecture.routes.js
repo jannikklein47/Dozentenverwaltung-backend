@@ -49,9 +49,9 @@ const lectureController = require("./lecture.controller"); // Nicht vergessen zu
  *                         items:
  *                           type: object
  *                           properties:
- *                             id:
- *                               type: integer
- *                               example: 12
+ *                             vorname:
+ *                               type: string
+ *                               example: "Daniel"
  *                             name:
  *                               type: string
  *                               example: "Wolf"
