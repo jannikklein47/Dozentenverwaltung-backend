@@ -32,6 +32,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Abschluss_Typ",
+
+      freezeTableName: true,
+      tableName: "Abschluss_Typ",
     },
   );
   return Abschluss_Typ;

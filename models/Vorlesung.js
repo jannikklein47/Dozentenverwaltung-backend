@@ -17,12 +17,12 @@ module.exports = (sequelize, DataTypes) => {
           as: "professors",
       });
       Vorlesung.belongsTo(models.Abschluss_Typ, {
-        foreignKey: "vorlesungId",
-        type: DataTypes.INTEGER,
+        foreignKey: "abschluss_typId",
+        as: "completionType",
       });
-      Vorlesung.belongsTo(models.Vorlesung_Dozent, {
-        foreignKey: "vorlesungId",
-        type: DataTypes.INTEGER,
+      Vorlesung.belongsTo(models.Vorlesung_Status, {
+        foreignKey: "vorlesung_statusId",
+        as: "lectureStatus",
       });
     }
   }
@@ -54,6 +54,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Vorlesung",
+
+      freezeTableName: true,
+      tableName: "Vorlesung",
     },
   );
   return Vorlesung;
