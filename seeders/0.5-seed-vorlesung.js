@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     const now = new Date();
-    await queryInterface.bulkInsert("vorlesung", [
+    await queryInterface.bulkInsert("Vorlesung", [
       // Bachelor (abschluss_typId: 1)
       {
         name: "Grundlagen der Informatik",

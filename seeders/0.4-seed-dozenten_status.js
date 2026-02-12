@@ -5,7 +5,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const now = new Date();
     await queryInterface.bulkInsert(
-      "dozenten_status",
+      "Dozenten_Status",
       [
         { name: "Intern", createdAt: now, updatedAt: now },
         { name: "Extern", createdAt: now, updatedAt: now },
@@ -15,6 +15,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("dozenten_status", null, {});
+    await queryInterface.bulkDelete("Dozenten_Status", null, {});
   },
 };
