@@ -4,7 +4,7 @@ const lectureController = require("./lecture.controller"); // Nicht vergessen zu
 
 /**
  * @swagger
- * /lectures:
+ * /app/lectures:
  *   get:
  *     summary: Get all lectures with their associated lecturers (short version)
  *     tags: [Lectures]
@@ -19,11 +19,54 @@ const lectureController = require("./lecture.controller"); // Nicht vergessen zu
  *         schema:
  *           type: integer
  *         description: The number of lectures to skip before starting to collect the result set
- *       - in: query
- *         name:
  *     responses:
  *       200:
  *         description: A list of lectures
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 total:
+ *                   type: integer
+ *                   example: 1
+ *                 lectures:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       name:
+ *                         type: string
+ *                         example: "Grundlagen der Informatik"
+ *                       semester:
+ *                         type: integer
+ *                         example: 1
+ *                       professors:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             id:
+ *                               type: integer
+ *                               example: 12
+ *                             name:
+ *                               type: string
+ *                               example: "Wolf"
+ *                       completionType:
+ *                         type: object
+ *                         properties:
+ *                           name:
+ *                             type: string
+ *                             example: "Bachelor"
+ *                       lectureStatus:
+ *                         type: object
+ *                         properties:
+ *                           name:
+ *                             type: string
+ *                             example: "Offen"
  *       400:
  *         description: Bad Request
  *       401:
@@ -34,7 +77,7 @@ const lectureController = require("./lecture.controller"); // Nicht vergessen zu
  *         description: Internal Server Error
  */
 router.get("/",
-    checkauth,
+    // checkauth,
     lectureController.getAllLectures
 );
 
