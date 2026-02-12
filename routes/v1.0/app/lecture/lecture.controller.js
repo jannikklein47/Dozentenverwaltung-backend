@@ -1,7 +1,7 @@
 const { Dozent, Vorlesung, Abschluss_Typ, Vorlesung_Status} = require('../../../../models');
 const Joi = require('joi');
 
-exports.getAllLectures = async (req, res) => {
+exports.getAllLectures = async (req, res, next) => {
     try {
         
         const schema = Joi.object({
@@ -47,6 +47,5 @@ exports.getAllLectures = async (req, res) => {
             lectures: rows
         });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Interner Serverfehler" });
+        next(error);
     }};
