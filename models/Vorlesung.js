@@ -9,12 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Vorlesung.belongsToMany(models.Dozent, {
-        through: {model: models.Vorlesung_Dozent,
-          unique: true
-          },
-          foreignKey: "vorlesungId",
-          otherKey: "dozentId",
-          as: "professors",
+        through: { model: models.Vorlesung_Dozent, unique: true },
+        foreignKey: "vorlesungId",
+        otherKey: "dozentId",
+        as: "professors",
       });
       Vorlesung.belongsTo(models.Abschluss_Typ, {
         foreignKey: "abschluss_typId",
@@ -27,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Vorlesung.init(
-    { 
+    {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -49,6 +47,11 @@ module.exports = (sequelize, DataTypes) => {
       semester: {
         type: DataTypes.INTEGER,
         allowNull: true,
+      },
+      kuerzel: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
       },
     },
     {
