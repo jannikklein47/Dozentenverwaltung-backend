@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "start": "npx sequelize-cli db:migrate && node index.js",
+    "start-load-data": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && node index.js",
     "start-prod": "node index.js"
   },
   "author": "",
@@ -15,6 +16,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^5.2.1",
+    "joi": "^18.0.2",
     "morgan": "^1.10.1",
     "mysql2": "^3.16.2",
     "nodemon": "^3.1.11",

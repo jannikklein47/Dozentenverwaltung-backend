@@ -9,18 +9,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Vorlesung.belongsToMany(models.Dozent, {
-        through: {
-          model: models.Vorlesung_Dozent,
-          unique: true,
-        },
+        through: {model: models.Vorlesung_Dozent,
+          unique: true
+          },
+          foreignKey: "vorlesungId",
+          otherKey: "dozentId",
+          as: "professors",
       });
       Vorlesung.belongsTo(models.Abschluss_Typ, {
-        foreignKey: "vorlesungId",
-        type: DataTypes.INTEGER,
+        foreignKey: "abschluss_typId",
+        as: "completionType",
       });
-      Vorlesung.belongsTo(models.Vorlesung_Dozent, {
-        foreignKey: "vorlesungId",
-        type: DataTypes.INTEGER,
+      Vorlesung.belongsTo(models.Vorlesung_Status, {
+        foreignKey: "vorlesung_statusId",
+        as: "lectureStatus",
       });
     }
   }
@@ -52,6 +54,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Vorlesung",
+
+      freezeTableName: true,
+      tableName: "Vorlesung",
     },
   );
   return Vorlesung;
