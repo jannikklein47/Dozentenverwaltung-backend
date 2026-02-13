@@ -59,4 +59,3 @@ module.exports = {
     await queryInterface.removeColumn("Dozent", "titel");
   },
 };
-
