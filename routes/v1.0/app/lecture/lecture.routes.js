@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const lectureController = require("./lecture.controller"); // Nicht vergessen zu importieren!
+const lectureController = require("./lecture.controller");
+const validate = require("./lecture.validate");
 
 /**
  * @swagger
@@ -78,7 +79,130 @@ const lectureController = require("./lecture.controller"); // Nicht vergessen zu
  */
 router.get("/",
     // checkauth,
+    validate.validateLectureQuery,
     lectureController.getAllLectures
 );
 
+/**
+ * @swagger
+ * /app/lectures/mapping:
+ *   get:
+ *     summary: Get the name of Abschluss_Typ and Vorlesung_Status for each Id
+ *     tags: [Lectures]
+ *     responses:
+ *       200:
+ *         description: A list of mappings
+ *         content:
+ *          application/json:
+ *            schema:
+ *             type: object
+ *             properties:
+ *               completionTyp:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     name:
+ *                       type: string
+ *                       example: "Bachelor"
+ *               lectureStatus:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     name:
+ *                       type: string
+ *                       example: "Geschlossen"
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+
+router.get("/mapping",
+    // checkauth,
+    lectureController.getLectureMappings
+)
+
+/**
+ * @swagger
+ * /app/lectures:
+ *   post:
+ *     summary: Create a new lecture
+ *     tags: [Lectures]
+ *     parameters:
+ *       - in: body
+ *         name: lecture
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *               example: "Mathematik I"
+ *             semester:
+ *               type: integer
+ *               example: 1
+ *             abschluss_typId:
+ *               type: integer
+ *               example: 1
+ *             vorlesung_statusId:
+ *               type: integer
+ *               example: 1
+ *     responses:
+ *       201:
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 29
+ *                 name:
+ *                   type: string
+ *                   example: "Mathematik I"
+ *                 vorlesung_statusId:
+ *                   type: integer
+ *                   example: 1
+ *                 abschluss_typId:
+ *                   type: integer
+ *                   example: 1
+ *                 semester:
+ *                   type: integer
+ *                   example: 1
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2026-02-14T14:59:09.319Z"
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2026-02-14T14:59:09.319Z"
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.post("/",
+    // checkauth,
+    validate.validateLectureBody,
+    lectureController.postLecture
+)
+
 module.exports = router;
+
