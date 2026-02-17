@@ -19,6 +19,7 @@ exports.validateLectureQuery = (req, res, next) => {
 
 const lectureBodySchema = Joi.object({
   name: Joi.string().max(255).required(),
+  kuerzel: Joi.string().max(255).required() ,
   semester: Joi.number().integer().min(1).max(12).required(),
   professorIds: Joi.array()
     .items(Joi.number().integer().positive())

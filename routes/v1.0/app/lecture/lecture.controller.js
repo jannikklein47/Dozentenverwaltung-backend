@@ -14,13 +14,13 @@ exports.getAllLectures = async (req, res, next) => {
       limit: limit,
       offset: offset,
 
-      attributes: ["id", "name", "semester"],
+      attributes: ["id", "name", "kuerzel", "semester"],
       distinct: true,
       include: [
         {
           model: Dozent,
           as: "professors",
-          attributes: ["vorname", "name"],
+          attributes: ["id", "vorname", "name"],
           through: { attributes: [] },
         },
         {
@@ -69,12 +69,13 @@ exports.postLecture = async (req, res, next) => {
   const t = await Vorlesung.sequelize.transaction();
 
   try {
-    const { name, vorlesung_statusId, abschluss_typId, semester } = req.body;
+    const { name, kuerzel, vorlesung_statusId, abschluss_typId, semester } = req.body;
     const professorIds = req.body.professorIds || [];
 
     const newLecture = await Vorlesung.create(
       {
         name,
+        kuerzel,
         vorlesung_statusId,
         abschluss_typId,
         semester,
