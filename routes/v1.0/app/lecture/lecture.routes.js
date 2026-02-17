@@ -151,7 +151,7 @@ router.get("/mapping",
  *               example: "Mathematik I"
  *             kuerzel:
  *               type: string
- *               example: "Math"
+ *               example: "Math1"
  *             semester:
  *               type: integer
  *               example: 1
@@ -177,7 +177,7 @@ router.get("/mapping",
  *                   example: "Mathematik I"
  *                 kuerzel:
  *                   type: string
- *                   example: "Math"
+ *                   example: "Math1"
  *                 vorlesung_statusId:
  *                   type: integer
  *                   example: 1
