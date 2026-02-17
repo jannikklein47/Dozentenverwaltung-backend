@@ -755,6 +755,975 @@ module.exports = {
         createdAt: now,
         updatedAt: now,
       }, // Wiss. Publikationen
+      // -- Grundlagen Informatik (Mehrfachbelegung durch diverse Profs) --
+      {
+        vorlesungId: 1,
+        dozentId: 2,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schmidt hilft bei Einführung
+      {
+        vorlesungId: 1,
+        dozentId: 9,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Koch hilft auch
+
+      {
+        vorlesungId: 2,
+        dozentId: 9,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Koch macht auch Java
+      {
+        vorlesungId: 2,
+        dozentId: 24,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Meier (Extern) macht Java Praxis
+      {
+        vorlesungId: 11,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Müller macht auch C++
+      {
+        vorlesungId: 11,
+        dozentId: 21,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schmitt (Extern) C++ Gaming Fokus
+
+      {
+        vorlesungId: 3,
+        dozentId: 2,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schmidt macht Mathe I
+      {
+        vorlesungId: 3,
+        dozentId: 7,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schulz (Theoretiker) macht Mathe I
+      {
+        vorlesungId: 14,
+        dozentId: 7,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schulz macht Statistik
+      {
+        vorlesungId: 13,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Müller springt für Mathe II ein
+
+      {
+        vorlesungId: 5,
+        dozentId: 10,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Richter macht BWL
+      {
+        vorlesungId: 5,
+        dozentId: 15,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schwarz (Banker) macht BWL Extern
+      {
+        vorlesungId: 18,
+        dozentId: 15,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schwarz macht KLR
+      {
+        vorlesungId: 35,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: 2,
+        createdAt: now,
+        updatedAt: now,
+      }, // Müller macht Marketing (Bachelor Pref)
+
+      {
+        vorlesungId: 6,
+        dozentId: 16,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Zimmermann macht Englisch I
+      {
+        vorlesungId: 17,
+        dozentId: 6,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Becker macht Englisch II
+      {
+        vorlesungId: 17,
+        dozentId: 16,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Zimmermann macht Englisch II
+      {
+        vorlesungId: 7,
+        dozentId: 10,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Richter macht Selbstmanagement
+
+      {
+        vorlesungId: 10,
+        dozentId: 4,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Klein (Sec) macht Recht
+      {
+        vorlesungId: 24,
+        dozentId: 4,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Klein macht Datenschutz
+      {
+        vorlesungId: 96,
+        dozentId: 14,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Neumann macht IT-Recht Vertiefung
+
+      {
+        vorlesungId: 15,
+        dozentId: 22,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Werner (Oracle Expertin) macht DB1
+      {
+        vorlesungId: 27,
+        dozentId: 22,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Werner macht DB2 (NoSQL)
+      {
+        vorlesungId: 27,
+        dozentId: 8,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Hoffmann (Web) macht DB2
+
+      {
+        vorlesungId: 20,
+        dozentId: 21,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schmitt (Game/Design) macht WebDesign
+      {
+        vorlesungId: 29,
+        dozentId: 24,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Meier macht JS
+      {
+        vorlesungId: 49,
+        dozentId: 8,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Hoffmann macht Node.js
+      {
+        vorlesungId: 50,
+        dozentId: 24,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Meier macht React
+
+      {
+        vorlesungId: 33,
+        dozentId: 17,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krüger macht IT-Sec Grund
+      {
+        vorlesungId: 43,
+        dozentId: 17,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krüger macht Crypto
+      {
+        vorlesungId: 128,
+        dozentId: 17,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krüger macht Cyber Ops
+      {
+        vorlesungId: 63,
+        dozentId: 4,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Klein macht Forensik
+
+      {
+        vorlesungId: 28,
+        dozentId: 19,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Hartmann (DevOps) macht Netze
+      {
+        vorlesungId: 41,
+        dozentId: 5,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Wagner macht Server Admin
+      {
+        vorlesungId: 41,
+        dozentId: 19,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Hartmann macht Server Admin
+
+      {
+        vorlesungId: 26,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Müller SE1
+      {
+        vorlesungId: 46,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Müller SE2
+      {
+        vorlesungId: 57,
+        dozentId: 24,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Meier macht QS
+      {
+        vorlesungId: 58,
+        dozentId: 13,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schröder (Consultant) macht Scrum
+      {
+        vorlesungId: 59,
+        dozentId: 13,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schröder macht Requirements
+
+      {
+        vorlesungId: 55,
+        dozentId: 3,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Weber macht Big Data
+      {
+        vorlesungId: 56,
+        dozentId: 12,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Wolf macht AI Intro
+      {
+        vorlesungId: 104,
+        dozentId: 12,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Wolf macht ML1
+      {
+        vorlesungId: 116,
+        dozentId: 3,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Weber macht BI
+
+      {
+        vorlesungId: 74,
+        dozentId: 21,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schmitt macht Android (Game focus)
+      {
+        vorlesungId: 75,
+        dozentId: 24,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Meier macht iOS
+      {
+        vorlesungId: 76,
+        dozentId: 11,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Bauer macht Cross-Platform
+      {
+        vorlesungId: 77,
+        dozentId: 11,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Bauer macht Game Dev
+
+      {
+        vorlesungId: 101,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      }, // Müller Adv Arch
+      {
+        vorlesungId: 101,
+        dozentId: 23,
+        gehalten_anId: 1,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krause Adv Arch
+      {
+        vorlesungId: 105,
+        dozentId: 19,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Hartmann Cloud Arch
+      {
+        vorlesungId: 110,
+        dozentId: 23,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krause Enterprise Arch
+      {
+        vorlesungId: 117,
+        dozentId: 13,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schröder ITSM
+
+      {
+        vorlesungId: 71,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Praxisprojekt 1 Müller
+      {
+        vorlesungId: 71,
+        dozentId: 2,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Praxisprojekt 1 Schmidt
+      {
+        vorlesungId: 71,
+        dozentId: 8,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Praxisprojekt 1 Hoffmann
+      {
+        vorlesungId: 72,
+        dozentId: 3,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Praxisprojekt 2 Weber
+      {
+        vorlesungId: 72,
+        dozentId: 4,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Praxisprojekt 2 Klein
+      {
+        vorlesungId: 72,
+        dozentId: 5,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Praxisprojekt 2 Wagner
+      {
+        vorlesungId: 73,
+        dozentId: 6,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Bachelor Seminar Becker
+      {
+        vorlesungId: 73,
+        dozentId: 7,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Bachelor Seminar Schulz
+      {
+        vorlesungId: 95,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Bachelor Kolloquium Müller
+      {
+        vorlesungId: 95,
+        dozentId: 10,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Bachelor Kolloquium Richter
+
+      {
+        vorlesungId: 146,
+        dozentId: 8,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Lehmann Forschung I
+      {
+        vorlesungId: 146,
+        dozentId: 3,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Weber Forschung I
+      {
+        vorlesungId: 147,
+        dozentId: 10,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Lehmann Forschung II
+      {
+        vorlesungId: 147,
+        dozentId: 7,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schulz Forschung II
+      {
+        vorlesungId: 148,
+        dozentId: 25,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Master Kolloquium Lehmann
+      {
+        vorlesungId: 148,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Master Kolloquium Müller
+
+      {
+        vorlesungId: 12,
+        dozentId: 2,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schmidt Algo
+      {
+        vorlesungId: 12,
+        dozentId: 7,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schulz Algo
+      {
+        vorlesungId: 22,
+        dozentId: 5,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Wagner SE Prozesse
+      {
+        vorlesungId: 30,
+        dozentId: 5,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Wagner OS Windows
+      {
+        vorlesungId: 32,
+        dozentId: 8,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Hoffmann HCI
+      {
+        vorlesungId: 32,
+        dozentId: 18,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Hofmann (Design) HCI
+      {
+        vorlesungId: 34,
+        dozentId: 16,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Zimmermann WINF
+      {
+        vorlesungId: 37,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: 1,
+        createdAt: now,
+        updatedAt: now,
+      }, // Müller OOAD
+      {
+        vorlesungId: 38,
+        dozentId: 12,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Wolf Python
+      {
+        vorlesungId: 39,
+        dozentId: 19,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Hartmann Netzmgmt
+      {
+        vorlesungId: 47,
+        dozentId: 23,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krause Verteilte Sys
+      {
+        vorlesungId: 51,
+        dozentId: 7,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schulz Compiler
+      {
+        vorlesungId: 61,
+        dozentId: 9,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Koch Embedded
+      {
+        vorlesungId: 64,
+        dozentId: 10,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Richter Wissenmgmt
+      {
+        vorlesungId: 65,
+        dozentId: 14,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Neumann Ethik
+      {
+        vorlesungId: 66,
+        dozentId: 23,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krause Green IT
+      {
+        vorlesungId: 67,
+        dozentId: 10,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Richter CRM
+      {
+        vorlesungId: 68,
+        dozentId: 10,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Richter SCM
+      {
+        vorlesungId: 70,
+        dozentId: 22,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Werner E-Business
+      {
+        vorlesungId: 80,
+        dozentId: 21,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schmitt AR
+      {
+        vorlesungId: 83,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Müller Digital Marketing
+      {
+        vorlesungId: 84,
+        dozentId: 8,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Hoffmann Social Media
+      {
+        vorlesungId: 89,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Müller SWA
+      {
+        vorlesungId: 91,
+        dozentId: 24,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Meier DevOps
+      {
+        vorlesungId: 99,
+        dozentId: 25,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Lehmann TA
+      {
+        vorlesungId: 100,
+        dozentId: 20,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Lange Robotik
+      {
+        vorlesungId: 101,
+        dozentId: 24,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krause Auto Tech
+      {
+        vorlesungId: 102,
+        dozentId: 9,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Koch IoT Basic
+      {
+        vorlesungId: 103,
+        dozentId: 9,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Koch Smart Home
+      {
+        vorlesungId: 109,
+        dozentId: 1,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Müller Digital Trans
+      {
+        vorlesungId: 111,
+        dozentId: 22,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Werner Adv DB
+      {
+        vorlesungId: 112,
+        dozentId: 23,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krause Dist Algo
+      {
+        vorlesungId: 113,
+        dozentId: 19,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krause HPC
+      {
+        vorlesungId: 114,
+        dozentId: 11,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Bauer Mob Adv
+      {
+        vorlesungId: 115,
+        dozentId: 8,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Hoffmann HCI Adv
+      {
+        vorlesungId: 118,
+        dozentId: 13,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schröder Leadership
+      {
+        vorlesungId: 119,
+        dozentId: 13,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schröder Int PM
+      {
+        vorlesungId: 120,
+        dozentId: 7,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schulz Paradigm
+      {
+        vorlesungId: 121,
+        dozentId: 12,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Wolf IR
+      {
+        vorlesungId: 122,
+        dozentId: 12,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Wolf Semantic Web
+      {
+        vorlesungId: 124,
+        dozentId: 3,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Weber NLP
+      {
+        vorlesungId: 125,
+        dozentId: 3,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Weber Pat Rec
+      {
+        vorlesungId: 130,
+        dozentId: 23,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Krause Smart Contracts
+      {
+        vorlesungId: 131,
+        dozentId: 9,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Koch IoT2
+      {
+        vorlesungId: 132,
+        dozentId: 9,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Koch IIoT
+      {
+        vorlesungId: 136,
+        dozentId: 21,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schmitt Game2
+      {
+        vorlesungId: 138,
+        dozentId: 16,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Zimmermann Change
+      {
+        vorlesungId: 140,
+        dozentId: 13,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Schröder Agile Adv
+      {
+        vorlesungId: 145,
+        dozentId: 24,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Meier Serverless
+      {
+        vorlesungId: 150,
+        dozentId: 12,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        createdAt: now,
+        updatedAt: now,
+      }, // Wolf Future Tech
     ]);
   },
 
@@ -762,6 +1731,3 @@ module.exports = {
     await queryInterface.bulkDelete("Vorlesung_Dozent", null, {});
   },
 };
-
-
-
