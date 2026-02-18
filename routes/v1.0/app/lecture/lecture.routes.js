@@ -77,10 +77,11 @@ const validate = require("./lecture.validate");
  *       500:
  *         description: Internal Server Error
  */
-router.get("/",
-    // checkauth,
-    validate.validateLectureQuery,
-    lectureController.getAllLectures
+router.get(
+  "/",
+  // checkauth,
+  validate.validateLectureQuery,
+  lectureController.getAllLectures,
 );
 
 /**
@@ -129,10 +130,11 @@ router.get("/",
  *         description: Internal Server Error
  */
 
-router.get("/mapping",
-    // checkauth,
-    lectureController.getLectureMappings
-)
+router.get(
+  "/mapping",
+  // checkauth,
+  lectureController.getLectureMappings,
+);
 
 /**
  * @swagger
@@ -204,11 +206,11 @@ router.get("/mapping",
  *       500:
  *         description: Internal Server Error
  */
-router.post("/",
-    // checkauth,
-    validate.validateLectureBody,
-    lectureController.postLecture
-)
+router.post(
+  "/",
+  // checkauth,
+  validate.validateLectureBody,
+  lectureController.postLecture,
+);
 
 module.exports = router;
-
