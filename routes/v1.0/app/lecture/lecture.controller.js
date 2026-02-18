@@ -73,7 +73,7 @@ exports.postLecture = async (req, res, next) => {
       req.body;
     const professorIds = req.body.professorIds || [];
 
-    if (await Vorlesung.findOne({ where: { kuerzel } })) {
+    if (await Vorlesung.findOne({ where: { kuerzel } }, { transaction: t })) {
       await t.rollback();
       return next(APIError.errorRessourceAlreadyExists());
     }
