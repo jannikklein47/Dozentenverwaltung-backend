@@ -8,11 +8,12 @@ const {
 
 exports.getAllProfessors = async (req, res, next) => {
   try {
-    const { limit, offset } = req.query;
+    const limit = parseInt(req.query.limit) || 50;
+    const offset = parseInt(req.query.offset) || 0;
 
     const { count, rows } = await Dozent.findAndCountAll({
-      limit: limit,
-      offset: offset,
+      limit,
+      offset,
 
       attributes: ["id", "titel", "vorname", "name", "email", "telefonnummer"],
       distinct: true,
@@ -42,6 +43,7 @@ exports.getAllProfessors = async (req, res, next) => {
       professors: rows,
     });
   } catch (error) {
+    console.error(error);
     next(APIError.errorUnknown());
   }
 };

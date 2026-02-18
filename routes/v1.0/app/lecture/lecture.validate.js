@@ -2,7 +2,7 @@ const Joi = require("joi");
 const APIError = require("../../../../utils/error");
 
 const schema = Joi.object({
-  limit: Joi.number().integer().min(1).max(5000).default(5000),
+  limit: Joi.number().integer().min(1).max(200).default(50),
   offset: Joi.number().integer().min(0).default(0),
 });
 
