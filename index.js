@@ -22,6 +22,8 @@ app.use(morgenMiddlware);
 // initialize database and models
 require("./models");
 
+app.use(express.json());
+
 // initialize the routes
 require("./routes")(app);
 
