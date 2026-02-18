@@ -53,10 +53,12 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       telefonnummer: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       vorliebeId: {
         type: DataTypes.INTEGER,

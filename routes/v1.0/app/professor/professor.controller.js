@@ -61,6 +61,7 @@ exports.getProfessorMappings = async (req, res, next) => {
       preference: preference,
     });
   } catch (error) {
+    console.error(error);
     next(APIError.errorUnknown());
   }
 };
@@ -79,6 +80,13 @@ exports.postProfessor = async (req, res, next) => {
       prio_master,
     } = req.body;
 
+    if (await Dozent.findOne({ where: { email } })) {
+      return next(APIError.errorRessourceAlreadyExists());
+    }
+    if (await Dozent.findOne({ where: { telefonnummer } })) {
+      return next(APIError.errorRessourceAlreadyExists());
+    }
+
     const newProfessor = await Dozent.create({
       titel,
       name,
@@ -93,6 +101,7 @@ exports.postProfessor = async (req, res, next) => {
 
     res.status(201).json(newProfessor);
   } catch (error) {
+    console.error(error);
     next(APIError.errorUnknown());
   }
 };
