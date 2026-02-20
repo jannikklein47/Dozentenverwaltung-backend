@@ -1,0 +1,42 @@
+const Joi = require("joi");
+const APIError = require("../../../../utils/error");
+
+const schema = Joi.object({
+  limit: Joi.number().integer().min(1).max(200).default(50),
+  offset: Joi.number().integer().min(0).default(0),
+});
+
+exports.validateProfessorQuery = (req, res, next) => {
+  const { error, value } = schema.validate(req.query, { stripUnknown: true });
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
+
+  req.query = value;
+
+  next();
+};
+
+const professorBodySchema = Joi.object({
+  titel: Joi.string().max(255).optional(),
+  name: Joi.string().max(255).required(),
+  vorname: Joi.string().max(255).required(),
+  email: Joi.string().email().max(255).required(),
+  telefonnummer: Joi.string().max(255).required(),
+  vorliebeId: Joi.number().integer().positive().required(),
+  dozenten_statusId: Joi.number().integer().positive().optional(),
+  prio_bachelor: Joi.number().integer().positive().optional(),
+  prio_master: Joi.number().integer().positive().optional(),
+});
+
+exports.validateProfessorBody = (req, res, next) => {
+  const { error, value } = professorBodySchema.validate(req.body, {
+    stripUnknown: true,
+  });
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
+
+  req.body = value;
+  next();
+};

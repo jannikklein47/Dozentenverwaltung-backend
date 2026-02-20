@@ -14,14 +14,19 @@ module.exports = (sequelize, DataTypes) => {
           model: models.Vorlesung_Dozent,
           unique: true,
         },
+        foreignKey: "dozentId",
+        otherKey: "vorlesungId",
+        as: "lectures",
       });
       Dozent.belongsTo(models.Dozenten_Status, {
         foreignKey: "dozenten_statusId",
         type: DataTypes.INTEGER,
+        as: "professorStatus",
       });
       Dozent.belongsTo(models.Vorliebe, {
         foreignKey: "vorliebeId",
         type: DataTypes.INTEGER,
+        as: "preference",
       });
     }
   }
@@ -48,10 +53,12 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       telefonnummer: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       vorliebeId: {
         type: DataTypes.INTEGER,

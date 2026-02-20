@@ -1,14 +1,15 @@
 const Joi = require("joi");
+const APIError = require("../../../../utils/error");
 
 const schema = Joi.object({
-  limit: Joi.number().integer().min(1).max(5000).default(5000),
+  limit: Joi.number().integer().min(1).max(200).default(50),
   offset: Joi.number().integer().min(0).default(0),
 });
 
 exports.validateLectureQuery = (req, res, next) => {
   const { error, value } = schema.validate(req.query, { stripUnknown: true });
   if (error) {
-    return res.status(400).json({ message: error.details[0].message });
+    return next(APIError.errorValidation(error.message));
   }
 
   const { limit, offset } = value;
@@ -19,7 +20,7 @@ exports.validateLectureQuery = (req, res, next) => {
 
 const lectureBodySchema = Joi.object({
   name: Joi.string().max(255).required(),
-  kuerzel: Joi.string().max(255).required() ,
+  kuerzel: Joi.string().max(255).required(),
   semester: Joi.number().integer().min(1).max(12).required(),
   professorIds: Joi.array()
     .items(Joi.number().integer().positive())
@@ -34,7 +35,7 @@ exports.validateLectureBody = (req, res, next) => {
     stripUnknown: true,
   });
   if (error) {
-    return res.status(400).json({ message: error.details[0].message });
+    return next(APIError.errorValidation(error.message));
   }
 
   req.body = value;

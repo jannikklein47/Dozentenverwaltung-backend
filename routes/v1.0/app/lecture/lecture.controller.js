@@ -1,4 +1,4 @@
-const { Transaction } = require("sequelize");
+const APIError = require("../../../../utils/error");
 const {
   Dozent,
   Vorlesung,
@@ -8,11 +8,12 @@ const {
 
 exports.getAllLectures = async (req, res, next) => {
   try {
-    const { limit, offset } = req.query;
+    const limit = parseInt(req.query.limit) || 50;
+    const offset = parseInt(req.query.offset) || 0;
 
     const { count, rows } = await Vorlesung.findAndCountAll({
-      limit: limit,
-      offset: offset,
+      limit,
+      offset,
 
       attributes: ["id", "name", "kuerzel", "semester"],
       distinct: true,
@@ -42,7 +43,7 @@ exports.getAllLectures = async (req, res, next) => {
       lectures: rows,
     });
   } catch (error) {
-    next(error);
+    next(APIError.errorUnknown());
   }
 };
 
@@ -61,7 +62,7 @@ exports.getLectureMappings = async (req, res, next) => {
       lectureStatus: VorlesungStatus,
     });
   } catch (error) {
-    next(error);
+    next(APIError.errorUnknown());
   }
 };
 
@@ -69,8 +70,14 @@ exports.postLecture = async (req, res, next) => {
   const t = await Vorlesung.sequelize.transaction();
 
   try {
-    const { name, kuerzel, vorlesung_statusId, abschluss_typId, semester } = req.body;
+    const { name, kuerzel, vorlesung_statusId, abschluss_typId, semester } =
+      req.body;
     const professorIds = req.body.professorIds || [];
+
+    if (await Vorlesung.findOne({ where: { kuerzel } }, { transaction: t })) {
+      await t.rollback();
+      return next(APIError.errorRessourceAlreadyExists());
+    }
 
     const newLecture = await Vorlesung.create(
       {
@@ -92,6 +99,6 @@ exports.postLecture = async (req, res, next) => {
     res.status(201).json(newLecture);
   } catch (error) {
     await t.rollback("Failed to create lecture and associate professors");
-    next(error);
+    next(APIError.errorUnknown());
   }
 };
