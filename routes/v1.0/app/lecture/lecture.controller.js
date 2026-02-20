@@ -47,6 +47,49 @@ exports.getAllLectures = async (req, res, next) => {
   }
 };
 
+exports.getLecturesOfProfessor = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 50;
+    const offset = parseInt(req.query.offset) || 0;
+
+    const { count, rows } = await Vorlesung.findAndCountAll({
+      limit,
+      offset,
+      attributes: ["id", "name", "kuerzel", "semester"],
+      distinct: true,
+      where: {
+        "$professors.id$": req.params.id,
+      },
+      include: [
+        {
+          model: Dozent,
+          as: "professors",
+          attributes: ["id"],
+          through: { attributes: [] },
+        },
+        {
+          model: Abschluss_Typ,
+          as: "completionType",
+          attributes: ["name"],
+        },
+        {
+          model: Vorlesung_Status,
+          as: "lectureStatus",
+          attributes: ["name"],
+        },
+      ],
+      order: [["id", "ASC"]],
+    });
+
+    res.status(200).json({
+      total: count,
+      lectures: rows,
+    });
+  } catch (error) {
+    next(APIError.errorUnknown());
+  }
+};
+
 exports.getLectureMappings = async (req, res, next) => {
   try {
     const AbschlussTyp = await Abschluss_Typ.findAll({
