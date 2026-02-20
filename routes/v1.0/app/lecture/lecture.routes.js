@@ -22,7 +22,7 @@ const validate = require("./lecture.validate");
  *         description: The number of lectures to skip before starting to collect the result set
  *     responses:
  *       200:
- *         description: A list of lectures
+ *         description: List of lectures
  *         content:
  *           application/json:
  *             schema:
@@ -50,6 +50,9 @@ const validate = require("./lecture.validate");
  *                         items:
  *                           type: object
  *                           properties:
+ *                             id:
+ *                               type: integer
+ *                               example: 1
  *                             vorname:
  *                               type: string
  *                               example: "Daniel"
@@ -109,7 +112,7 @@ router.get(
  *         description: The number of lectures to skip before starting to collect the result set
  *     responses:
  *       200:
- *         description: A list of lectures
+ *         description: List of lectures for a professor
  *         content:
  *           application/json:
  *             schema:
@@ -117,7 +120,7 @@ router.get(
  *               properties:
  *                 total:
  *                   type: integer
- *                   example: 1
+ *                   example: 5
  *                 lectures:
  *                   type: array
  *                   items:
@@ -128,7 +131,10 @@ router.get(
  *                         example: 1
  *                       name:
  *                         type: string
- *                         example: "Grundlagen der Informatik"
+ *                         example: "Einführung in die Informatik"
+ *                       kuerzel:
+ *                         type: string
+ *                         example: "EIDI"
  *                       semester:
  *                         type: integer
  *                         example: 1
@@ -137,12 +143,9 @@ router.get(
  *                         items:
  *                           type: object
  *                           properties:
- *                             vorname:
- *                               type: string
- *                               example: "Daniel"
- *                             name:
- *                               type: string
- *                               example: "Wolf"
+ *                             id:
+ *                               type: integer
+ *                               example: 1
  *                       completionType:
  *                         type: object
  *                         properties:

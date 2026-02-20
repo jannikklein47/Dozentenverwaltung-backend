@@ -51,20 +51,20 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 50;
     const offset = parseInt(req.query.offset) || 0;
+    const professorId = parseInt(req.params.id);
 
     const { count, rows } = await Vorlesung.findAndCountAll({
       limit,
       offset,
       attributes: ["id", "name", "kuerzel", "semester"],
       distinct: true,
-      where: {
-        "$professors.id$": req.params.id,
-      },
       include: [
         {
           model: Dozent,
           as: "professors",
           attributes: ["id"],
+          where: { id: professorId },
+          required: true,
           through: { attributes: [] },
         },
         {

@@ -184,7 +184,7 @@ router.get(
  *         description: Internal Server Error
  */
 router.get(
-  "/",
+  "/:id",
   // checkauth,
   validate.validateProfessorQuery,
   validate.validateProfessorId,
