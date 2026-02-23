@@ -146,6 +146,12 @@ router.get(
  *                             id:
  *                               type: integer
  *                               example: 1
+ *                             vorname:
+ *                               type: string
+ *                               example: "Daniel"
+ *                             name:
+ *                               type: string
+ *                               example: "Wolf"
  *                       completionType:
  *                         type: object
  *                         properties:

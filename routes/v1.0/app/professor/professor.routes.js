@@ -138,20 +138,6 @@ router.get(
  *                     telefonnummer:
  *                       type: string
  *                       example: "0123-100"
- *                     lectures:
- *                       type: array
- *                       items:
- *                         type: object
- *                         properties:
- *                           id:
- *                             type: integer
- *                             example: 1
- *                           name:
- *                             type: string
- *                             example: "Einfuehrung in die Informatik"
- *                           kuerzel:
- *                             type: string
- *                             example: "EIDI"
  *                     professorStatus:
  *                       type: object
  *                       properties:
