@@ -100,7 +100,7 @@ router.get(
  * @swagger
  * /app/professors/{id}:
  *   get:
- *     summary: Get all professors with their associated lecturers (short version)
+ *     summary: Get a professor by his id
  *     tags: [Professors]
  *     parameters:
  *       - in: path
@@ -109,19 +109,9 @@ router.get(
  *           type: integer
  *         required: true
  *         description: The id of the professor
- *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *         description: The number of professors to return
- *       - in: query
- *         name: offset
- *         schema:
- *           type: integer
- *         description: The number of professors to skip before starting to collect the result set
  *     responses:
  *       200:
- *         description: A list of professors
+ *         description: A professor object
  *         content:
  *          application/json:
  *            schema:
@@ -186,7 +176,6 @@ router.get(
 router.get(
   "/:id",
   // checkauth,
-  validate.validateProfessorQuery,
   validate.validateProfessorId,
   professorController.getProfessorById,
 );
