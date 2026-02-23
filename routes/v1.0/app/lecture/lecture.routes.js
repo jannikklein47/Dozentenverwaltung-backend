@@ -22,7 +22,7 @@ const validate = require("./lecture.validate");
  *         description: The number of lectures to skip before starting to collect the result set
  *     responses:
  *       200:
- *         description: A list of lectures
+ *         description: List of lectures
  *         content:
  *           application/json:
  *             schema:
@@ -50,6 +50,9 @@ const validate = require("./lecture.validate");
  *                         items:
  *                           type: object
  *                           properties:
+ *                             id:
+ *                               type: integer
+ *                               example: 1
  *                             vorname:
  *                               type: string
  *                               example: "Daniel"
@@ -82,6 +85,100 @@ router.get(
   // checkauth,
   validate.validateLectureQuery,
   lectureController.getAllLectures,
+);
+
+/**
+ * @swagger
+ * /app/lectures/professor/{id}:
+ *   get:
+ *     summary: Get all lectures that are held by a professor
+ *     tags: [Lectures]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The id of the professor
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: The number of lectures to return
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *         description: The number of lectures to skip before starting to collect the result set
+ *     responses:
+ *       200:
+ *         description: List of lectures for a professor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 total:
+ *                   type: integer
+ *                   example: 5
+ *                 lectures:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       name:
+ *                         type: string
+ *                         example: "Einführung in die Informatik"
+ *                       kuerzel:
+ *                         type: string
+ *                         example: "EIDI"
+ *                       semester:
+ *                         type: integer
+ *                         example: 1
+ *                       professors:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             id:
+ *                               type: integer
+ *                               example: 1
+ *                             vorname:
+ *                               type: string
+ *                               example: "Daniel"
+ *                             name:
+ *                               type: string
+ *                               example: "Wolf"
+ *                       completionType:
+ *                         type: object
+ *                         properties:
+ *                           name:
+ *                             type: string
+ *                             example: "Bachelor"
+ *                       lectureStatus:
+ *                         type: object
+ *                         properties:
+ *                           name:
+ *                             type: string
+ *                             example: "Offen"
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.get(
+  "/professor/:id",
+  // checkauth,
+  validate.validateLectureQuery,
+  validate.validateProfessorId,
+  lectureController.getLecturesOfProfessor,
 );
 
 /**

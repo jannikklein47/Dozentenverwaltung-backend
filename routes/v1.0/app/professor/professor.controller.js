@@ -48,6 +48,32 @@ exports.getAllProfessors = async (req, res, next) => {
   }
 };
 
+exports.getProfessorById = async (req, res, next) => {
+  try {
+    const result = await Dozent.findByPk(req.params.id, {
+      include: [
+        {
+          model: Dozenten_Status,
+          as: "professorStatus",
+          attributes: ["name"],
+        },
+        {
+          model: Vorliebe,
+          as: "preference",
+          attributes: ["name"],
+        },
+      ],
+    });
+
+    res.status(200).json({
+      professor: result,
+    });
+  } catch (error) {
+    console.error(error);
+    next(APIError.errorUnknown());
+  }
+};
+
 exports.getProfessorMappings = async (req, res, next) => {
   try {
     const professorStatus = await Dozenten_Status.findAll({

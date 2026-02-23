@@ -4,7 +4,9 @@ const {
   Vorlesung,
   Abschluss_Typ,
   Vorlesung_Status,
+  sequelize,
 } = require("../../../../models");
+const { Op } = require("sequelize");
 
 exports.getAllLectures = async (req, res, next) => {
   try {
@@ -43,6 +45,57 @@ exports.getAllLectures = async (req, res, next) => {
       lectures: rows,
     });
   } catch (error) {
+    next(APIError.errorUnknown());
+  }
+};
+
+exports.getLecturesOfProfessor = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 50;
+    const offset = parseInt(req.query.offset) || 0;
+    const professorId = parseInt(req.params.id);
+
+    const { count, rows } = await Vorlesung.findAndCountAll({
+      limit,
+      offset,
+      attributes: ["id", "name", "kuerzel", "semester"],
+      distinct: true,
+      where: {
+        id: {
+          [Op.in]: sequelize.literal(`(
+            SELECT VorlesungId
+            FROM Vorlesung_Dozent
+            WHERE DozentId = ${professorId}
+          )`),
+        },
+      },
+      include: [
+        {
+          model: Dozent,
+          as: "professors",
+          attributes: ["id", "vorname", "name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Abschluss_Typ,
+          as: "completionType",
+          attributes: ["name"],
+        },
+        {
+          model: Vorlesung_Status,
+          as: "lectureStatus",
+          attributes: ["name"],
+        },
+      ],
+      order: [["id", "ASC"]],
+    });
+
+    res.status(200).json({
+      total: count,
+      lectures: rows,
+    });
+  } catch (error) {
+    console.error(error);
     next(APIError.errorUnknown());
   }
 };
