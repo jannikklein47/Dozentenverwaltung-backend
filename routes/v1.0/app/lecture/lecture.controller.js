@@ -4,7 +4,9 @@ const {
   Vorlesung,
   Abschluss_Typ,
   Vorlesung_Status,
+  sequelize,
 } = require("../../../../models");
+const { Op } = require("sequelize");
 
 exports.getAllLectures = async (req, res, next) => {
   try {
@@ -58,13 +60,20 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
       offset,
       attributes: ["id", "name", "kuerzel", "semester"],
       distinct: true,
+      where: {
+        id: {
+          [Op.in]: sequelize.literal(`(
+            SELECT VorlesungId
+            FROM Vorlesung_Dozent
+            WHERE DozentId = ${professorId}
+          )`),
+        },
+      },
       include: [
         {
           model: Dozent,
           as: "professors",
-          attributes: ["id"],
-          where: { id: professorId },
-          required: true,
+          attributes: ["id", "vorname", "name"],
           through: { attributes: [] },
         },
         {
@@ -86,6 +95,7 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
       lectures: rows,
     });
   } catch (error) {
+    console.error(error);
     next(APIError.errorUnknown());
   }
 };
