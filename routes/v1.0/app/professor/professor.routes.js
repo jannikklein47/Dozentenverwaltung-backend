@@ -93,6 +93,7 @@ router.get(
   "/",
   // checkauth,
   validate.validateProfessorQuery,
+  validate.validateProfessorFilter,
   professorController.getAllProfessors,
 );
 

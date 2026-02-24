@@ -6,15 +6,37 @@ const {
   Vorliebe,
 } = require("../../../../models");
 
+const { Op } = require("sequelize");
+
 exports.getAllProfessors = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 50;
     const offset = parseInt(req.query.offset) || 0;
 
+    const whereConditions = {};
+
+    if (req.query.term) {
+      const terms = req.query.term.trim().split(/\s+/);
+      whereConditions[Op.and] = terms.map((term) => ({
+        [Op.or]: [
+          { vorname: { [Op.like]: `%${term}%` } },
+          { name: { [Op.like]: `%${term}%` } },
+        ],
+      }));
+    }
+
+    if (req.query.dozenten_statusId) {
+      whereConditions.dozenten_statusId = req.query.dozenten_statusId;
+    }
+
+    if (req.query.vorliebeId) {
+      whereConditions.vorliebeId = req.query.vorliebeId;
+    }
+
     const { count, rows } = await Dozent.findAndCountAll({
       limit,
       offset,
-
+      where: whereConditions,
       attributes: ["id", "titel", "vorname", "name", "email", "telefonnummer"],
       distinct: true,
       include: [
