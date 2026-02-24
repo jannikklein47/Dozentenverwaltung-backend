@@ -101,6 +101,36 @@ router.get(
  *         required: true
  *         description: The id of the professor
  *       - in: query
+ *         name: term
+ *         schema:
+ *           type: string
+ *         description: A search term
+ *       - in: query
+ *         name: vorlesung_statusId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Vorlesung_Status
+ *       - in: query
+ *         name: abschluss_typId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Abschluss_Typ
+ *       - in: query
+ *         name: vorliebeId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Vorliebe
+ *       - in: query
+ *         name: semester
+ *         schema:
+ *           type: integer
+ *         description: The number of the Semester
+ *       - in: query
+ *         name: gehalten_anId
+ *         schema:
+ *           type: integer
+ *         description: The id of Gehalten_An
+ *       - in: query
  *         name: limit
  *         schema:
  *           type: integer
@@ -152,6 +182,15 @@ router.get(
  *                             name:
  *                               type: string
  *                               example: "Wolf"
+ *                             Vorlesung_Dozent:
+ *                               type: object
+ *                               properties:
+ *                                 vorliebeId:
+ *                                   type: integer
+ *                                   example: 1
+ *                                 gehalten_anId:
+ *                                   type: integer
+ *                                   example: 1
  *                       completionType:
  *                         type: object
  *                         properties:
@@ -178,6 +217,7 @@ router.get(
   // checkauth,
   validate.validateLectureQuery,
   validate.validateProfessorId,
+  validate.validateProfessorLectureFilter,
   lectureController.getLecturesOfProfessor,
 );
 
