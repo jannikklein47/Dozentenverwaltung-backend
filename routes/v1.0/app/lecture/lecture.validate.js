@@ -4,10 +4,10 @@ const APIError = require("../../../../utils/error");
 const schema = Joi.object({
   limit: Joi.number().integer().min(1).max(200).default(50),
   offset: Joi.number().integer().min(0).default(0),
-});
+}).unknown(true);
 
 exports.validateLectureQuery = (req, res, next) => {
-  const { error, value } = schema.validate(req.query, { stripUnknown: true });
+  const { error, value } = schema.validate(req.query, { stripUnknown: false });
   if (error) {
     return next(APIError.errorValidation(error.message));
   }
@@ -52,5 +52,26 @@ exports.validateProfessorId = (req, res, next) => {
   }
 
   req.params.id = value;
+  next();
+};
+
+const dozenten_lectureFilter = Joi.object({
+  term: Joi.string().optional().allow(""),
+  vorlesung_statusId: Joi.number().integer().positive().optional(),
+  abschluss_typId: Joi.number().integer().positive().optional(),
+  semester: Joi.number().integer().positive().optional(),
+  gehalten_anId: Joi.number().integer().positive().optional(),
+  vorliebeId: Joi.number().integer().positive().optional(),
+}).unknown(true);
+
+exports.validateProfessorLectureFilter = (req, res, next) => {
+  const { error, value } = dozenten_lectureFilter.validate(req.query, {
+    stripUnknown: false,
+  });
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
+
+  req.query = { ...req.query, ...value };
   next();
 };

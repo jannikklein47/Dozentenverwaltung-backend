@@ -55,36 +55,78 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
     const offset = parseInt(req.query.offset) || 0;
     const professorId = parseInt(req.params.id);
 
+    const {
+      term,
+      vorlesung_statusId,
+      abschluss_typId,
+      semester,
+      gehalten_anId,
+      vorliebeId,
+    } = req.query;
+
+    let subQueryConditions = `WHERE DozentId = ${sequelize.escape(professorId)}`;
+
+    if (gehalten_anId) {
+      subQueryConditions += ` AND gehalten_anId = ${sequelize.escape(gehalten_anId)}`;
+    }
+    if (vorliebeId) {
+      subQueryConditions += ` AND vorliebeId = ${sequelize.escape(vorliebeId)}`;
+    }
+
+    const whereConditions = {
+      id: {
+        [Op.in]: sequelize.literal(`(
+          SELECT VorlesungId
+          FROM Vorlesung_Dozent
+          ${subQueryConditions}
+        )`),
+      },
+    };
+
+    if (term) {
+      const terms = term.trim().split(/\s+/);
+      whereConditions[Op.and] = terms.map((t) => ({
+        name: { [Op.like]: `%${t}%` },
+      }));
+    }
+
+    if (vorlesung_statusId) {
+      whereConditions.vorlesung_statusId = vorlesung_statusId;
+    }
+
+    if (abschluss_typId) {
+      whereConditions.abschluss_typId = abschluss_typId;
+    }
+
+    if (semester) {
+      whereConditions.semester = semester;
+    }
+
     const { count, rows } = await Vorlesung.findAndCountAll({
       limit,
       offset,
       attributes: ["id", "name", "kuerzel", "semester"],
       distinct: true,
-      where: {
-        id: {
-          [Op.in]: sequelize.literal(`(
-            SELECT VorlesungId
-            FROM Vorlesung_Dozent
-            WHERE DozentId = ${professorId}
-          )`),
-        },
-      },
+      where: whereConditions,
       include: [
         {
           model: Dozent,
           as: "professors",
           attributes: ["id", "vorname", "name"],
-          through: { attributes: [] },
+          through: {
+            attributes: ["vorliebeId", "gehalten_anId"],
+          },
+          required: false,
         },
         {
           model: Abschluss_Typ,
           as: "completionType",
-          attributes: ["name"],
+          attributes: ["name", "id"],
         },
         {
           model: Vorlesung_Status,
           as: "lectureStatus",
-          attributes: ["name"],
+          attributes: ["name", "id"],
         },
       ],
       order: [["id", "ASC"]],
