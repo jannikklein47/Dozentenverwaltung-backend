@@ -55,6 +55,20 @@ exports.validateProfessorId = (req, res, next) => {
   next();
 };
 
+const lectureId = Joi.number().integer().positive().required();
+
+exports.validateLectureId = (req, res, next) => {
+  const { error, value } = lectureId.validate(req.params.id, {
+    stripUnknown: true,
+  });
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
+
+  req.params.id = value;
+  next();
+};
+
 const dozenten_lectureFilter = Joi.object({
   term: Joi.string().optional().allow(""),
   vorlesung_statusId: Joi.number().integer().positive().optional(),

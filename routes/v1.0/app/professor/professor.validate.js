@@ -42,9 +42,21 @@ exports.validateProfessorBody = (req, res, next) => {
 };
 
 const professorId = Joi.number().integer().positive().required();
+const lectureId = Joi.number().integer().positive().required();
 
 exports.validateProfessorId = (req, res, next) => {
   const { error, value } = professorId.validate(req.params.id, {
+    stripUnknown: true,
+  });
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
+
+  req.params.id = value;
+  next();
+};
+exports.validateLectureId = (req, res, next) => {
+  const { error, value } = lectureId.validate(req.params.id, {
     stripUnknown: true,
   });
   if (error) {

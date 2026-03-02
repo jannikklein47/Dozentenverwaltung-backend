@@ -49,6 +49,48 @@ exports.getAllLectures = async (req, res, next) => {
   }
 };
 
+exports.getLectureById = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 50;
+    const offset = parseInt(req.query.offset) || 0;
+
+    const lectureId = parseInt(req.params.id);
+
+    const lecture = await Vorlesung.findOne({
+      limit,
+      offset,
+      where: { id: lectureId },
+      attributes: ["id", "name", "kuerzel", "semester"],
+      distinct: true,
+      include: [
+        {
+          model: Dozent,
+          as: "professors",
+          attributes: ["id", "vorname", "name"],
+          through: { attributes: ["vorlaufzeit"] },
+        },
+        {
+          model: Abschluss_Typ,
+          as: "completionType",
+          attributes: ["name"],
+        },
+        {
+          model: Vorlesung_Status,
+          as: "lectureStatus",
+          attributes: ["name"],
+        },
+      ],
+      order: [["id", "ASC"]],
+    });
+
+    res.status(200).json({
+      lecture,
+    });
+  } catch (error) {
+    next(APIError.errorUnknown());
+  }
+};
+
 exports.getLecturesOfProfessor = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 50;
