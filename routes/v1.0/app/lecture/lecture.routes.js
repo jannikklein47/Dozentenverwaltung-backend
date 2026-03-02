@@ -7,9 +7,39 @@ const validate = require("./lecture.validate");
  * @swagger
  * /app/lectures:
  *   get:
- *     summary: Get all lectures with their associated lecturers (short version)
+ *     summary: Get all lectures with their associated lecturers
  *     tags: [Lectures]
  *     parameters:
+ *       - in: query
+ *         name: term
+ *         schema:
+ *           type: string
+ *         description: A search term
+ *       - in: query
+ *         name: vorlesung_statusId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Vorlesung_Status
+ *       - in: query
+ *         name: abschluss_typId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Abschluss_Typ
+ *       - in: query
+ *         name: gehalten_anId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Gehalten_An
+ *       - in: query
+ *         name: semester
+ *         schema:
+ *           type: integer
+ *         description: The number of the Semester
+ *       - in: query
+ *         name: vorlaufzeit
+ *         schema:
+ *           type: string
+ *         description: The time a professor needs before he can lecture something; S, 4 or M
  *       - in: query
  *         name: limit
  *         schema:
@@ -65,6 +95,9 @@ const validate = require("./lecture.validate");
  *                                 vorlaufzeit:
  *                                   type: string
  *                                   example: "M"
+ *                                 gehalten_anId:
+ *                                   type: integer
+ *                                   example: 1
  *                       completionType:
  *                         type: object
  *                         properties:
@@ -90,6 +123,7 @@ router.get(
   "/",
   // checkauth,
   validate.validateLectureQuery,
+  validate.validateProfessorLectureFilter,
   lectureController.getAllLectures,
 );
 
