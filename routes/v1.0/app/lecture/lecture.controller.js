@@ -13,28 +13,72 @@ exports.getAllLectures = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 50;
     const offset = parseInt(req.query.offset) || 0;
 
+    const { term, vorlesung_statusId, abschluss_typId, semester, vorlaufzeit } =
+      req.query;
+
+    const clauses = [];
+
+    if (vorlaufzeit)
+      clauses.push(`vorlaufzeit = ${sequelize.escape(vorlaufzeit)}`);
+
+    const subQuerySql =
+      clauses.length > 0 ? `WHERE ${clauses.join(" AND ")}` : "";
+
+    const whereConditions =
+      clauses.length > 0
+        ? {
+            id: {
+              [Op.in]: sequelize.literal(`(
+                SELECT VorlesungId
+                FROM Vorlesung_Dozent
+                ${subQuerySql}
+              )`),
+            },
+          }
+        : {};
+
+    if (term) {
+      const terms = term.trim().split(/\s+/);
+      whereConditions[Op.or] = terms.map((t) => ({
+        name: { [Op.like]: `%${t}%` },
+      }));
+    }
+
+    if (vorlesung_statusId) {
+      whereConditions.vorlesung_statusId = vorlesung_statusId;
+    }
+
+    if (abschluss_typId) {
+      whereConditions.abschluss_typId = abschluss_typId;
+    }
+
+    if (semester) {
+      whereConditions.semester = semester;
+    }
+
     const { count, rows } = await Vorlesung.findAndCountAll({
       limit,
       offset,
-
       attributes: ["id", "name", "kuerzel", "semester"],
       distinct: true,
+      where: whereConditions,
       include: [
         {
           model: Dozent,
           as: "professors",
           attributes: ["id", "vorname", "name"],
           through: { attributes: ["vorlaufzeit"] },
+          required: false,
         },
         {
           model: Abschluss_Typ,
           as: "completionType",
-          attributes: ["name"],
+          attributes: ["name", "id"],
         },
         {
           model: Vorlesung_Status,
           as: "lectureStatus",
-          attributes: ["name"],
+          attributes: ["name", "id"],
         },
       ],
       order: [["id", "ASC"]],
@@ -131,7 +175,7 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
 
     if (term) {
       const terms = term.trim().split(/\s+/);
-      whereConditions[Op.and] = terms.map((t) => ({
+      whereConditions[Op.or] = terms.map((t) => ({
         name: { [Op.like]: `%${t}%` },
       }));
     }
