@@ -13,13 +13,22 @@ exports.getAllLectures = async (req, res, next) => {
     const limit = parseInt(req.query.limit) || 50;
     const offset = parseInt(req.query.offset) || 0;
 
-    const { term, vorlesung_statusId, abschluss_typId, semester, vorlaufzeit } =
-      req.query;
+    const {
+      term,
+      vorlesung_statusId,
+      abschluss_typId,
+      gehalten_anId,
+      semester,
+      vorlaufzeit,
+    } = req.query;
 
     const clauses = [];
 
     if (vorlaufzeit)
       clauses.push(`vorlaufzeit = ${sequelize.escape(vorlaufzeit)}`);
+
+    if (gehalten_anId)
+      clauses.push(`gehalten_anId = ${sequelize.escape(gehalten_anId)}`);
 
     const subQuerySql =
       clauses.length > 0 ? `WHERE ${clauses.join(" AND ")}` : "";
@@ -67,7 +76,7 @@ exports.getAllLectures = async (req, res, next) => {
           model: Dozent,
           as: "professors",
           attributes: ["id", "vorname", "name"],
-          through: { attributes: ["vorlaufzeit"] },
+          through: { attributes: ["vorlaufzeit", "gehalten_anId"] },
           required: false,
         },
         {

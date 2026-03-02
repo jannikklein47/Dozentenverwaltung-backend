@@ -26,6 +26,11 @@ const validate = require("./lecture.validate");
  *           type: integer
  *         description: The id of the Abschluss_Typ
  *       - in: query
+ *         name: gehalten_anId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Gehalten_An
+ *       - in: query
  *         name: semester
  *         schema:
  *           type: integer
@@ -90,6 +95,9 @@ const validate = require("./lecture.validate");
  *                                 vorlaufzeit:
  *                                   type: string
  *                                   example: "M"
+ *                                 gehalten_anId:
+ *                                   type: integer
+ *                                   example: 1
  *                       completionType:
  *                         type: object
  *                         properties:
