@@ -95,6 +95,80 @@ router.get(
 
 /**
  * @swagger
+ * /app/lectures/{id}:
+ *   get:
+ *     summary: Get a lecture by id
+ *     tags: [Lectures]
+ *     responses:
+ *       200:
+ *         description: lecture
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 lecture:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       name:
+ *                         type: string
+ *                         example: "Grundlagen der Informatik"
+ *                       semester:
+ *                         type: integer
+ *                         example: 1
+ *                       professors:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             id:
+ *                               type: integer
+ *                               example: 1
+ *                             vorname:
+ *                               type: string
+ *                               example: "Daniel"
+ *                             name:
+ *                               type: string
+ *                               example: "Wolf"
+ *                             Vorlesung_Dozent:
+ *                               type: object
+ *                               properties:
+ *                                 vorlaufzeit:
+ *                                   type: string
+ *                                   example: "M"
+ *                       completionType:
+ *                         type: object
+ *                         properties:
+ *                           name:
+ *                             type: string
+ *                             example: "Bachelor"
+ *                       lectureStatus:
+ *                         type: object
+ *                         properties:
+ *                           name:
+ *                             type: string
+ *                             example: "Offen"
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.get(
+  "/:id",
+  // checkauth,
+  validate.validateLectureId,
+  lectureController.getLectureById,
+);
+
+/**
+ * @swagger
  * /app/lectures/professor/{id}:
  *   get:
  *     summary: Get all lectures that are held by a professor
