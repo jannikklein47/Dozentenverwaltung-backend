@@ -8,22 +8,22 @@ module.exports = {
     // und die Vorlesungen IDs 1-150 haben (durch frisches Einspielen).
 
     await queryInterface.bulkInsert("Vorlesung_Dozent", [
-      // --- DOZENT 1: Prof. MÃ¼ller (Allrounder) ---
+      // --- DOZENT 1: Prof. Müller (Allrounder) ---
       {
         vorlesungId: 1,
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // EinfÃ¼hrung Info
+      }, // Einführung Info
       {
         vorlesungId: 5,
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: 2,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // BWL Grundlagen
@@ -32,7 +32,7 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // PM Grundlagen
@@ -41,7 +41,7 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: 1,
-        vorlaufzeit: 'S',
+        vorlaufzeit: "S",
         createdAt: now,
         updatedAt: now,
       }, // Strategisches IT Mgmt (Master)
@@ -50,7 +50,7 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Innovation Mgmt
@@ -61,7 +61,7 @@ module.exports = {
         dozentId: 2,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Prog I Java
@@ -70,7 +70,7 @@ module.exports = {
         dozentId: 2,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Prog II C++
@@ -79,7 +79,7 @@ module.exports = {
         dozentId: 2,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Software Eng I
@@ -88,7 +88,7 @@ module.exports = {
         dozentId: 2,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Software Eng II
@@ -97,7 +97,7 @@ module.exports = {
         dozentId: 2,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Mathe II (Extern gemacht)
@@ -108,7 +108,7 @@ module.exports = {
         dozentId: 3,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Machine Learning I
@@ -117,7 +117,7 @@ module.exports = {
         dozentId: 3,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Machine Learning II
@@ -126,7 +126,7 @@ module.exports = {
         dozentId: 3,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Deep Learning
@@ -135,16 +135,16 @@ module.exports = {
         dozentId: 3,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // EinfÃ¼hrung KI (Bachelor)
+      }, // Einführung KI (Bachelor)
       {
         vorlesungId: 123,
         dozentId: 3,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Computer Vision (Extern)
@@ -155,7 +155,7 @@ module.exports = {
         dozentId: 4,
         gehalten_anId: 1,
         vorliebeId: 2,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // IT-Sec Grund (Bach)
@@ -164,7 +164,7 @@ module.exports = {
         dozentId: 4,
         gehalten_anId: 1,
         vorliebeId: 1,
-        vorlaufzeit: 'S',
+        vorlaufzeit: "S",
         createdAt: now,
         updatedAt: now,
       }, // Adv IT-Sec (Master)
@@ -173,7 +173,7 @@ module.exports = {
         dozentId: 4,
         gehalten_anId: 1,
         vorliebeId: 1,
-        vorlaufzeit: 'S',
+        vorlaufzeit: "S",
         createdAt: now,
         updatedAt: now,
       }, // Cyber Sec Ops
@@ -182,7 +182,7 @@ module.exports = {
         dozentId: 4,
         gehalten_anId: 2,
         vorliebeId: 2,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Kryptographie
@@ -193,7 +193,7 @@ module.exports = {
         dozentId: 5,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Rechnernetze I
@@ -202,7 +202,7 @@ module.exports = {
         dozentId: 5,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Rechnernetze II
@@ -211,7 +211,7 @@ module.exports = {
         dozentId: 5,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Datenbanken I
@@ -220,7 +220,7 @@ module.exports = {
         dozentId: 5,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Datenbanken II
@@ -231,7 +231,7 @@ module.exports = {
         dozentId: 6,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Selbstmanagement
@@ -240,16 +240,16 @@ module.exports = {
         dozentId: 6,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // PrÃ¤sentation
+      }, // Präsentation
       {
         vorlesungId: 25,
         dozentId: 6,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Interkulturelle Komm
@@ -258,7 +258,7 @@ module.exports = {
         dozentId: 6,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Konfliktmanagement
@@ -267,7 +267,7 @@ module.exports = {
         dozentId: 6,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Englisch I
@@ -278,7 +278,7 @@ module.exports = {
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Theoretische Inf
@@ -287,7 +287,7 @@ module.exports = {
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Logik
@@ -296,7 +296,7 @@ module.exports = {
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Distributed Algo
@@ -305,7 +305,7 @@ module.exports = {
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Quantum Computing
@@ -316,7 +316,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: 2,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Web-Design
@@ -325,7 +325,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Web-Prog JS
@@ -334,7 +334,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Frontend React
@@ -343,7 +343,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // UX Design
@@ -352,7 +352,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // UI Design
@@ -363,7 +363,7 @@ module.exports = {
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Tech Inf I
@@ -372,7 +372,7 @@ module.exports = {
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Rechnerarchitektur
@@ -381,7 +381,7 @@ module.exports = {
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Elektrotechnik
@@ -390,7 +390,7 @@ module.exports = {
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Embedded Systems
@@ -401,7 +401,7 @@ module.exports = {
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // KLR
@@ -410,7 +410,7 @@ module.exports = {
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Marketing
@@ -419,7 +419,7 @@ module.exports = {
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Personal
@@ -428,7 +428,7 @@ module.exports = {
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: 1,
-        vorlaufzeit: 'S',
+        vorlaufzeit: "S",
         createdAt: now,
         updatedAt: now,
       }, // IT Governance
@@ -441,7 +441,7 @@ module.exports = {
         dozentId: 11,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Android
@@ -450,7 +450,7 @@ module.exports = {
         dozentId: 11,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // iOS
@@ -459,7 +459,7 @@ module.exports = {
         dozentId: 11,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Mobile Devices
@@ -470,7 +470,7 @@ module.exports = {
         dozentId: 12,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Big Data Grund
@@ -479,7 +479,7 @@ module.exports = {
         dozentId: 12,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Data Science
@@ -488,18 +488,18 @@ module.exports = {
         dozentId: 12,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Business Intelligence
 
-      // Jan SchrÃ¶der (Consulting)
+      // Jan Schröder (Consulting)
       {
         vorlesungId: 85,
         dozentId: 13,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // IT Consulting
@@ -508,16 +508,16 @@ module.exports = {
         dozentId: 13,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // GeschÃ¤ftsprozesse
+      }, // Geschäftsprozesse
       {
         vorlesungId: 141,
         dozentId: 13,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Agile Leadership
@@ -528,7 +528,7 @@ module.exports = {
         dozentId: 14,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Recht Grund
@@ -537,7 +537,7 @@ module.exports = {
         dozentId: 14,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Datenschutz
@@ -546,7 +546,7 @@ module.exports = {
         dozentId: 14,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // IT-Recht Vertiefung
@@ -557,7 +557,7 @@ module.exports = {
         dozentId: 15,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Investition
@@ -566,7 +566,7 @@ module.exports = {
         dozentId: 15,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // IT-Controlling
@@ -575,7 +575,7 @@ module.exports = {
         dozentId: 15,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Blockchain
@@ -586,27 +586,27 @@ module.exports = {
         dozentId: 16,
         gehalten_anId: 1,
         vorliebeId: 2,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // ExistenzgrÃ¼ndung
+      }, // Existenzgründung
       {
         vorlesungId: 109,
         dozentId: 16,
         gehalten_anId: 1,
         vorliebeId: 1,
-        vorlaufzeit: 'S',
+        vorlaufzeit: "S",
         createdAt: now,
         updatedAt: now,
       }, // Digital Transformation
 
-      // Patrick KrÃ¼ger (Security Spezi)
+      // Patrick Krüger (Security Spezi)
       {
         vorlesungId: 63,
         dozentId: 17,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // IT Forensik
@@ -615,7 +615,7 @@ module.exports = {
         dozentId: 17,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Adv IT Sec
@@ -626,7 +626,7 @@ module.exports = {
         dozentId: 18,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Medieninformatik
@@ -635,7 +635,7 @@ module.exports = {
         dozentId: 18,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Computergrafik
@@ -646,7 +646,7 @@ module.exports = {
         dozentId: 19,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // DevOps
@@ -655,7 +655,7 @@ module.exports = {
         dozentId: 19,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Kubernetes
@@ -664,7 +664,7 @@ module.exports = {
         dozentId: 19,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Backend Node.js
@@ -675,7 +675,7 @@ module.exports = {
         dozentId: 20,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Bioinformatik
@@ -684,7 +684,7 @@ module.exports = {
         dozentId: 20,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Med Informatik
@@ -695,7 +695,7 @@ module.exports = {
         dozentId: 21,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Game Dev
@@ -704,7 +704,7 @@ module.exports = {
         dozentId: 21,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Unity
@@ -713,7 +713,7 @@ module.exports = {
         dozentId: 21,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // VR Grund
@@ -722,7 +722,7 @@ module.exports = {
         dozentId: 21,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Adv Game Eng
@@ -733,7 +733,7 @@ module.exports = {
         dozentId: 22,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // SAP
@@ -742,7 +742,7 @@ module.exports = {
         dozentId: 22,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Oracle
@@ -751,7 +751,7 @@ module.exports = {
         dozentId: 22,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // ERP
@@ -762,7 +762,7 @@ module.exports = {
         dozentId: 23,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Cloud Arch
@@ -771,7 +771,7 @@ module.exports = {
         dozentId: 23,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // HPC
@@ -780,7 +780,7 @@ module.exports = {
         dozentId: 23,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Cloud Basic
@@ -791,7 +791,7 @@ module.exports = {
         dozentId: 24,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // DevOps Grund
@@ -800,7 +800,7 @@ module.exports = {
         dozentId: 24,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Microservices
@@ -811,7 +811,7 @@ module.exports = {
         dozentId: 25,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Forschungsmethoden
@@ -820,7 +820,7 @@ module.exports = {
         dozentId: 25,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Master Forschung I
@@ -829,7 +829,7 @@ module.exports = {
         dozentId: 25,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Master Forschung II
@@ -838,7 +838,7 @@ module.exports = {
         dozentId: 25,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Wiss. Publikationen
@@ -848,16 +848,16 @@ module.exports = {
         dozentId: 2,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // Schmidt hilft bei EinfÃ¼hrung
+      }, // Schmidt hilft bei Einführung
       {
         vorlesungId: 1,
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Koch hilft auch
@@ -867,7 +867,7 @@ module.exports = {
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Koch macht auch Java
@@ -876,7 +876,7 @@ module.exports = {
         dozentId: 24,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Meier (Extern) macht Java Praxis
@@ -885,16 +885,16 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // MÃ¼ller macht auch C++
+      }, // Müller macht auch C++
       {
         vorlesungId: 11,
         dozentId: 21,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Schmitt (Extern) C++ Gaming Fokus
@@ -904,7 +904,7 @@ module.exports = {
         dozentId: 2,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Schmidt macht Mathe I
@@ -913,7 +913,7 @@ module.exports = {
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Schulz (Theoretiker) macht Mathe I
@@ -922,7 +922,7 @@ module.exports = {
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Schulz macht Statistik
@@ -931,17 +931,17 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // MÃ¼ller springt fÃ¼r Mathe II ein
+      }, // Müller springt für Mathe II ein
 
       {
         vorlesungId: 5,
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Richter macht BWL
@@ -950,7 +950,7 @@ module.exports = {
         dozentId: 15,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Schwarz (Banker) macht BWL Extern
@@ -959,7 +959,7 @@ module.exports = {
         dozentId: 15,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Schwarz macht KLR
@@ -968,17 +968,17 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: 2,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // MÃ¼ller macht Marketing (Bachelor Pref)
+      }, // Müller macht Marketing (Bachelor Pref)
 
       {
         vorlesungId: 6,
         dozentId: 16,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Zimmermann macht Englisch I
@@ -987,7 +987,7 @@ module.exports = {
         dozentId: 6,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Becker macht Englisch II
@@ -996,7 +996,7 @@ module.exports = {
         dozentId: 16,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Zimmermann macht Englisch II
@@ -1005,7 +1005,7 @@ module.exports = {
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Richter macht Selbstmanagement
@@ -1015,7 +1015,7 @@ module.exports = {
         dozentId: 4,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Klein (Sec) macht Recht
@@ -1024,7 +1024,7 @@ module.exports = {
         dozentId: 4,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Klein macht Datenschutz
@@ -1033,7 +1033,7 @@ module.exports = {
         dozentId: 14,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Neumann macht IT-Recht Vertiefung
@@ -1043,7 +1043,7 @@ module.exports = {
         dozentId: 22,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Werner (Oracle Expertin) macht DB1
@@ -1052,7 +1052,7 @@ module.exports = {
         dozentId: 22,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Werner macht DB2 (NoSQL)
@@ -1061,7 +1061,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Hoffmann (Web) macht DB2
@@ -1071,7 +1071,7 @@ module.exports = {
         dozentId: 21,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Schmitt (Game/Design) macht WebDesign
@@ -1080,7 +1080,7 @@ module.exports = {
         dozentId: 24,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Meier macht JS
@@ -1089,7 +1089,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Hoffmann macht Node.js
@@ -1098,7 +1098,7 @@ module.exports = {
         dozentId: 24,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Meier macht React
@@ -1108,34 +1108,34 @@ module.exports = {
         dozentId: 17,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // KrÃ¼ger macht IT-Sec Grund
+      }, // Krüger macht IT-Sec Grund
       {
         vorlesungId: 43,
         dozentId: 17,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // KrÃ¼ger macht Crypto
+      }, // Krüger macht Crypto
       {
         vorlesungId: 128,
         dozentId: 17,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // KrÃ¼ger macht Cyber Ops
+      }, // Krüger macht Cyber Ops
       {
         vorlesungId: 63,
         dozentId: 4,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Klein macht Forensik
@@ -1145,7 +1145,7 @@ module.exports = {
         dozentId: 19,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Hartmann (DevOps) macht Netze
@@ -1154,7 +1154,7 @@ module.exports = {
         dozentId: 5,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Wagner macht Server Admin
@@ -1163,7 +1163,7 @@ module.exports = {
         dozentId: 19,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Hartmann macht Server Admin
@@ -1173,25 +1173,25 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // MÃ¼ller SE1
+      }, // Müller SE1
       {
         vorlesungId: 46,
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // MÃ¼ller SE2
+      }, // Müller SE2
       {
         vorlesungId: 57,
         dozentId: 24,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Meier macht QS
@@ -1200,26 +1200,26 @@ module.exports = {
         dozentId: 13,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // SchrÃ¶der (Consultant) macht Scrum
+      }, // Schröder (Consultant) macht Scrum
       {
         vorlesungId: 59,
         dozentId: 13,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // SchrÃ¶der macht Requirements
+      }, // Schröder macht Requirements
 
       {
         vorlesungId: 55,
         dozentId: 3,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Weber macht Big Data
@@ -1228,7 +1228,7 @@ module.exports = {
         dozentId: 12,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Wolf macht AI Intro
@@ -1237,7 +1237,7 @@ module.exports = {
         dozentId: 12,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Wolf macht ML1
@@ -1246,7 +1246,7 @@ module.exports = {
         dozentId: 3,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Weber macht BI
@@ -1256,7 +1256,7 @@ module.exports = {
         dozentId: 21,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Schmitt macht Android (Game focus)
@@ -1265,7 +1265,7 @@ module.exports = {
         dozentId: 24,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Meier macht iOS
@@ -1274,7 +1274,7 @@ module.exports = {
         dozentId: 11,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Bauer macht Cross-Platform
@@ -1283,7 +1283,7 @@ module.exports = {
         dozentId: 11,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Bauer macht Game Dev
@@ -1293,16 +1293,16 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: 1,
-        vorlaufzeit: 'S',
+        vorlaufzeit: "S",
         createdAt: now,
         updatedAt: now,
-      }, // MÃ¼ller Adv Arch
+      }, // Müller Adv Arch
       {
         vorlesungId: 101,
         dozentId: 23,
         gehalten_anId: 1,
         vorliebeId: 1,
-        vorlaufzeit: 'S',
+        vorlaufzeit: "S",
         createdAt: now,
         updatedAt: now,
       }, // Krause Adv Arch
@@ -1311,7 +1311,7 @@ module.exports = {
         dozentId: 19,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Hartmann Cloud Arch
@@ -1320,7 +1320,7 @@ module.exports = {
         dozentId: 23,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Krause Enterprise Arch
@@ -1329,26 +1329,26 @@ module.exports = {
         dozentId: 13,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // SchrÃ¶der ITSM
+      }, // Schröder ITSM
 
       {
         vorlesungId: 71,
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // Praxisprojekt 1 MÃ¼ller
+      }, // Praxisprojekt 1 Müller
       {
         vorlesungId: 71,
         dozentId: 2,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Praxisprojekt 1 Schmidt
@@ -1357,7 +1357,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Praxisprojekt 1 Hoffmann
@@ -1366,7 +1366,7 @@ module.exports = {
         dozentId: 3,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Praxisprojekt 2 Weber
@@ -1375,7 +1375,7 @@ module.exports = {
         dozentId: 4,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Praxisprojekt 2 Klein
@@ -1384,7 +1384,7 @@ module.exports = {
         dozentId: 5,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Praxisprojekt 2 Wagner
@@ -1393,7 +1393,7 @@ module.exports = {
         dozentId: 6,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Bachelor Seminar Becker
@@ -1402,7 +1402,7 @@ module.exports = {
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Bachelor Seminar Schulz
@@ -1411,16 +1411,16 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // Bachelor Kolloquium MÃ¼ller
+      }, // Bachelor Kolloquium Müller
       {
         vorlesungId: 95,
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Bachelor Kolloquium Richter
@@ -1430,7 +1430,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Lehmann Forschung I
@@ -1439,7 +1439,7 @@ module.exports = {
         dozentId: 3,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Weber Forschung I
@@ -1448,7 +1448,7 @@ module.exports = {
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Lehmann Forschung II
@@ -1457,7 +1457,7 @@ module.exports = {
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Schulz Forschung II
@@ -1466,7 +1466,7 @@ module.exports = {
         dozentId: 25,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Master Kolloquium Lehmann
@@ -1475,17 +1475,17 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // Master Kolloquium MÃ¼ller
+      }, // Master Kolloquium Müller
 
       {
         vorlesungId: 12,
         dozentId: 2,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Schmidt Algo
@@ -1494,7 +1494,7 @@ module.exports = {
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Schulz Algo
@@ -1503,7 +1503,7 @@ module.exports = {
         dozentId: 5,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Wagner SE Prozesse
@@ -1512,7 +1512,7 @@ module.exports = {
         dozentId: 5,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Wagner OS Windows
@@ -1521,7 +1521,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Hoffmann HCI
@@ -1530,7 +1530,7 @@ module.exports = {
         dozentId: 18,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Hofmann (Design) HCI
@@ -1539,7 +1539,7 @@ module.exports = {
         dozentId: 16,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Zimmermann WINF
@@ -1548,16 +1548,16 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: 1,
-        vorlaufzeit: 'S',
+        vorlaufzeit: "S",
         createdAt: now,
         updatedAt: now,
-      }, // MÃ¼ller OOAD
+      }, // Müller OOAD
       {
         vorlesungId: 38,
         dozentId: 12,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Wolf Python
@@ -1566,7 +1566,7 @@ module.exports = {
         dozentId: 19,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Hartmann Netzmgmt
@@ -1575,7 +1575,7 @@ module.exports = {
         dozentId: 23,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Krause Verteilte Sys
@@ -1584,7 +1584,7 @@ module.exports = {
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Schulz Compiler
@@ -1593,7 +1593,7 @@ module.exports = {
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Koch Embedded
@@ -1602,7 +1602,7 @@ module.exports = {
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Richter Wissenmgmt
@@ -1611,7 +1611,7 @@ module.exports = {
         dozentId: 14,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Neumann Ethik
@@ -1620,7 +1620,7 @@ module.exports = {
         dozentId: 23,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Krause Green IT
@@ -1629,7 +1629,7 @@ module.exports = {
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Richter CRM
@@ -1638,7 +1638,7 @@ module.exports = {
         dozentId: 10,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Richter SCM
@@ -1647,7 +1647,7 @@ module.exports = {
         dozentId: 22,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Werner E-Business
@@ -1656,7 +1656,7 @@ module.exports = {
         dozentId: 21,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Schmitt AR
@@ -1665,16 +1665,16 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // MÃ¼ller Digital Marketing
+      }, // Müller Digital Marketing
       {
         vorlesungId: 84,
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Hoffmann Social Media
@@ -1683,16 +1683,16 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // MÃ¼ller SWA
+      }, // Müller SWA
       {
         vorlesungId: 91,
         dozentId: 24,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Meier DevOps
@@ -1701,7 +1701,7 @@ module.exports = {
         dozentId: 25,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Lehmann TA
@@ -1710,7 +1710,7 @@ module.exports = {
         dozentId: 20,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Lange Robotik
@@ -1719,7 +1719,7 @@ module.exports = {
         dozentId: 24,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Krause Auto Tech
@@ -1728,7 +1728,7 @@ module.exports = {
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Koch IoT Basic
@@ -1737,7 +1737,7 @@ module.exports = {
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Koch Smart Home
@@ -1746,16 +1746,16 @@ module.exports = {
         dozentId: 1,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
-      }, // MÃ¼ller Digital Trans
+      }, // Müller Digital Trans
       {
         vorlesungId: 111,
         dozentId: 22,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Werner Adv DB
@@ -1764,7 +1764,7 @@ module.exports = {
         dozentId: 23,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Krause Dist Algo
@@ -1773,7 +1773,7 @@ module.exports = {
         dozentId: 19,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Krause HPC
@@ -1782,7 +1782,7 @@ module.exports = {
         dozentId: 11,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Bauer Mob Adv
@@ -1791,7 +1791,7 @@ module.exports = {
         dozentId: 8,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Hoffmann HCI Adv
@@ -1800,25 +1800,25 @@ module.exports = {
         dozentId: 13,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // SchrÃ¶der Leadership
+      }, // Schröder Leadership
       {
         vorlesungId: 119,
         dozentId: 13,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // SchrÃ¶der Int PM
+      }, // Schröder Int PM
       {
         vorlesungId: 120,
         dozentId: 7,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Schulz Paradigm
@@ -1827,7 +1827,7 @@ module.exports = {
         dozentId: 12,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Wolf IR
@@ -1836,7 +1836,7 @@ module.exports = {
         dozentId: 12,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Wolf Semantic Web
@@ -1845,7 +1845,7 @@ module.exports = {
         dozentId: 3,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Weber NLP
@@ -1854,7 +1854,7 @@ module.exports = {
         dozentId: 3,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Weber Pat Rec
@@ -1863,7 +1863,7 @@ module.exports = {
         dozentId: 23,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Krause Smart Contracts
@@ -1872,7 +1872,7 @@ module.exports = {
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Koch IoT2
@@ -1881,7 +1881,7 @@ module.exports = {
         dozentId: 9,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Koch IIoT
@@ -1890,7 +1890,7 @@ module.exports = {
         dozentId: 21,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Schmitt Game2
@@ -1899,7 +1899,7 @@ module.exports = {
         dozentId: 16,
         gehalten_anId: 1,
         vorliebeId: null,
-        vorlaufzeit: '4',
+        vorlaufzeit: "4",
         createdAt: now,
         updatedAt: now,
       }, // Zimmermann Change
@@ -1908,16 +1908,16 @@ module.exports = {
         dozentId: 13,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // SchrÃ¶der Agile Adv
+      }, // Schröder Agile Adv
       {
         vorlesungId: 145,
         dozentId: 24,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Meier Serverless
@@ -1926,7 +1926,7 @@ module.exports = {
         dozentId: 12,
         gehalten_anId: 2,
         vorliebeId: null,
-        vorlaufzeit: 'M',
+        vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
       }, // Wolf Future Tech
