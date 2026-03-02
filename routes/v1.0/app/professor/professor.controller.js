@@ -44,7 +44,7 @@ exports.getAllProfessors = async (req, res, next) => {
           model: Vorlesung,
           as: "lectures",
           attributes: ["id", "name", "kuerzel"],
-          through: { attributes: [] },
+          through: { attributes: ["vorlaufzeit"] },
         },
         {
           model: Dozenten_Status,
