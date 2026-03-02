@@ -59,6 +59,12 @@ const validate = require("./lecture.validate");
  *                             name:
  *                               type: string
  *                               example: "Wolf"
+ *                             Vorlesung_Dozent:
+ *                               type: object
+ *                               properties:
+ *                                 vorlaufzeit:
+ *                                   type: string
+ *                                   example: "M"
  *                       completionType:
  *                         type: object
  *                         properties:
@@ -131,6 +137,11 @@ router.get(
  *           type: integer
  *         description: The id of Gehalten_An
  *       - in: query
+ *         name: vorlaufzeit
+ *         schema:
+ *           type: string
+ *         description: The time a professor needs before he can lecture something; S, 4 or M
+ *       - in: query
  *         name: limit
  *         schema:
  *           type: integer
@@ -191,6 +202,9 @@ router.get(
  *                                 gehalten_anId:
  *                                   type: integer
  *                                   example: 1
+ *                                 vorlaufzeit:
+ *                                   type: string
+ *                                   example: "M"
  *                       completionType:
  *                         type: object
  *                         properties:

@@ -24,7 +24,7 @@ exports.getAllLectures = async (req, res, next) => {
           model: Dozent,
           as: "professors",
           attributes: ["id", "vorname", "name"],
-          through: { attributes: [] },
+          through: { attributes: ["vorlaufzeit"] },
         },
         {
           model: Abschluss_Typ,
@@ -62,6 +62,7 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
       semester,
       gehalten_anId,
       vorliebeId,
+      vorlaufzeit,
     } = req.query;
 
     let subQueryConditions = `WHERE DozentId = ${sequelize.escape(professorId)}`;
@@ -71,6 +72,9 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
     }
     if (vorliebeId) {
       subQueryConditions += ` AND vorliebeId = ${sequelize.escape(vorliebeId)}`;
+    }
+    if (vorlaufzeit) {
+      subQueryConditions += ` AND vorlaufzeit = ${sequelize.escape(vorlaufzeit)}`;
     }
 
     const whereConditions = {
@@ -114,7 +118,7 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
           as: "professors",
           attributes: ["id", "vorname", "name"],
           through: {
-            attributes: ["vorliebeId", "gehalten_anId"],
+            attributes: ["vorliebeId", "gehalten_anId", "vorlaufzeit"],
           },
           required: false,
         },
