@@ -5,6 +5,70 @@ const validate = require("./professor.validate");
 
 /**
  * @swagger
+ * /app/professors/mapping:
+ *   get:
+ *     summary: Get the name of Dozenten_Status and Vorliebe for each Id
+ *     tags: [Professors]
+ *     responses:
+ *       200:
+ *         description: A list of mappings
+ *         content:
+ *          application/json:
+ *            schema:
+ *             type: object
+ *             properties:
+ *               professor_status:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     name:
+ *                       type: string
+ *                       example: "Intern"
+ *               preference:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     name:
+ *                       type: string
+ *                       example: "M"
+ *            example:
+ *             professor_status:
+ *               - id: 1
+ *                 name: "Intern"
+ *               - id: 2
+ *                 name: "Extern"
+ *             preference:
+ *               - id: 1
+ *                 name: "M"
+ *               - id: 2
+ *                 name: "B"
+ *               - id: 3
+ *                 name: "A"
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.get(
+  "/mapping",
+  // checkauth,
+  professorController.getProfessorMappings,
+);
+
+/**
+ * @swagger
  * /app/professors:
  *   get:
  *     summary: Get all professors with their associated lectures
@@ -308,71 +372,6 @@ router.get(
   // checkauth,
   validate.validateProfessorId,
   professorController.getProfessorById,
-);
-
-/**
- * @swagger
- * /app/professors/mapping:
- *   get:
- *     summary: Get the name of Dozenten_Status and Vorliebe for each Id
- *     tags: [Professors]
- *     responses:
- *       200:
- *         description: A list of mappings
- *         content:
- *          application/json:
- *            schema:
- *             type: object
- *             properties:
- *               professor_status:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: integer
- *                       example: 1
- *                     name:
- *                       type: string
- *                       example: "Intern"
- *               preference:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: integer
- *                       example: 1
- *                     name:
- *                       type: string
- *                       example: "M"
- *            example:
- *             professor_status:
- *               - id: 1
- *                 name: "Intern"
- *               - id: 2
- *                 name: "Extern"
- *             preference:
- *               - id: 1
- *                 name: "M"
- *               - id: 2
- *                 name: "B"
- *               - id: 3
- *                 name: "A"
- *       400:
- *         description: Bad Request
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Forbidden
- *       500:
- *         description: Internal Server Error
- */
-
-router.get(
-  "/mapping",
-  // checkauth,
-  professorController.getProfessorMappings,
 );
 
 /**
