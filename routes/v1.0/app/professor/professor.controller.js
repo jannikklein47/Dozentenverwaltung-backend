@@ -4,6 +4,7 @@ const {
   Vorlesung,
   Dozenten_Status,
   Vorliebe,
+  sequelize,
 } = require("../../../../models");
 
 const { Op } = require("sequelize");
@@ -14,6 +15,78 @@ exports.getAllProfessors = async (req, res, next) => {
     const offset = parseInt(req.query.offset) || 0;
 
     const whereConditions = {};
+
+    if (req.query.term) {
+      const terms = req.query.term.trim().split(/\s+/);
+      whereConditions[Op.and] = terms.map((term) => ({
+        [Op.or]: [
+          { vorname: { [Op.like]: `%${term}%` } },
+          { name: { [Op.like]: `%${term}%` } },
+        ],
+      }));
+    }
+
+    if (req.query.dozenten_statusId) {
+      whereConditions.dozenten_statusId = req.query.dozenten_statusId;
+    }
+
+    if (req.query.vorliebeId) {
+      whereConditions.vorliebeId = req.query.vorliebeId;
+    }
+
+    const { count, rows } = await Dozent.findAndCountAll({
+      limit,
+      offset,
+      where: whereConditions,
+      attributes: ["id", "titel", "vorname", "name", "email", "telefonnummer"],
+      distinct: true,
+      include: [
+        {
+          model: Vorlesung,
+          as: "lectures",
+          attributes: ["id", "name", "kuerzel"],
+          through: { attributes: ["vorlaufzeit"] },
+        },
+        {
+          model: Dozenten_Status,
+          as: "professorStatus",
+          attributes: ["name"],
+        },
+        {
+          model: Vorliebe,
+          as: "preference",
+          attributes: ["name"],
+        },
+      ],
+      order: [["id", "ASC"]],
+    });
+
+    res.status(200).json({
+      total: count,
+      professors: rows,
+    });
+  } catch (error) {
+    console.error(error);
+    next(APIError.errorUnknown());
+  }
+};
+
+exports.getAllProfessorsForLecture = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 50;
+    const offset = parseInt(req.query.offset) || 0;
+
+    const lectureId = parseInt(req.params.id);
+
+    const whereConditions = {
+      id: {
+        [Op.in]: sequelize.literal(`(
+          SELECT DozentId
+          FROM Vorlesung_Dozent
+          WHERE VorlesungId = ${sequelize.escape(lectureId)}
+        )`),
+      },
+    };
 
     if (req.query.term) {
       const terms = req.query.term.trim().split(/\s+/);

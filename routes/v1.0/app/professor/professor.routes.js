@@ -120,6 +120,128 @@ router.get(
 
 /**
  * @swagger
+ * /app/professors/lecture/{id}:
+ *   get:
+ *     summary: Get all professors for a specific lecture
+ *     tags: [Professors]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The id of the lecture
+ *       - in: query
+ *         name: term
+ *         schema:
+ *           type: string
+ *         description: A search term
+ *       - in: query
+ *         name: vorliebeId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Vorliebe
+ *       - in: query
+ *         name: dozenten_statusId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Dozenten_Status
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: The number of professors to return
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *         description: The number of professors to skip before starting to collect the result set
+ *     responses:
+ *       200:
+ *         description: A list of professors
+ *         content:
+ *          application/json:
+ *            schema:
+ *             type: object
+ *             properties:
+ *               total:
+ *                 type: integer
+ *                 example: 1
+ *               professors:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     titel:
+ *                       type: string
+ *                       example: "Prof. Dr."
+ *                     vorname:
+ *                       type: string
+ *                       example: "Thomas"
+ *                     name:
+ *                       type: string
+ *                       example: "Mueller"
+ *                     email:
+ *                       type: string
+ *                       example: "t.mueller@fh.de"
+ *                     telefonnummer:
+ *                       type: string
+ *                       example: "0123-100"
+ *                     lectures:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                             example: 1
+ *                           name:
+ *                             type: string
+ *                             example: "Einfuehrung in die Informatik"
+ *                           kuerzel:
+ *                             type: string
+ *                             example: "EIDI"
+ *                           Vorlesung_Dozent:
+ *                             type: object
+ *                             properties:
+ *                               vorlaufzeit:
+ *                                 type: string
+ *                                 example: "M"
+ *                     professorStatus:
+ *                       type: object
+ *                       properties:
+ *                         name:
+ *                           type: string
+ *                           example: "Intern"
+ *                     preference:
+ *                       type: object
+ *                       properties:
+ *                         name:
+ *                           type: string
+ *                           example: "A"
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.get(
+  "/lecture/:id",
+  // checkauth,
+  validate.validateLectureId,
+  validate.validateProfessorQuery,
+  validate.validateProfessorFilter,
+  professorController.getAllProfessorsForLecture,
+);
+
+/**
+ * @swagger
  * /app/professors/{id}:
  *   get:
  *     summary: Get a professor by his id
