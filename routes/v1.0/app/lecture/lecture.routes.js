@@ -39,6 +39,17 @@ const validate = require("./lecture.validate");
  *                     name:
  *                       type: string
  *                       example: "Geschlossen"
+ *               gehalten_an:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     name:
+ *                       type: string
+ *                       example: "Intern"
  *       400:
  *         description: Bad Request
  *       401:
