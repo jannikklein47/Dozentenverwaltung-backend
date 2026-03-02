@@ -7,9 +7,24 @@ const validate = require("./professor.validate");
  * @swagger
  * /app/professors:
  *   get:
- *     summary: Get all professors with their associated lecturers (short version)
+ *     summary: Get all professors with their associated lectures
  *     tags: [Professors]
  *     parameters:
+ *       - in: query
+ *         name: term
+ *         schema:
+ *           type: string
+ *         description: A search term
+ *       - in: query
+ *         name: vorliebeId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Vorliebe
+ *       - in: query
+ *         name: dozenten_statusId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Dozenten_Status
  *       - in: query
  *         name: limit
  *         schema:
@@ -68,6 +83,12 @@ const validate = require("./professor.validate");
  *                           kuerzel:
  *                             type: string
  *                             example: "EIDI"
+ *                           Vorlesung_Dozent:
+ *                             type: object
+ *                             properties:
+ *                               vorlaufzeit:
+ *                                 type: string
+ *                                 example: "M"
  *                     professorStatus:
  *                       type: object
  *                       properties:
