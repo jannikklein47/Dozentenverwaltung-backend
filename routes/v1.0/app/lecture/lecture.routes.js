@@ -5,6 +5,68 @@ const validate = require("./lecture.validate");
 
 /**
  * @swagger
+ * /app/lectures/mapping:
+ *   get:
+ *     summary: Get the name of Abschluss_Typ and Vorlesung_Status for each Id
+ *     tags: [Lectures]
+ *     responses:
+ *       200:
+ *         description: A list of mappings
+ *         content:
+ *          application/json:
+ *            schema:
+ *             type: object
+ *             properties:
+ *               completionTyp:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     name:
+ *                       type: string
+ *                       example: "Bachelor"
+ *               lectureStatus:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     name:
+ *                       type: string
+ *                       example: "Geschlossen"
+ *               gehalten_an:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     name:
+ *                       type: string
+ *                       example: "Intern"
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.get(
+  "/mapping",
+  // checkauth,
+  lectureController.getLectureMappings,
+);
+
+/**
+ * @swagger
  * /app/lectures:
  *   get:
  *     summary: Get all lectures with their associated lecturers
@@ -341,58 +403,6 @@ router.get(
   validate.validateProfessorId,
   validate.validateProfessorLectureFilter,
   lectureController.getLecturesOfProfessor,
-);
-
-/**
- * @swagger
- * /app/lectures/mapping:
- *   get:
- *     summary: Get the name of Abschluss_Typ and Vorlesung_Status for each Id
- *     tags: [Lectures]
- *     responses:
- *       200:
- *         description: A list of mappings
- *         content:
- *          application/json:
- *            schema:
- *             type: object
- *             properties:
- *               completionTyp:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: integer
- *                       example: 1
- *                     name:
- *                       type: string
- *                       example: "Bachelor"
- *               lectureStatus:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: integer
- *                       example: 1
- *                     name:
- *                       type: string
- *                       example: "Geschlossen"
- *       400:
- *         description: Bad Request
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Forbidden
- *       500:
- *         description: Internal Server Error
- */
-
-router.get(
-  "/mapping",
-  // checkauth,
-  lectureController.getLectureMappings,
 );
 
 /**

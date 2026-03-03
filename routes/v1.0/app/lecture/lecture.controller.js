@@ -4,6 +4,7 @@ const {
   Vorlesung,
   Abschluss_Typ,
   Vorlesung_Status,
+  Gehalten_An,
   sequelize,
 } = require("../../../../models");
 const { Op } = require("sequelize");
@@ -251,11 +252,17 @@ exports.getLectureMappings = async (req, res, next) => {
       attributes: ["id", "name"],
     });
 
+    const GehaltenAn = await Gehalten_An.findAll({
+      attributes: ["id", "name"],
+    });
+
     res.status(200).json({
-      completionTyp: AbschlussTyp,
+      completionType: AbschlussTyp,
       lectureStatus: VorlesungStatus,
+      gehalten_an: GehaltenAn,
     });
   } catch (error) {
+    console.error(error);
     next(APIError.errorUnknown());
   }
 };
