@@ -349,6 +349,21 @@ router.get(
  *                       semester:
  *                         type: integer
  *                         example: 1
+ *                       vorliebeId:
+ *                         type: integer
+ *                         example: 1
+ *                       gehalten_anId:
+ *                         type: integer
+ *                         example: 1
+ *                       vorliebeName:
+ *                         type: string
+ *                         example: "A"
+ *                       gehalten_anName:
+ *                         type: string
+ *                         example: "A"
+ *                       vorlaufzeit:
+ *                         type: string
+ *                         example: "M"
  *                       professors:
  *                         type: array
  *                         items:
