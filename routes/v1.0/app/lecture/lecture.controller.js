@@ -218,12 +218,6 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
         ],
         [
           sequelize.literal(
-            `(SELECT vorliebeId FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
-          ),
-          "vorliebe",
-        ],
-        [
-          sequelize.literal(
             `(SELECT gehalten_anId FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
           ),
           "gehalten_anId",

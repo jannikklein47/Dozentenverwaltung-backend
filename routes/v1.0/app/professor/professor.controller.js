@@ -110,7 +110,44 @@ exports.getAllProfessorsForLecture = async (req, res, next) => {
       limit,
       offset,
       where: whereConditions,
-      attributes: ["id", "titel", "vorname", "name", "email", "telefonnummer"],
+      attributes: [
+        "id",
+        "titel",
+        "vorname",
+        "name",
+        "email",
+        "telefonnummer",
+        [
+          sequelize.literal(`
+            (SELECT vorliebeId FROM Vorlesung_Dozent WHERE DozentId = Dozent.id AND VorlesungId = ${sequelize.escape(lectureId)})
+          `),
+          "lectureVorliebeId",
+        ],
+        [
+          sequelize.literal(`
+            (SELECT v.name FROM Vorliebe v JOIN Vorlesung_Dozent vd on v.id = vd.vorliebeId WHERE vd.DozentId = Dozent.id AND vd.VorlesungId = ${sequelize.escape(lectureId)})
+         `),
+          "lectureVorliebeName",
+        ],
+        [
+          sequelize.literal(`
+            (SELECT gehalten_anId FROM Vorlesung_Dozent WHERE DozentId = Dozent.id AND VorlesungId = ${sequelize.escape(lectureId)})
+          `),
+          "lectureGehalten_anId",
+        ],
+        [
+          sequelize.literal(`
+            (SELECT g.name FROM Gehalten_An g JOIN Vorlesung_Dozent vd on g.id = vd.gehalten_anId WHERE vd.DozentId = Dozent.id AND vd.VorlesungId = ${sequelize.escape(lectureId)})
+          `),
+          "lectureGehalten_anName",
+        ],
+        [
+          sequelize.literal(`
+            (SELECT vorlaufzeit FROM Vorlesung_Dozent WHERE DozentId = Dozent.id AND VorlesungId = ${sequelize.escape(lectureId)} LIMIT 1)
+          `),
+          "lectureVorlaufzeit",
+        ],
+      ],
       distinct: true,
       include: [
         {
