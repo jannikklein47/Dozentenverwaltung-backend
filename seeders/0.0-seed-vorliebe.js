@@ -8,9 +8,9 @@ module.exports = {
     await queryInterface.bulkInsert(
       "Vorliebe",
       [
-        { name: "M", createdAt: now, updatedAt: now },
-        { name: "B", createdAt: now, updatedAt: now },
-        { name: "A", createdAt: now, updatedAt: now },
+        { name: "Master", createdAt: now, updatedAt: now },
+        { name: "Bachelor", createdAt: now, updatedAt: now },
+        { name: "Alles", createdAt: now, updatedAt: now },
       ],
       {},
     );
