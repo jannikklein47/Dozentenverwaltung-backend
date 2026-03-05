@@ -254,6 +254,21 @@ router.get(
  *                     telefonnummer:
  *                       type: string
  *                       example: "0123-100"
+ *                     lectureVorliebeId:
+ *                       type: integer
+ *                       example: 1
+ *                     lectureVorliebeName:
+ *                       type: string
+ *                       example: "A"
+ *                     lectureGehalten_anId:
+ *                       type: integer
+ *                       example: 1
+ *                     lectureGehalten_anName:
+ *                       type: string
+ *                       example: "Intern"
+ *                     lectureVorlaufzeit:
+ *                       type: string
+ *                       example: "M"
  *                     lectures:
  *                       type: array
  *                       items:

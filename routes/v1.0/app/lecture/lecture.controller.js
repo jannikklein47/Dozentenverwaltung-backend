@@ -205,7 +205,52 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
     const { count, rows } = await Vorlesung.findAndCountAll({
       limit,
       offset,
-      attributes: ["id", "name", "kuerzel", "semester"],
+      attributes: [
+        "id",
+        "name",
+        "kuerzel",
+        "semester",
+        [
+          sequelize.literal(
+            `(SELECT vorliebeId FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
+          ),
+          "vorliebeId",
+        ],
+        [
+          sequelize.literal(
+            `(SELECT gehalten_anId FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
+          ),
+          "gehalten_anId",
+        ],
+        [
+          sequelize.literal(`(
+        SELECT v.name 
+        FROM Vorliebe v
+        JOIN Vorlesung_Dozent vd ON v.id = vd.vorliebeId
+        WHERE vd.VorlesungId = Vorlesung.id 
+        AND vd.DozentId = ${sequelize.escape(professorId)}
+        LIMIT 1
+      )`),
+          "vorliebeName",
+        ],
+        [
+          sequelize.literal(`(
+        SELECT g.name 
+        FROM Gehalten_An g
+        JOIN Vorlesung_Dozent vd ON g.id = vd.gehalten_anId
+        WHERE vd.VorlesungId = Vorlesung.id 
+        AND vd.DozentId = ${sequelize.escape(professorId)}
+        LIMIT 1
+      )`),
+          "gehalten_anName",
+        ],
+        [
+          sequelize.literal(
+            `(SELECT vorlaufzeit FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
+          ),
+          "vorlaufzeit",
+        ],
+      ],
       distinct: true,
       where: whereConditions,
       include: [
