@@ -10,29 +10,29 @@ module.exports = {
       [
         {
           username: "admin_provadis",
-          password: "hashed_password_123", // In Produktion: bcrypt hash
-          role: "Admin",
+          passwort: "hashed_password_123", // In Produktion: bcrypt hash
+          rolle: "Admin",
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "dozent_mueller",
-          password: "hashed_password_456",
-          role: "Dozent",
+          passwort: "hashed_password_456",
+          rolle: "Dozent",
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "studi_max",
-          password: "hashed_password_789",
-          role: "Student",
+          passwort: "hashed_password_789",
+          rolle: "Student",
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "studi_julia",
-          password: "hashed_password_abc",
-          role: "Student",
+          passwort: "hashed_password_abc",
+          rolle: "Student",
           createdAt: now,
           updatedAt: now,
         },
