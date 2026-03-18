@@ -1,4 +1,11 @@
 "use strict";
+const bcrypt = require("bcryptjs");
+const { func } = require("joi");
+
+function hashPassword(password) {
+  const saltRounds = 10;
+  return bcrypt.hash(password, saltRounds);
+}
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -10,29 +17,37 @@ module.exports = {
       [
         {
           username: "admin_provadis",
-          passwort: "hashed_password_123", // In Produktion: bcrypt hash
+          passwort: await hashPassword("password123"),
           rolle: "Admin",
+          active: true,
+          initialPassword: false,
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "dozent_mueller",
-          passwort: "hashed_password_456",
-          rolle: "Dozent",
+          passwort: await hashPassword("password456"),
+          rolle: "User",
+          active: true,
+          initialPassword: false,
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "studi_max",
-          passwort: "hashed_password_789",
-          rolle: "Student",
+          passwort: await hashPassword("password789"),
+          rolle: "User",
+          active: false,
+          initialPassword: false,
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "studi_julia",
-          passwort: "hashed_password_abc",
-          rolle: "Student",
+          passwort: await hashPassword("passwordabc"),
+          rolle: "User",
+          active: true,
+          initialPassword: true,
           createdAt: now,
           updatedAt: now,
         },

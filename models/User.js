@@ -33,13 +33,23 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: "Student", // Standardwert
       },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      initialPassword: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
     },
     {
       sequelize,
       modelName: "User",
       freezeTableName: true, // Verhindert, dass Sequelize "Users" daraus macht
-      tableName: "Userdaten",
-    }
+      tableName: "User",
+    },
   );
 
   return User;

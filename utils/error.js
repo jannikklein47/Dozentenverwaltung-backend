@@ -113,7 +113,7 @@ class APIError extends Error {
     return new APIError(
       "Wrong credentials",
       "Either email and/or password are wrong.",
-      422,
+      401,
     );
   }
 
@@ -121,7 +121,7 @@ class APIError extends Error {
     return new APIError(
       "Account is disabled",
       "Please contact an Administrator.",
-      422,
+      403,
     );
   }
 

@@ -8,14 +8,23 @@ const cors = require("cors");
 const http = require("http");
 const morgenMiddlware = require("./utils/morganMiddleware");
 const Logger = require("./utils/logger");
+const cookieParser = require("cookie-parser");
+
+if (!process.env.JWT_SECRET) {
+  console.error("JWT_SECRET is not defined in environment variables.");
+  process.exit(1);
+}
 
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.CORS_ORIGIN || "http://localhost:9000",
+    credentials: true,
     optionsSuccessStatus: 200,
     methods: ["GET", "PUT", "POST", "DELETE"],
-  })
+  }),
 );
+
+app.use(cookieParser());
 
 app.use(morgenMiddlware);
 
