@@ -40,15 +40,12 @@ exports.login = async (req, res, next) => {
           console.error("Error signing token:", err);
           return next(APIError.errorUnknown());
         }
-        res
-          .cookie("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "Lax",
-            maxAge: expiresCookieInMs,
-          })
-          .status(200)
-          .json({ message: "Login successful" });
+        res.status(200).json({
+          message: "Login successful",
+          accessToken: token,
+          // refreshToken: refreshToken,
+          // refreshTokenExp: expiresRefreshToken
+        });
       },
     );
   } catch (error) {

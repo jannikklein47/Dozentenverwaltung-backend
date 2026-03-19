@@ -13,9 +13,25 @@ const swaggerDefinition = {
     title: "Express API für das Dozentenverwaltungssystem",
     version: "1.0.0",
     description: "Express API",
-    // contact
   },
-  components: {},
+  components: {
+    securitySchemes: {
+      // 2. "bearerAuth" ist ein gängiger Name, du kannst ihn frei wählen
+      jwtToken: {
+        type: "apiKey", // Wir nutzen apiKey, weil wir volle Kontrolle über den Inhalt brauchen
+        in: "header", // Wo wird es gesendet? Im Header.
+        name: "authorization", // Wie heißt der Header? (Meist "Authorization")
+        description:
+          "Token für die Authentifizierung (JWT), ohne anführendes Bearer!", // Beschreibung für die Dokumentation
+      },
+    },
+  },
+  // 3. Optional: Macht das Schloss-Symbol global für ALLE Endpunkte verfügbar
+  security: [
+    {
+      jwtToken: [],
+    },
+  ],
   servers: [
     {
       url: `http://localhost:${process.env.PORT || 3000}/api/v1.0`,
@@ -38,7 +54,7 @@ const errorHandler = (error, req, res, next) => {
   Logger.error(
     `${error.message}: responding with ${
       error.statusCode || 500
-    } / success => ${error.success || false}`
+    } / success => ${error.success || false}`,
   );
   if (process.env.NODE_ENV !== "development") {
     delete error.stack;

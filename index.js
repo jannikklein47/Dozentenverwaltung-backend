@@ -8,7 +8,6 @@ const cors = require("cors");
 const http = require("http");
 const morgenMiddlware = require("./utils/morganMiddleware");
 const Logger = require("./utils/logger");
-const cookieParser = require("cookie-parser");
 
 if (!process.env.JWT_SECRET) {
   console.error("JWT_SECRET is not defined in environment variables.");
@@ -18,13 +17,11 @@ if (!process.env.JWT_SECRET) {
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN || "http://localhost:9000",
-    credentials: true,
+    allowedHeaders: ["Content-Type", "authorization"],
     optionsSuccessStatus: 200,
     methods: ["GET", "PUT", "POST", "DELETE"],
   }),
 );
-
-app.use(cookieParser()); // Um JWT aus Cookies zu lesen
 
 app.use(morgenMiddlware);
 

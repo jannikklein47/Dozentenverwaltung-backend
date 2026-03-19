@@ -3,7 +3,7 @@ const APIError = require("../../../utils/error");
 const { User } = require("../../../models");
 
 exports.verifyToken = async (req, res, next) => {
-  const token = req.cookies.token;
+  const token = req.headers["authorization"];
 
   if (!token) {
     return next(APIError.errorUnauthorized());
@@ -25,7 +25,13 @@ exports.verifyToken = async (req, res, next) => {
 
     next();
   } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      return next(APIError.errorUnauthorized());
+    }
+    if (error.name === "JsonWebTokenError") {
+      return next(APIError.errorTokenMalformed());
+    }
     console.error("Error during token verification:", error);
-    return next(APIError.errorUnauthorized());
+    return next(APIError.errorUnknown());
   }
 };
