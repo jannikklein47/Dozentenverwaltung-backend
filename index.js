@@ -24,7 +24,7 @@ app.use(
   }),
 );
 
-app.use(cookieParser());
+app.use(cookieParser()); // Um JWT aus Cookies zu lesen
 
 app.use(morgenMiddlware);
 

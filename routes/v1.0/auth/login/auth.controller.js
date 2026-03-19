@@ -3,7 +3,7 @@ const { User } = require("../../../../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const expiresJWT = 3600; // 1 Stunde
-const expiresCookieInMs = expiresIn * 1000; // in Millisekunden
+const expiresCookieInMs = expiresJWT * 1000; // in Millisekunden
 
 exports.login = async (req, res, next) => {
   try {
