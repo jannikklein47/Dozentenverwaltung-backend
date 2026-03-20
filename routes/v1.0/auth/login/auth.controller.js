@@ -156,7 +156,7 @@ exports.logout = async (req, res, next) => {
 
       if (currentToken)
         if (currentToken.tokenActive) {
-          currentToken.destroy();
+          await currentToken.destroy();
           tokensDelete = 1;
         } else {
           console.warn(
