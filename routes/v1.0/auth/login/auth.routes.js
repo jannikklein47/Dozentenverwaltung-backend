@@ -163,7 +163,7 @@ router.post(
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Logout successful and delete 1 refresh_tokens
+ *                   example: Logout successful
  *       401:
  *         description: Unauthorized (Access Token ungueltig oder abgelaufen)
  *       429:

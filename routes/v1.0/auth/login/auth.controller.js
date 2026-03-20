@@ -6,6 +6,7 @@ const { create_refresh_token } = require("./auth.refreshtoken");
 const expiresJWT = 300; // 5 Minuten in Sekunden
 const refreshTokenExpiryDays = 7; // 7 Tage
 const crypto = require("crypto");
+const { Op } = require("sequelize");
 
 exports.login = async (req, res, next) => {
   try {
@@ -29,6 +30,17 @@ exports.login = async (req, res, next) => {
     if (!user.active) {
       // Überprüfen, ob der Benutzer aktiv ist
       return next(APIError.errorUserIsDisabled());
+    }
+
+    try {
+      await refresh_token.destroy({
+        where: {
+          userID: user.id,
+          expiresAt: { [Op.lt]: new Date() }, // OP less than, delete tokens that are expired
+        },
+      });
+    } catch (error) {
+      console.error("Error cleaning up expired refresh tokens:", error);
     }
 
     const refreshTokenData = await create_refresh_token(
@@ -73,6 +85,12 @@ exports.refreshToken = async (req, res, next) => {
       return next(APIError.errorUnauthorized());
     }
 
+    if (!tokenDB.tokenActive) {
+      console.warn(`Inactive refresh token used for user: ${tokenDB.userID}`);
+      await refresh_token.destroy({ where: { userID: tokenDB.userID } });
+      return next(APIError.errorUnauthorized());
+    }
+
     if (new Date() > tokenDB.expiresAt) {
       await tokenDB.destroy();
       return next(APIError.errorUnauthorized());
@@ -100,7 +118,8 @@ exports.refreshToken = async (req, res, next) => {
     );
     const { refreshToken_new, expiresAt } = newRefreshTokenData;
 
-    await tokenDB.destroy();
+    tokenDB.tokenActive = false;
+    await tokenDB.save();
 
     res.status(200).json({
       message: "Refresh Token successfull",
@@ -130,16 +149,29 @@ exports.logout = async (req, res, next) => {
 
     if (all) {
       tokensDelete = await refresh_token.destroy({ where: { userID } });
-    }
-    if (!all || tokensDelete === 0) {
-      // If token was deleted, it maybe stole and it should be delete all tokens
-      tokensDelete = await refresh_token.destroy({
+    } else {
+      const currentToken = await refresh_token.findOne({
         where: { refreshToken: refreshTokenHashed, userID },
       });
+
+      if (currentToken)
+        if (currentToken.tokenActive) {
+          currentToken.destroy();
+          tokensDelete = 1;
+        } else {
+          console.warn(
+            `Attempt to logout with inactive refresh token for user: ${userID}`,
+          );
+          tokensDelete = await refresh_token.destroy({ where: { userID } });
+        }
     }
+
     res.status(200).json({
-      message: `Logout successful and delete ${tokensDelete} refresh_tokens`,
+      message: `Logout successful`,
     });
+    console.log(
+      `User ${userID} logged out. Deleted ${tokensDelete} refresh tokens.`,
+    );
   } catch (error) {
     console.error("Error during logout:", error);
     next(APIError.errorUnknown());
