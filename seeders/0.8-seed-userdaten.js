@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const { func } = require("joi");
 
 function hashPassword(password) {
-  return bcrypt.hash(password, 10);
+  return bcrypt.hash(password, 14);
 }
 
 /** @type {import('sequelize-cli').Migration} */
@@ -14,6 +14,15 @@ module.exports = {
     await queryInterface.bulkInsert(
       "User",
       [
+        {
+          username: "admin",
+          password: await hashPassword("geheim123"), // Nur testzwecke, ist genau das Passwort von der doku
+          role: "Admin",
+          active: true,
+          initialPassword: false,
+          createdAt: now,
+          updatedAt: now,
+        },
         {
           username: "admin_provadis",
           password: await hashPassword("password123"),

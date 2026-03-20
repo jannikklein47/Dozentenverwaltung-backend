@@ -153,6 +153,14 @@ class APIError extends Error {
     );
   }
 
+  static errorBadRequest(message) {
+    return new APIError("Bad Request", message, 400);
+  }
+
+  static errorInitialPassword() {
+    return new APIError("Bad Initial Passwort muss geändert werden", 403);
+  }
+
   static errorReviewAlreadyExists(caseId) {
     return new APIError(
       "Review already exists",

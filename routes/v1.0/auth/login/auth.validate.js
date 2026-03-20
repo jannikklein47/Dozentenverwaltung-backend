@@ -37,8 +37,13 @@ exports.validateRefreshToken = (req, res, next) => {
 const logoutSchema = Joi.object({
   all: Joi.string().valid("true", "false").default("false"),
 }).unknown(true);
+
+const logoutBodySchema = Joi.object({
+  refreshToken: Joi.string().hex().length(128).optional(),
+}).unknown(true);
+
 exports.validateLogout = (req, res, next) => {
-  const { error, value } = refreshTokenSchema.validate(req.body, {
+  const { error, value } = logoutBodySchema.validate(req.body, {
     stripUnknown: true,
   });
   const { error: queryError, value: queryValue } = logoutSchema.validate(
@@ -52,5 +57,21 @@ exports.validateLogout = (req, res, next) => {
   }
   req.body = value;
   req.query = queryValue;
+  next();
+};
+
+const changeInitialPasswordSchema = Joi.object({
+  newPassword: Joi.string().min(6).max(128).required(),
+  refreshToken: Joi.string().hex().length(128).required(),
+}).concat(refreshTokenSchema);
+
+exports.validateChangeInitialPassword = (req, res, next) => {
+  const { error, value } = changeInitialPasswordSchema.validate(req.body, {
+    stripUnknown: true,
+  });
+  if (error) {
+    return next(APIError.errorUnknown());
+  }
+  req.body = value;
   next();
 };

@@ -18,7 +18,12 @@ exports.verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET, {
       algorithms: ["HS256"],
     });
-
+    if (
+      decoded.initialPassword &&
+      !req.originalUrl.endsWith("/changeinitialpassword")
+    ) {
+      return next(APIError.errorInitialPassword());
+    }
     req.tokenData = decoded; // Benutzerinformationen im Request-Objekt speichern
     next();
   } catch (error) {
@@ -28,7 +33,7 @@ exports.verifyToken = (req, res, next) => {
     if (error.name === "JsonWebTokenError") {
       return next(APIError.errorTokenMalformed());
     }
-    console.error("Error during token verification:", error);
+    console.error("Error during token verification:");
     return next(APIError.errorUnknown());
   }
 };
