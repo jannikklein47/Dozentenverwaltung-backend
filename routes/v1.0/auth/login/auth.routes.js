@@ -84,7 +84,7 @@ router.post(
  *             properties:
  *               refreshToken:
  *                 type: string
- *                 example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *                 example: "6f1d2c58e6d1a1d4f7a0b35b8c2f9e1a3d4b5c6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f60718293a4b5c6d7e8"
  *     responses:
  *       200:
  *         description: Refresh Token erfolgreich
