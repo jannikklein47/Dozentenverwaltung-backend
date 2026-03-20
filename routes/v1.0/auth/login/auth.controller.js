@@ -16,7 +16,7 @@ exports.login = async (req, res, next) => {
     if (!user) {
       const dummy = await bcrypt.compare(
         password,
-        "$2b$10$0Pj9qkiOJGBturAPyaMrP.w1pGWgYIPL..URWPHNMkaYNE/Rak7jS",
+        "$2b$14$M6m/TTFtDa/aM/thQ8d.juZu4jxW34NPmOW5VW.rez.paoM10fRNu",
       ); // Dummy-Vergleich, um Timing-Angriffe zu verhindern
       return next(APIError.errorWrongCredentials());
     }
