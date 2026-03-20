@@ -158,7 +158,11 @@ class APIError extends Error {
   }
 
   static errorInitialPassword() {
-    return new APIError("Bad Initial Passwort muss geändert werden", 403);
+    return new APIError(
+      "Initial Password",
+      "Initial Passwort muss geändert werden",
+      403,
+    );
   }
 
   static errorReviewAlreadyExists(caseId) {
