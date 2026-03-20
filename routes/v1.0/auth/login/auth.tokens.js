@@ -68,6 +68,9 @@ exports.createTokens = async function create_tokens(
     );
     return { JWTtoken, refreshTokenNew, expiresAt };
   } catch (error) {
+    if (error.statusCode) {
+      throw error;
+    }
     console.error("Error creating tokens:", error);
     throw APIError.errorUnknown();
   }

@@ -53,8 +53,11 @@ exports.login = async (req, res, next) => {
       refreshTokenExp: expiresAt,
     });
   } catch (error) {
+    if (error.statusCode) {
+      return next(error);
+    }
     console.error(error);
-    next(APIError.errorUnknown());
+    return next(APIError.errorUnknown());
   }
 };
 
@@ -105,6 +108,9 @@ exports.refreshToken = async (req, res, next) => {
       refreshTokenExp: expiresAt,
     });
   } catch (error) {
+    if (error.statusCode) {
+      return next(error);
+    }
     console.error("Error refreshing token:", error);
     next(APIError.errorUnknown());
   }
@@ -153,6 +159,9 @@ exports.logout = async (req, res, next) => {
       `User ${userID} logged out. Deleted ${tokensDelete} refresh tokens.`,
     );
   } catch (error) {
+    if (error.statusCode) {
+      return next(error);
+    }
     console.error("Error during logout:", error);
     next(APIError.errorUnknown());
   }
@@ -204,6 +213,9 @@ exports.changeInitialPassword = async (req, res, next) => {
       refreshTokenExp: expiresAt,
     });
   } catch (error) {
+    if (error.statusCode) {
+      return next(error);
+    }
     console.error("Error changing initial password:", error);
     next(APIError.errorUnknown());
   }
