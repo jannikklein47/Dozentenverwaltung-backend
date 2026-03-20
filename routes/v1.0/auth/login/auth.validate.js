@@ -35,20 +35,22 @@ exports.validateRefreshToken = (req, res, next) => {
 };
 
 const logoutSchema = Joi.object({
-  all: Joi.boolean().default(false),
+  all: Joi.string().valid("true", "false").default("false"),
 }).unknown(true);
-
 exports.validateLogout = (req, res, next) => {
   const { error, value } = refreshTokenSchema.validate(req.body, {
     stripUnknown: true,
   });
-  const { queryerror, queryvalue } = logoutSchema.validate(req.query, {
-    stripUnknown: true,
-  });
-  if (error || queryerror) {
+  const { error: queryError, value: queryValue } = logoutSchema.validate(
+    req.query,
+    {
+      stripUnknown: true,
+    },
+  );
+  if (error || queryError) {
     return next(APIError.errorUnknown());
   }
   req.body = value;
-  req.query = queryvalue;
+  req.query = queryValue;
   next();
 };

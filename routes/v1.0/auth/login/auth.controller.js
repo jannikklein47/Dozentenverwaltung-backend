@@ -119,21 +119,27 @@ exports.logout = async (req, res, next) => {
     const userID = req.tokenData.sub;
     const { refreshToken } = req.body;
 
-    const all = req.query.all === true;
+    const all = req.query.all === "true";
 
     const refreshTokenHashed = crypto
       .createHash("sha256")
       .update(refreshToken)
       .digest("hex");
 
+    let tokensDelete = 0;
+
     if (all) {
-      await refresh_token.destroy({ where: { userID } });
-    } else {
-      await refresh_token.destroy({
+      tokensDelete = await refresh_token.destroy({ where: { userID } });
+    }
+    if (!all || tokensDelete === 0) {
+      // If token was deleted, it maybe stole and it should be delete all tokens
+      tokensDelete = await refresh_token.destroy({
         where: { refreshToken: refreshTokenHashed, userID },
       });
     }
-    res.status(200).json({ message: "Logout successful" });
+    res.status(200).json({
+      message: `Logout successful and delete ${tokensDelete} refresh_tokens`,
+    });
   } catch (error) {
     console.error("Error during logout:", error);
     next(APIError.errorUnknown());

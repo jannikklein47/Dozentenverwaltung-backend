@@ -124,18 +124,20 @@ router.post(
 
 /**
  * @swagger
- * /auth/logout:all:
+ * /auth/logout:
  *   post:
  *     summary: Benutzer abmelden
  *     tags: [Auth]
  *     security:
- *       - jwtToken: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: all
+ *         required: false
  *         schema:
  *           type: boolean
- *         description: Wenn true, werden alle Refresh-Tokens des Benutzers auf allen Geräten gelöscht.
+ *           default: false
+ *         description: Wenn `true`, werden alle Refresh-Tokens des Benutzers geloescht.
  *     requestBody:
  *       required: true
  *       content:
@@ -147,8 +149,10 @@ router.post(
  *             properties:
  *               refreshToken:
  *                 type: string
- *                 example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
- *                 description: Das aktuelle Refresh-Token, das invalidiert werden soll.
+ *                 minLength: 128
+ *                 maxLength: 128
+ *                 description: SHA-256-kompatibler Hex-Token-String.
+ *                 example: "6f1d2c58e6d1a1d4f7a0b35b8c2f9e1a3d4b5c6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f60718293a4b5c6d7e8"
  *     responses:
  *       200:
  *         description: Logout erfolgreich
@@ -159,16 +163,16 @@ router.post(
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Logout successful
- *       400:
- *         description: Validierungsfehler
+ *                   example: Logout successful and delete 1 refresh_tokens
  *       401:
- *         description: Unauthorized (Token fehlt oder ungültig)
+ *         description: Unauthorized (Access Token ungueltig oder abgelaufen)
+ *       429:
+ *         description: Zu viele Anfragen
  *       500:
  *         description: Interner Serverfehler
  */
 router.post(
-  "/logout:all",
+  "/logout",
   verifyToken,
   ratelimiter.generalLimiter,
   authValidate.validateLogout,
