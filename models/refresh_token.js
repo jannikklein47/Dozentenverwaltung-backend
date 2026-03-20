@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class refresh_token extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  User.init(
+  refresh_token.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -19,38 +19,31 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
       },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true, // Verhindert doppelte Benutzernamen
-      },
-      password: {
-        type: DataTypes.STRING,
+      userID: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
-      role: {
+      refreshToken: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "Student", // Standardwert
       },
-      active: {
+      tokenActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false,
+        defaultValue: true,
       },
-      initialPassword: {
-        type: DataTypes.BOOLEAN,
+      expiresAt: {
+        type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: false,
       },
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: "refresh_token",
       freezeTableName: true, // Verhindert, dass Sequelize "Users" daraus macht
-      tableName: "User",
+      tableName: "Refresh_Token",
     },
   );
 
-  return User;
+  return refresh_token;
 };

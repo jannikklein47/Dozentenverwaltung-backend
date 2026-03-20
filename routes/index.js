@@ -16,20 +16,19 @@ const swaggerDefinition = {
   },
   components: {
     securitySchemes: {
-      // 2. "bearerAuth" ist ein gängiger Name, du kannst ihn frei wählen
-      jwtToken: {
-        type: "apiKey", // Wir nutzen apiKey, weil wir volle Kontrolle über den Inhalt brauchen
-        in: "header", // Wo wird es gesendet? Im Header.
-        name: "authorization", // Wie heißt der Header? (Meist "Authorization")
-        description:
-          "Token für die Authentifizierung (JWT), ohne anführendes Bearer!", // Beschreibung für die Dokumentation
+      // Wir nennen es 'bearerAuth'
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        description: "Gib hier nur den reinen JWT-String ein.",
       },
     },
   },
-  // 3. Optional: Macht das Schloss-Symbol global für ALLE Endpunkte verfügbar
+  // Das wendet den Schutz global auf alle Routen an
   security: [
     {
-      jwtToken: [],
+      bearerAuth: [],
     },
   ],
   servers: [

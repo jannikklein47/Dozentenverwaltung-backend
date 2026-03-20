@@ -3,8 +3,7 @@ const bcrypt = require("bcryptjs");
 const { func } = require("joi");
 
 function hashPassword(password) {
-  const saltRounds = 10;
-  return bcrypt.hash(password, saltRounds);
+  return bcrypt.hash(password, 10);
 }
 
 /** @type {import('sequelize-cli').Migration} */
@@ -17,8 +16,8 @@ module.exports = {
       [
         {
           username: "admin_provadis",
-          passwort: await hashPassword("password123"),
-          rolle: "Admin",
+          password: await hashPassword("password123"),
+          role: "Admin",
           active: true,
           initialPassword: false,
           createdAt: now,
@@ -26,8 +25,8 @@ module.exports = {
         },
         {
           username: "dozent_mueller",
-          passwort: await hashPassword("password456"),
-          rolle: "User",
+          password: await hashPassword("password456"),
+          role: "User",
           active: true,
           initialPassword: false,
           createdAt: now,
@@ -35,8 +34,8 @@ module.exports = {
         },
         {
           username: "studi_max",
-          passwort: await hashPassword("password789"),
-          rolle: "User",
+          password: await hashPassword("password789"),
+          role: "User",
           active: false,
           initialPassword: false,
           createdAt: now,
@@ -44,8 +43,8 @@ module.exports = {
         },
         {
           username: "studi_julia",
-          passwort: await hashPassword("passwordabc"),
-          rolle: "User",
+          password: await hashPassword("passwordabc"),
+          role: "User",
           active: true,
           initialPassword: true,
           createdAt: now,

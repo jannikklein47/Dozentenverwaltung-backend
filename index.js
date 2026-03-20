@@ -8,6 +8,7 @@ const cors = require("cors");
 const http = require("http");
 const morgenMiddlware = require("./utils/morganMiddleware");
 const Logger = require("./utils/logger");
+const { globalLimiter } = require("./routes/v1.0/ratelimiter");
 
 if (!process.env.JWT_SECRET) {
   console.error("JWT_SECRET is not defined in environment variables.");
@@ -28,7 +29,9 @@ app.use(morgenMiddlware);
 // initialize database and models
 require("./models");
 
-app.use(express.json());
+app.use(express.json({ limit: "5mb" }));
+
+app.use(globalLimiter);
 
 // initialize the routes
 require("./routes")(app);
