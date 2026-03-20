@@ -253,6 +253,7 @@ router.post(
 router.post(
   "/changeinitialpassword",
   verifyToken,
+  ratelimiter.generalLimiter,
   authValidate.validateChangeInitialPassword,
   authController.changeInitialPassword,
 );
