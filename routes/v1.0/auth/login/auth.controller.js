@@ -48,6 +48,7 @@ exports.login = async (req, res, next) => {
 
     return res.status(200).json({
       message: "Login successful",
+      initialPassword: user.initialPassword,
       accessToken: JWTtoken,
       refreshToken: refreshTokenNew,
       refreshTokenExp: expiresAt,
@@ -203,8 +204,6 @@ exports.changeInitialPassword = async (req, res, next) => {
       tokenDB,
     );
     const { JWTtoken, refreshTokenNew, expiresAt } = tokenData;
-
-    await user.save();
 
     res.status(200).json({
       message: "Password changed successfully",

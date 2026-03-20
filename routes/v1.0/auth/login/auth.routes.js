@@ -42,6 +42,10 @@ const ratelimiter = require("../../ratelimiter");
  *                 message:
  *                   type: string
  *                   example: Login successful
+ *                 initialPassword:
+ *                   type: boolean
+ *                   description: Kennzeichnet, ob der Benutzer noch sein initiales Passwort verwendet
+ *                   example: false
  *                 accessToken:
  *                   type: string
  *                   description: JWT Access Token
@@ -52,10 +56,13 @@ const ratelimiter = require("../../ratelimiter");
  *                   type: string
  *                   format: date-time
  *                   description: Ablaufdatum des Refresh Tokens
+ *                   example: 2026-03-27T10:15:30.000Z
  *       401:
  *         description: Zugangsdaten sind falsch
  *       403:
  *         description: Benutzer ist deaktiviert
+ *       429:
+ *         description: Zu viele Anfragen
  *       500:
  *         description: Interner Serverfehler
  */
@@ -96,6 +103,10 @@ router.post(
  *                 message:
  *                   type: string
  *                   example: Refresh Token successfull
+ *                 initialPassword:
+ *                   type: boolean
+ *                   description: Kennzeichnet, ob der Benutzer noch sein initiales Passwort verwendet
+ *                   example: false
  *                 accessToken:
  *                   type: string
  *                   description: Neues JWT Access Token
