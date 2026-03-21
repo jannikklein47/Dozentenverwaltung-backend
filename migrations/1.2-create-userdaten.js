@@ -21,7 +21,7 @@ module.exports = {
       rolle: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: "Student", // Standardrolle, falls nichts angegeben wird
+        defaultValue: "Admin", // Standardrolle, falls nichts angegeben wird
       },
       createdAt: {
         allowNull: false,
