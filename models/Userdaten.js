@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       rolle: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "Student", // Standardwert
+        defaultValue: "Admin", // Standardwert
       },
     },
     {

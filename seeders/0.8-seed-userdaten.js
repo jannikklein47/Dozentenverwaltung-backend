@@ -6,7 +6,7 @@ module.exports = {
     const now = new Date();
 
     await queryInterface.bulkInsert(
-      "User",
+      "Userdaten",
       [
         {
           username: "admin_provadis",
@@ -18,21 +18,21 @@ module.exports = {
         {
           username: "dozent_mueller",
           passwort: "hashed_password_456",
-          rolle: "Dozent",
+          rolle: "Admin",
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "studi_max",
           passwort: "hashed_password_789",
-          rolle: "Student",
+          rolle: "Admin",
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "studi_julia",
           passwort: "hashed_password_abc",
-          rolle: "Student",
+          rolle: "Admin",
           createdAt: now,
           updatedAt: now,
         },
