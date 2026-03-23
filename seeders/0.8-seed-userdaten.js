@@ -12,7 +12,7 @@ module.exports = {
     const now = new Date();
 
     await queryInterface.bulkInsert(
-      "User",
+      "Userdaten",
       [
         {
           username: "admin",
