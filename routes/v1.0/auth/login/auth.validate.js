@@ -27,7 +27,7 @@ exports.validateRefreshToken = (req, res, next) => {
     stripUnknown: true,
   });
   if (error) {
-    return next(APIError.errorUnknown());
+    return next(APIError.errorValidation(error.message));
   }
 
   req.body = value;
@@ -46,14 +46,17 @@ exports.validateLogout = (req, res, next) => {
   const { error, value } = logoutBodySchema.validate(req.body, {
     stripUnknown: true,
   });
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
   const { error: queryError, value: queryValue } = logoutSchema.validate(
     req.query,
     {
       stripUnknown: true,
     },
   );
-  if (error || queryError) {
-    return next(APIError.errorUnknown());
+  if (queryError) {
+    return next(APIError.errorValidation(queryError.message));
   }
   req.body = value;
   req.query = queryValue;
@@ -70,7 +73,7 @@ exports.validateChangeInitialPassword = (req, res, next) => {
     stripUnknown: true,
   });
   if (error) {
-    return next(APIError.errorUnknown());
+    return next(APIError.errorValidation(error.message));
   }
   req.body = value;
   next();
