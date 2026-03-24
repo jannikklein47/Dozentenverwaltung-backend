@@ -6,6 +6,5 @@ const registerRoutes = require("./register/register.routes");
 
 appRouter.use("/professors", professorRoutes);
 appRouter.use("/lectures", lectureRoutes);
-appRouter.use("/register", registerRoutes);
 
 module.exports = appRouter;
