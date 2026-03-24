@@ -19,7 +19,7 @@ const generateSecureIpKey = (req) => {
 
 exports.globalLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 1000, // Limit each IP to 1000 requests per `window` (here, per 1 minute)
+  max: 10000, // Limit each IP to 10000 requests per `window` (here, per 1 minute)
   message: {
     message: "Zu viele Anfragen. Bitte versuchen Sie es in 1 Minute erneut.",
   },
