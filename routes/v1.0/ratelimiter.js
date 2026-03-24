@@ -68,7 +68,7 @@ exports.refreshTokenLimiter = rateLimit({
 
 exports.generalLimiter = rateLimit({
   windowMs: 5 * 60 * 1000, // 5 minute
-  max: 30, // Limit each user / ip to 30 requests per `window` (here, 5 minute)
+  max: 500, // Limit each user / ip to 500 requests per `window` (here, 5 minute)
   message: {
     message:
       "Zu viele Anfragen. Bitte versuchen Sie es in ein paar Minute erneut.",
