@@ -13,9 +13,24 @@ const swaggerDefinition = {
     title: "Express API für das Dozentenverwaltungssystem",
     version: "1.0.0",
     description: "Express API",
-    // contact
   },
-  components: {},
+  components: {
+    securitySchemes: {
+      // Wir nennen es 'bearerAuth'
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        description: "Gib hier nur den reinen JWT-String ein.",
+      },
+    },
+  },
+  // Das wendet den Schutz global auf alle Routen an
+  security: [
+    {
+      bearerAuth: [],
+    },
+  ],
   servers: [
     {
       url: `http://localhost:${process.env.PORT || 3000}/api/v1.0`,
@@ -38,7 +53,7 @@ const errorHandler = (error, req, res, next) => {
   Logger.error(
     `${error.message}: responding with ${
       error.statusCode || 500
-    } / success => ${error.success || false}`
+    } / success => ${error.success || false}`,
   );
   if (process.env.NODE_ENV !== "development") {
     delete error.stack;

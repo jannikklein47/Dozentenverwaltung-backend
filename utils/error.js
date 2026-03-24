@@ -113,7 +113,7 @@ class APIError extends Error {
     return new APIError(
       "Wrong credentials",
       "Either email and/or password are wrong.",
-      422,
+      403,
     );
   }
 
@@ -121,7 +121,7 @@ class APIError extends Error {
     return new APIError(
       "Account is disabled",
       "Please contact an Administrator.",
-      422,
+      403,
     );
   }
 
@@ -150,6 +150,18 @@ class APIError extends Error {
       "Unknown Error",
       "Please try again at a later time or report this issue.",
       500,
+    );
+  }
+
+  static errorBadRequest(message) {
+    return new APIError("Bad Request", message, 400);
+  }
+
+  static errorInitialPassword() {
+    return new APIError(
+      "Initial Password",
+      "Initial Passwort muss geändert werden",
+      403,
     );
   }
 

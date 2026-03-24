@@ -24,22 +24,32 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true, // Verhindert doppelte Benutzernamen
       },
-      passwort: {
+      password: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      rolle: {
+      role: {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "Admin", // Standardwert
+      },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      initialPassword: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
     },
     {
       sequelize,
       modelName: "User",
       freezeTableName: true, // Verhindert, dass Sequelize "Users" daraus macht
-      tableName: "Userdaten",
-    }
+      tableName: "User",
+    },
   );
 
   return User;

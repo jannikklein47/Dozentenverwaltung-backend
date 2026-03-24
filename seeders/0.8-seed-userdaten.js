@@ -1,4 +1,10 @@
 "use strict";
+const bcrypt = require("bcryptjs");
+const { func } = require("joi");
+
+function hashPassword(password) {
+  return bcrypt.hash(password, 14);
+}
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -6,33 +12,50 @@ module.exports = {
     const now = new Date();
 
     await queryInterface.bulkInsert(
-      "Userdaten",
+      "User",
       [
         {
+          username: "admin",
+          password: await hashPassword("geheim123"), // Nur testzwecke, ist genau das Passwort von der doku
+          role: "Admin",
+          active: true,
+          initialPassword: false,
+          createdAt: now,
+          updatedAt: now,
+        },
+        {
           username: "admin_provadis",
-          passwort: "hashed_password_123", // In Produktion: bcrypt hash
-          rolle: "Admin",
+          password: await hashPassword("password123"),
+          role: "Admin",
+          active: true,
+          initialPassword: false,
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "dozent_mueller",
-          passwort: "hashed_password_456",
-          rolle: "Admin",
+          password: await hashPassword("password456"),
+          role: "User",
+          active: true,
+          initialPassword: false,
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "studi_max",
-          passwort: "hashed_password_789",
-          rolle: "Admin",
+          password: await hashPassword("password789"),
+          role: "User",
+          active: false,
+          initialPassword: false,
           createdAt: now,
           updatedAt: now,
         },
         {
           username: "studi_julia",
-          passwort: "hashed_password_abc",
-          rolle: "Admin",
+          password: await hashPassword("passwordabc"),
+          role: "User",
+          active: true,
+          initialPassword: true,
           createdAt: now,
           updatedAt: now,
         },
