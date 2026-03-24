@@ -113,7 +113,7 @@ class APIError extends Error {
     return new APIError(
       "Wrong credentials",
       "Either email and/or password are wrong.",
-      401,
+      403,
     );
   }
 
