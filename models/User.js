@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       role: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "Admin", // Standardwert
+        defaultValue: "User", // Standardwert
       },
       active: {
         type: DataTypes.BOOLEAN,

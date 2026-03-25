@@ -20,7 +20,7 @@ exports.verifyToken = (req, res, next) => {
     });
     if (
       decoded.initialPassword &&
-      !req.originalUrl.endsWith("/changeinitialpassword")
+      !req.path.endsWith("/changeinitialpassword")
     ) {
       return next(APIError.errorInitialPassword());
     }
