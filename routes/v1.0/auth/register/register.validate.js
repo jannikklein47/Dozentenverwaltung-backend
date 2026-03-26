@@ -2,7 +2,7 @@ const Joi = require("joi");
 const APIError = require("../../../../utils/error");
 
 const registerSchema = Joi.object({
-  email: Joi.string().email().max(255).required(),
+  username: Joi.string().email().max(255).required(),
 
   password: Joi.string()
     .min(8)
