@@ -5,6 +5,6 @@ const registerRoutes = require("./register/register.routes");
 
 authRouter.use("/", loginRoutes);
 
-appRouter.use("/register", registerRoutes);
+authRouter.use("/register", registerRoutes);
 
 module.exports = authRouter;
