@@ -10,7 +10,7 @@ exports.register = async (req, res, next) => {
       return next(APIError.errorUserAlreadyExists());
     }
     const hashedPassword = await bcrypt.hash(password, 14); // Passwort wird gehasht
-    const newUser = await User.create({ username: email, passwort: hashedPassword  }); // erstellt neuen user
+    const newUser = await User.create({ username: email, password: hashedPassword  }); // erstellt neuen user
 
     res // gibt zurück, dass der user erfolgreich registriert wurde mit der id des neuen users
       .status(201)
