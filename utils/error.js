@@ -1,7 +1,7 @@
 class APIError extends Error {
   constructor(
-    title = "Unknown Error",
-    message = "Please try again at a later time or report this issue",
+    title = "Unbekannter Fehler",
+    message = "Bitte versuche es später erneut oder melde dieses Problem.",
     code = 500,
   ) {
     super();
@@ -19,60 +19,60 @@ class APIError extends Error {
 
   static errorUnauthorized() {
     return new APIError(
-      "The requested resource is protected",
-      "Please make sure to login.",
+      "Die angefragte Resource ist geschützt.",
+      "Bitte melde dich an.",
       401,
     );
   }
 
   static errorTokenMalformed() {
     return new APIError(
-      "Authentication failed",
-      "Invalid or malformed Token. Please login again.",
+      "Authentisierung fehlgeschlagen",
+      "Ungültiges Token. Bitte melde dich erneut an.",
       401,
     );
   }
 
   static errorTokenMissing() {
     return new APIError(
-      "Authentication failed",
-      "Token is missing. Please provide a Token or login again.",
+      "Authentisierung fehlgeschlagen",
+      "Token fehlt. Bitte melde dich erneut an.",
       401,
     );
   }
 
   static errorOneTimePassword() {
     return new APIError(
-      "This is a One Time Password",
-      "Please change your password.",
+      "Das ist ein Einmalpasswort",
+      "Bitte ändere dein Passwort.",
       401,
     );
   }
 
   static errorForbidden() {
     return new APIError(
-      "The requested resource is protected",
-      "You have don't have the required rights.",
+      "Die angefragte Resource ist geschützt",
+      "Du hast nicht die notwendigen Berechtigungen.",
       403,
     );
   }
 
   static errorSessionExpired() {
-    return new APIError("Session expired", "Please login again.", 403);
+    return new APIError("Sitzung abgelaufen", "Bitte melde dich neu an.", 403);
   }
 
   static errorNotFound() {
     return new APIError(
-      "The requested resource does not exist",
-      "Please check your request.",
+      "Die angefragte Resource konnte nicht gefunden werden",
+      "Kontrolliere deine Anfrage.",
       404,
     );
   }
 
   static errorUserNotFound() {
     return new APIError(
-      "User not found",
-      "Could not resolve User by Email or id. Please check your request.",
+      "Nutzer nicht gefunden",
+      "Wir konnten diesen Nutzer nicht finden. Überprüfe deine Anfrage.",
       404,
     );
   }
@@ -87,74 +87,74 @@ class APIError extends Error {
 
   static errorUserAlreadyExists() {
     return new APIError(
-      "User already exists",
-      "If you forgot your credentials please use the Password-Reset Service.",
+      "Nutzer existiert bereits",
+      "Wenn du dein Passwort vergessen hast, kontaktiere einen Administrator.",
       409,
     );
   }
 
   static errorRessourceAlreadyExists() {
     return new APIError(
-      "The Ressource already exists",
-      "Please check if the ressource already exists or choose different values.",
+      "Resource existiert bereits",
+      "Bitte wähle andere Werte.",
       409,
     );
   }
 
   static errorTooManyLoginAttempts() {
     return new APIError(
-      "Too many failed login attempts",
-      "Access is blocked. Please use the Password-Reset Service.",
+      "Zu viele fehlgeschlagene Loginversuche",
+      "Zugang blockiert. Bitte setze dein Passwort zurück.",
       422,
     );
   }
 
   static errorWrongCredentials() {
     return new APIError(
-      "Wrong credentials",
-      "Either email and/or password are wrong.",
+      "Falsche Anmeldedaten",
+      "Email oder Passwort sind falsch.",
       403,
     );
   }
 
   static errorUserIsDisabled() {
     return new APIError(
-      "Account is disabled",
-      "Please contact an Administrator.",
+      "Konto gesperrt",
+      "Bitte kontaktiere einen Administrator.",
       403,
     );
   }
 
   static errorUnsafePassword() {
     return new APIError(
-      "Password is too weak",
-      "Please refer to the password rules: at least 12 characters and at least 1 of the following categories: lowercase, uppercase, numerical, special character.",
+      "Passwort ist zu schwach",
+      "Bitte beachte die Passwortregeln: mindestens 12 Zeichen und mindestens 1 Zeichen aus den folgenden Kategorien: Kleinbuchstaben, Großbuchstaben, Ziffern, Sonderzeichen.",
       422,
     );
   }
 
   static errorPasswordAlreadyUsed() {
     return new APIError(
-      "Password matches already used one",
-      "Please use a new one.",
+      "Passwort bereits verwendet",
+      "Wähle ein unbenutzes Passwort.",
       422,
     );
   }
 
   static errorValidation(message) {
-    return new APIError("Validation error", message, 422);
+    return new APIError("Validierungsfehler", message, 422);
   }
 
   static errorUnknown() {
     return new APIError(
-      "Unknown Error",
-      "Please try again at a later time or report this issue.",
+      "Unbekannter Fehler",
+      "Bitte versuche es später erneut oder melde dieses Problem.",
       500,
     );
   }
 
   static errorBadRequest(message) {
-    return new APIError("Bad Request", message, 400);
+    return new APIError("Fehlerhafte Anfrage", message, 400);
   }
 
   static errorInitialPassword() {
@@ -162,16 +162,6 @@ class APIError extends Error {
       "Initial Password",
       "Initial Passwort muss geändert werden",
       403,
-    );
-  }
-
-  static errorReviewAlreadyExists(caseId) {
-    return new APIError(
-      "Review already exists",
-      caseId
-        ? `You can get the review with the case id ${caseId} or choose a differenct case id.`
-        : "You can either get the review with this case id or choose another one.",
-      409,
     );
   }
 }
