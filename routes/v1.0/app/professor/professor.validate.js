@@ -88,7 +88,7 @@ exports.validateProfessorFilter = (req, res, next) => {
 };
 
 const validateAddLectureToProfessorBody = Joi.object({
-  vorlesungId: Joi.number().integer().positive().required(),
+  lectureId: Joi.number().integer().positive().required(),
   professorId: Joi.number().integer().positive().required(),
   gehalten_anId: Joi.number().integer().positive().optional(),
   vorliebeId: Joi.number().integer().positive().optional(),
