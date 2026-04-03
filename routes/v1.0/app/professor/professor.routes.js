@@ -391,6 +391,60 @@ router.get(
 
 /**
  * @swagger
+ * /app/professors/assign:
+ *   post:
+ *     summary: Assign professor and lecture together
+ *     tags: [Professors,Lectures]
+ *     parameters:
+ *       - in: body
+ *         name: assignment
+ *         schema:
+ *           type: object
+ *           properties:
+ *             professorId:
+ *               type: integer
+ *               example: 1
+ *             lectureId:
+ *               type: integer
+ *               example: 1
+ *             gehalten_anId:
+ *               type: integer
+ *               example: 1
+ *             vorliebeId:
+ *               type: integer
+ *               example: 1
+ *             vorlaufzeit:
+ *               type: string
+ *               example: "M"
+ *     responses:
+ *       201:
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.post(
+  "/assign",
+  // checkauth,
+  validate.validateAddLectureToProfessorBody,
+  professorController.addLectureToProfessor,
+);
+
+/**
+ * @swagger
  * /app/professors:
  *   post:
  *     summary: Create a new professors

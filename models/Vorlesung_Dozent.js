@@ -17,9 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "vorliebeId",
         type: DataTypes.INTEGER,
       });
-      
-      
-      
     }
   }
   Vorlesung_Dozent.init(
@@ -41,6 +38,11 @@ module.exports = (sequelize, DataTypes) => {
       vorliebeId: {
         type: DataTypes.INTEGER,
         allowNull: true,
+      },
+      vorlaufzeit: {
+        type: DataTypes.ENUM("S", "4", "M"),
+        allowNull: false,
+        defaultValue: "M",
       },
     },
     {
