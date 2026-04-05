@@ -21,7 +21,7 @@ const reportController = require("./report.controller");
  *         description: Offset for pagination
  *     responses:
  *       200:
- *         description: A list of lectures
+ *         description: A list of lectures withoout professors
  *       500:
  *         description: Server error
  */
