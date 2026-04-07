@@ -21,7 +21,41 @@ const reportController = require("./report.controller");
  *         description: Offset for pagination
  *     responses:
  *       200:
- *         description: A list of lectures withoout professors
+ *         description: A list of lectures
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 total:
+ *                   type: integer
+ *                   example: 1
+ *                 lectures:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       name:
+ *                         type: string
+ *                         example: "Grundlagen der Informatik"
+ *                       semester:
+ *                         type: integer
+ *                         example: 1
+ *                       completionType:
+ *                         type: object
+ *                         properties:
+ *                           name:
+ *                             type: string
+ *                             example: "Bachelor"
+ *                       lectureStatus:
+ *                         type: object
+ *                         properties:
+ *                           name:
+ *                             type: string
+ *                             example: "Offen"
  *       500:
  *         description: Server error
  */
