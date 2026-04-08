@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("./user.controller");
 const validate = require("./user.validate");
+const roleControl = require("../../auth/rolecontrol");
 
 /**
  * @swagger
@@ -51,7 +52,7 @@ const validate = require("./user.validate");
  *       500:
  *         description: Internal Server Error
  */
-router.get("/", userController.getUsers);
+router.get("/", roleControl.verifyRole(["Admin"]), userController.getUsers);
 
 /**
  * @swagger
@@ -84,6 +85,7 @@ router.get("/", userController.getUsers);
  */
 router.post(
   "/activate/:id",
+  roleControl.verifyRole(["Admin"]),
   validate.validateUserParams,
   userController.activateUser,
 );
@@ -119,6 +121,7 @@ router.post(
  */
 router.post(
   "/deactivate/:id",
+  roleControl.verifyRole(["Admin"]),
   validate.validateUserParams,
   userController.deactivateUser,
 );
@@ -152,7 +155,12 @@ router.post(
  *       500:
  *         description: Internal Server Error
  */
-router.delete("/:id", validate.validateUserParams, userController.deleteUser);
+router.delete(
+  "/:id",
+  roleControl.verifyRole(["Admin"]),
+  validate.validateUserParams,
+  userController.deleteUser,
+);
 
 /**
  * @swagger
@@ -201,6 +209,7 @@ router.delete("/:id", validate.validateUserParams, userController.deleteUser);
  */
 router.patch(
   "/:id",
+  roleControl.verifyRole(["Admin"]),
   validate.validateUserParams,
   validate.validateUserBody,
   userController.updateUser,
@@ -235,6 +244,10 @@ router.patch(
  *       500:
  *         description: Internal Server Error
  */
-router.post("/reset-password/:id", userController.resetUserPassword);
+router.post(
+  "/reset-password/:id",
+  roleControl.verifyRole(["Admin"]),
+  userController.resetUserPassword,
+);
 
 module.exports = router;
