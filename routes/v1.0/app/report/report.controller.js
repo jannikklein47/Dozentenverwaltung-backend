@@ -9,7 +9,7 @@ const {
   Dozenten_Status,
 } = require("../../../../models");
 const Logger = require("../../../../utils/logger");
-const { Op, where } = require("sequelize");
+const { Op } = require("sequelize");
 
 exports.getLecturewithoutProfessor = async (req, res, next) => {
   try {
