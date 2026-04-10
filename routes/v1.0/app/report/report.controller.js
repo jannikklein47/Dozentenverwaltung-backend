@@ -181,3 +181,60 @@ exports.getProfessorWithProvadisLectures = async (req, res, next) => {
     next(new APIError(500, "Error fetching professors with Provadis lectures"));
   }
 };
+
+const { sendAsJSON } = require("../../../../utils/export/json-exporter");
+
+exports.getProfessorWithProvadisLectures = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 50;
+    const offset = parseInt(req.query.offset) || 0;
+    const format = req.query.format; // <-- 1. Get the format query parameter
+
+    const professorsWithProvadisLectures = await Dozent.findAndCountAll({
+      // ... (keep all your existing database query logic here)
+      limit,
+      offset,
+      attributes: ["id", "titel", "vorname", "name", "email", "telefonnummer"],
+      distinct: true,
+      include: [ /* ... existing includes ... */ ],
+      order: [["id", "ASC"]],
+    });
+
+    const professors = professorsWithProvadisLectures.rows;
+
+    // 2. Handle CSV Export
+    if (format === "csv") {
+      // Flatten the data for the CSV columns
+      const flatData = professors.map(prof => ({
+        ID: prof.id,
+        Titel: prof.titel || "",
+        Vorname: prof.vorname,
+        Name: prof.name,
+        Email: prof.email,
+        Telefonnummer: prof.telefonnummer,
+        Status: prof.professorStatus ? prof.professorStatus.name : "",
+        Vorliebe: prof.preference ? prof.preference.name : "",
+        // Join multiple lectures into a single comma-separated string for the CSV cell
+        Lectures: prof.lectures ? prof.lectures.map(l => l.name).join(", ") : ""
+      }));
+      
+      return sendAsCSV(res, "professors-provadis", flatData);
+    }
+
+    // 3. Handle JSON File Download
+    if (format === "json") {
+      return sendAsJSON(res, "professors-provadis", professors);
+    }
+
+    // 4. Default behavior (Standard API response)
+    res.json({
+      total: professorsWithProvadisLectures.count,
+      professors: professors,
+    });
+  } catch (error) {
+    Logger.error(
+      `Failed to fetch professors with Provadis lectures: ${error.message}`,
+    );
+    next(new APIError(500, "Error fetching professors with Provadis lectures"));
+  }
+};
