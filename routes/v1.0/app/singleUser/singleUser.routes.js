@@ -56,7 +56,7 @@ router.get("/", singleUserController.getSingleUser);
 /**
  * @swagger
  * /app/user/change-username:
- *   post:
+ *   patch:
  *     tags:
  *       - Single User
  *     name: Change username
@@ -101,7 +101,7 @@ router.get("/", singleUserController.getSingleUser);
  *       500:
  *         description: Internal Server Error
  */
-router.post(
+router.patch(
   "/change-username",
   validate.validateUsernameBody,
   singleUserController.changeUsername,
@@ -110,7 +110,7 @@ router.post(
 /**
  * @swagger
  * /app/user/change-password:
- *   post:
+ *   patch:
  *     tags:
  *       - Single User
  *     name: Change password
@@ -156,7 +156,7 @@ router.post(
  *       500:
  *         description: Internal Server Error
  */
-router.post(
+router.patch(
   "/change-password",
   validate.validatePasswordBody,
   singleUserController.changePassword,
