@@ -6,7 +6,7 @@ const reportController = require("./report.controller");
  * @swagger
  * /app/reports/professors/without-provadis:
  *   get:
- *     summary: Get all professors without Provadis affiliation
+ *     summary: Get all professors with lectures they can teach but have never held at Provadis
  *     tags: [Reports]
  *     parameters:
  *       - in: query
@@ -21,7 +21,7 @@ const reportController = require("./report.controller");
  *         description: Offset for pagination
  *     responses:
  *       200:
- *         description: A list of professors without Provadis affiliation
+ *         description: A list of professors with their lectures excluding lectures already held at Provadis, including Bachelor and Master information
  *       500:
  *         description: Server error
  */

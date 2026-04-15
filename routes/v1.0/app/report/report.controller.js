@@ -1,28 +1,49 @@
 const APIError = require("../../../../utils/error");
-const { Vorlesung, Dozent } = require("../../../../models");
-const { Op, where } = require("sequelize");
+const { Dozent, Vorlesung, Abschluss_Typ, sequelize } = require("../../../../models");
+const { Op } = require("sequelize");
 
 exports.getProfessorsWithoutProvadis = async (req, res, next) => {
   try {
-    const externalProfessors = await Dozent.findAll({
-        include: [{
+    const result = await Dozent.findAll({
+      include: [
+        {
           model: Vorlesung,
-          as: 'lectures',
-          through: { attributes: [] },
-          include: [{
-            model: Gehalten_An,
-            as: 'gehalten_an',
-            where: {
-                name: {
-                    [Op.ne]: 'Provadis Hochschule'
-                }
+          as: "lectures",
+          attributes: ["id", "name", "kuerzel", "semester"],
+          required: false,
+          through: {
+            attributes: ["vorlaufzeit", "gehalten_anId"],
+          },
+          include: [
+            {
+              model: Abschluss_Typ,
+              as: "completionType",
+              attributes: ["id", "name"],
             },
-            required: false
-        } ]
-        }],
+          ],
+          where: {
+            id: {
+              [Op.notIn]: sequelize.literal(`
+                (
+                  SELECT vd.vorlesungId
+                  FROM Vorlesung_Dozent vd
+                  INNER JOIN Gehalten_An ga ON ga.id = vd.gehalten_anId
+                  WHERE vd.dozentId = Dozent.id
+                    AND ga.name = 'Provadis'
+                )
+              `),
+            },
+          },
+        },
+      ],
+      order: [
+        ["id", "ASC"],
+        [{ model: Vorlesung, as: "lectures" }, "id", "ASC"],
+      ],
     });
-    res.status(200).json(externalProfessors);
+
+    res.status(200).json(result);
   } catch (error) {
-    next(new APIError("Failed to fetch external professors", 500));
-  } 
-}
+    next(new APIError("Failed to fetch professors and lectures without Provadis", 500));
+  }
+};
