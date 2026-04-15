@@ -119,8 +119,8 @@ class APIError extends Error {
 
   static errorUserIsDisabled() {
     return new APIError(
-      "Konto gesperrt",
-      "Bitte kontaktiere einen Administrator.",
+      "Konto gesperrt oder nicht aktiviert",
+      "Falls du dich in letzter Zeit registriert hast, bedeutet es entweder, dass du noch nicht akzeptiert wurdest, oder abgelehnt wurdest. Bitte kontaktiere einen Administrator. ",
       403,
     );
   }

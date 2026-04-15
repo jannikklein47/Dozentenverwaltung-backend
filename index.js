@@ -20,7 +20,7 @@ app.use(
     origin: process.env.CORS_ORIGIN || "http://localhost:9000",
     allowedHeaders: ["Content-Type", "authorization"],
     optionsSuccessStatus: 200,
-    methods: ["GET", "PUT", "POST", "DELETE"],
+    methods: ["GET", "PUT", "POST", "DELETE", "PATCH"],
   }),
 );
 
