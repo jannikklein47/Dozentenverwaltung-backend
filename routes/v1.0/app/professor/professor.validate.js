@@ -41,6 +41,30 @@ exports.validateProfessorBody = (req, res, next) => {
   next();
 };
 
+const professorBodySchemaOptional = Joi.object({
+  titel: Joi.string().max(255).optional(),
+  name: Joi.string().max(255).optional(),
+  vorname: Joi.string().max(255).optional(),
+  email: Joi.string().email().max(255).optional(),
+  telefonnummer: Joi.string().max(255).optional(),
+  vorliebeId: Joi.number().integer().positive().optional(),
+  dozenten_statusId: Joi.number().integer().positive().optional(),
+  prio_bachelor: Joi.number().integer().positive().optional(),
+  prio_master: Joi.number().integer().positive().optional(),
+});
+
+exports.validateProfessorBodyOptional = (req, res, next) => {
+  const { error, value } = professorBodySchema.validate(req.body, {
+    stripUnknown: true,
+  });
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
+
+  req.body = value;
+  next();
+};
+
 const professorId = Joi.number().integer().positive().required();
 const lectureId = Joi.number().integer().positive().required();
 

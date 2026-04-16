@@ -391,31 +391,190 @@ router.get(
 
 /**
  * @swagger
+ * /app/professors/{id}:
+ *   patch:
+ *     summary: Update an existing professor
+ *     tags: [Professors]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The id of the professor
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               titel:
+ *                 type: string
+ *                 example: "Prof. Dr."
+ *               vorname:
+ *                 type: string
+ *                 example: "Max"
+ *               name:
+ *                 type: string
+ *                 example: "Mustermann"
+ *               email:
+ *                 type: string
+ *                 example: "Max.Mustermann@test.de"
+ *               telefonnummer:
+ *                 type: string
+ *                 example: "0123456789"
+ *               vorliebeId:
+ *                 type: integer
+ *                 example: 3
+ *               dozenten_statusId:
+ *                 type: integer
+ *                 example: 1
+ *               prio_bachelor:
+ *                 type: integer
+ *                 example: 1
+ *               prio_master:
+ *                 type: integer
+ *                 example: 2
+ *           example:
+ *             titel: "Prof. Dr."
+ *             vorname: "Max"
+ *             name: "Mustermann"
+ *             email: "Max.Mustermann@test.de"
+ *             telefonnummer: "0123456789"
+ *             vorliebeId: 3
+ *             dozenten_statusId: 1
+ *             prio_bachelor: 1
+ *             prio_master: 2
+ *     responses:
+ *       200:
+ *         description: Updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Professor updated successfully"
+ *                 professor:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 27
+ *                     titel:
+ *                       type: string
+ *                       example: "Prof. Dr."
+ *                     name:
+ *                       type: string
+ *                       example: "Mustermann"
+ *                     vorname:
+ *                       type: string
+ *                       example: "Max"
+ *                     email:
+ *                       type: string
+ *                       example: "Max.Mustermann@test.de"
+ *                     telefonnummer:
+ *                       type: string
+ *                       example: "0123456789"
+ *                     vorliebeId:
+ *                       type: integer
+ *                       example: 3
+ *                     dozenten_statusId:
+ *                       type: integer
+ *                       example: 1
+ *                     prio_bachelor:
+ *                       type: integer
+ *                       example: 1
+ *                     prio_master:
+ *                       type: integer
+ *                       example: 2
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.patch(
+  "/:id",
+  // checkauth,
+  validate.validateProfessorId,
+  validate.validateProfessorBodyOptional,
+  professorController.updateProfessor,
+);
+
+/**
+ * @swagger
+ * /app/professors/{id}:
+ *   delete:
+ *     summary: Delete a professor by id
+ *     tags: [Professors]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The id of the professor
+ *     responses:
+ *       200:
+ *         description: Deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Professor deleted successfully"
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.delete(
+  "/:id",
+  // checkauth,
+  validate.validateProfessorId,
+  professorController.deleteProfessor,
+);
+
+/**
+ * @swagger
  * /app/professors/assign:
  *   post:
  *     summary: Assign professor and lecture together
  *     tags: [Professors,Lectures]
- *     parameters:
- *       - in: body
- *         name: assignment
- *         schema:
- *           type: object
- *           properties:
- *             professorId:
- *               type: integer
- *               example: 1
- *             lectureId:
- *               type: integer
- *               example: 1
- *             gehalten_anId:
- *               type: integer
- *               example: 1
- *             vorliebeId:
- *               type: integer
- *               example: 1
- *             vorlaufzeit:
- *               type: string
- *               example: "M"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               professorId:
+ *                 type: integer
+ *                 example: 1
+ *               lectureId:
+ *                 type: integer
+ *                 example: 1
+ *               gehalten_anId:
+ *                 type: integer
+ *                 example: 1
+ *               vorliebeId:
+ *                 type: integer
+ *                 example: 1
+ *               vorlaufzeit:
+ *                 type: string
+ *                 example: "M"
  *     responses:
  *       201:
  *         description: Created
@@ -449,33 +608,34 @@ router.post(
  *   post:
  *     summary: Create a new professors
  *     tags: [Professors]
- *     parameters:
- *       - in: body
- *         name: professor
- *         schema:
- *           type: object
- *           properties:
- *             titel:
- *               type: string
- *               example: "Prof. Dr."
- *             vorname:
- *               type: string
- *               example: "Max"
- *             name:
- *               type: string
- *               example: "Mustermann"
- *             email:
- *               type: string
- *               example: "Max.Mustermann@test.de"
- *             telefonnummer:
- *               type: string
- *               example: "0123456789"
- *             vorliebeId:
- *               type: integer
- *               example: 3
- *             dozenten_statusId:
- *               type: integer
- *               example: 1
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               titel:
+ *                 type: string
+ *                 example: "Prof. Dr."
+ *               vorname:
+ *                 type: string
+ *                 example: "Max"
+ *               name:
+ *                 type: string
+ *                 example: "Mustermann"
+ *               email:
+ *                 type: string
+ *                 example: "Max.Mustermann@test.de"
+ *               telefonnummer:
+ *                 type: string
+ *                 example: "0123456789"
+ *               vorliebeId:
+ *                 type: integer
+ *                 example: 3
+ *               dozenten_statusId:
+ *                 type: integer
+ *                 example: 1
  *           example:
  *             titel: "Prof. Dr."
  *             vorname: "Max"
