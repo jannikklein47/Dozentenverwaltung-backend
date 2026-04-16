@@ -300,17 +300,6 @@ exports.addLectureToProfessor = async (req, res, next) => {
 exports.updateProfessor = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const {
-      titel,
-      name,
-      vorname,
-      email,
-      telefonnummer,
-      vorliebeId,
-      dozenten_statusId,
-      prio_bachelor,
-      prio_master,
-    } = req.body;
     const professor = await Dozent.findByPk(req.params.id);
     if (!professor) {
       return next(APIError.errorNotFound());
@@ -328,7 +317,7 @@ exports.updateProfessor = async (req, res, next) => {
 
     const existingProfessorWithPhone = await Dozent.findOne({
       where: {
-        telefonnummer,
+        telefonnummer: req.body.telefonnummer,
         id: { [Op.ne]: id },
       },
     });
@@ -336,17 +325,7 @@ exports.updateProfessor = async (req, res, next) => {
     if (existingProfessorWithPhone) {
       return next(APIError.errorRessourceAlreadyExists());
     }
-    await professor.update({
-      titel,
-      name,
-      vorname,
-      email,
-      telefonnummer,
-      vorliebeId,
-      dozenten_statusId,
-      prio_bachelor,
-      prio_master,
-    });
+    await professor.update(req.body);
     res.status(200).json({
       message: "Professor updated successfully",
       professor,

@@ -503,7 +503,7 @@ router.patch(
   "/:id",
   // checkauth,
   validate.validateProfessorId,
-  validate.validateProfessorBody,
+  validate.validateProfessorBodyOptional,
   professorController.updateProfessor,
 );
 
