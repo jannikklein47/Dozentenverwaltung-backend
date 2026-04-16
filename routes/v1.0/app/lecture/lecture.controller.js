@@ -2,6 +2,7 @@ const APIError = require("../../../../utils/error");
 const {
   Dozent,
   Vorlesung,
+  Vorlesung_Dozent,
   Abschluss_Typ,
   Vorlesung_Status,
   Gehalten_An,
@@ -351,6 +352,67 @@ exports.postLecture = async (req, res, next) => {
     res.status(201).json(newLecture);
   } catch (error) {
     await t.rollback("Failed to create lecture and associate professors");
+    next(APIError.errorUnknown());
+  }
+};
+
+exports.patchLecture = async (req, res, next) => {
+  try {
+    t = await Vorlesung.sequelize.transaction();
+    const { id } = req.params;
+    const lecture = await Vorlesung.findByPk(id);
+    if (!lecture) {
+      await t.rollback();
+      return next(APIError.errorRessourceNotFound());
+    }
+
+    const existingKuerzel = await Vorlesung.findOne({
+      where: {
+        kuerzel: req.body.kuerzel,
+        id: { [Op.ne]: id },
+      },
+    });
+
+    if (existingKuerzel) {
+      await t.rollback();
+      return next(APIError.errorRessourceAlreadyExists());
+    }
+
+    await lecture.update(req.body);
+    res.status(200).json({
+      message: "Vorlesung wurde erfolgreich aktualisiert",
+      lecture,
+    });
+  } catch (error) {
+    console.error(error);
+    next(APIError.errorUnknown());
+  }
+};
+
+exports.deleteLecture = async (req, res, next) => {
+  const t = await Vorlesung.sequelize.transaction();
+  try {
+    const { id } = req.params;
+
+    const lecture = await Vorlesung.findByPk(id, { transaction: t });
+    if (!lecture) {
+      await t.rollback();
+      return next(APIError.errorRessourceNotFound());
+    }
+
+    await Vorlesung_Dozent.destroy({
+      where: { VorlesungId: id },
+      transaction: t,
+    });
+
+    await lecture.destroy({ transaction: t });
+
+    await t.commit();
+
+    res.status(200).send({ message: "Vorlesung erfolgreich gelöscht" });
+  } catch (error) {
+    await t.rollback();
+    console.error(error);
     next(APIError.errorUnknown());
   }
 };

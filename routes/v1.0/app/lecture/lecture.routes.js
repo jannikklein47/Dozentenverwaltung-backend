@@ -497,4 +497,17 @@ router.post(
   lectureController.postLecture,
 );
 
+router.patch(
+  "/:id",
+  validate.validateLectureId,
+  validate.validateUpdateLectureBody,
+  lectureController.patchLecture,
+);
+
+router.delete(
+  "/:id",
+  validate.validateLectureId,
+  lectureController.deleteLecture,
+);
+
 module.exports = router;
