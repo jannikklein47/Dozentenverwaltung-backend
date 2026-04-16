@@ -7,6 +7,7 @@ const {
   Vorlesung_Status,
   Vorliebe,
   Dozenten_Status,
+  sequelize,
 } = require("../../../../models");
 const Logger = require("../../../../utils/logger");
 const { Op } = require("sequelize");
@@ -27,7 +28,12 @@ exports.getProfessorsWithoutProvadis = async (req, res, next) => {
             {
               model: Abschluss_Typ,
               as: "completionType",
-              attributes: ["id", "name"],
+              attributes: ["name"],
+            },
+            {
+              model: Vorlesung_Status,
+              as: "lectureStatus",
+              attributes: ["name"],
             },
           ],
           where: {
@@ -44,6 +50,16 @@ exports.getProfessorsWithoutProvadis = async (req, res, next) => {
             },
           },
         },
+        {
+          model: Dozenten_Status,
+          as: "professorStatus",
+          attributes: ["name"],
+        },
+        {
+          model: Vorliebe,
+          as: "preference",
+          attributes: ["name"],
+        },
       ],
       order: [
         ["id", "ASC"],
@@ -53,6 +69,7 @@ exports.getProfessorsWithoutProvadis = async (req, res, next) => {
 
     res.status(200).json(result);
   } catch (error) {
+    console.error(error);
     next(
       new APIError(
         "Failed to fetch professors and lectures without Provadis",
