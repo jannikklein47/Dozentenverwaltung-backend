@@ -301,9 +301,14 @@ exports.getLectureMappings = async (req, res, next) => {
       attributes: ["id", "name"],
     });
 
+    const Vorliebe = await Vorliebe.findAll({
+      attributes: ["id", "name"],
+    });
+
     res.status(200).json({
       completionType: AbschlussTyp,
       lectureStatus: VorlesungStatus,
+      preference: Vorliebe,
       gehalten_an: GehaltenAn,
     });
   } catch (error) {
