@@ -5,6 +5,7 @@ const {
   Abschluss_Typ,
   Vorlesung_Status,
   Gehalten_An,
+  Vorliebe,
   sequelize,
 } = require("../../../../models");
 const { Op } = require("sequelize");
@@ -301,14 +302,14 @@ exports.getLectureMappings = async (req, res, next) => {
       attributes: ["id", "name"],
     });
 
-    const Vorliebe = await Vorliebe.findAll({
+    const VorliebeResult = await Vorliebe.findAll({
       attributes: ["id", "name"],
     });
 
     res.status(200).json({
       completionType: AbschlussTyp,
       lectureStatus: VorlesungStatus,
-      preference: Vorliebe,
+      preference: VorliebeResult,
       gehalten_an: GehaltenAn,
     });
   } catch (error) {
