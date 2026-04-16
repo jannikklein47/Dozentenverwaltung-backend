@@ -7,6 +7,7 @@ const {
   Vorlesung_Status,
   Vorliebe,
   Dozenten_Status,
+  sequelize,
 } = require("../../../../models");
 const Logger = require("../../../../utils/logger");
 const { Op } = require("sequelize");
@@ -31,6 +32,73 @@ const handleExportOrResponse = (req, res, options) => {
     total: total,
     [responseKey]: data,
   });
+}
+
+exports.getProfessorsWithoutProvadis = async (req, res, next) => {
+  try {
+    const result = await Dozent.findAll({
+      include: [
+        {
+          model: Vorlesung,
+          as: "lectures",
+          attributes: ["id", "name", "kuerzel", "semester"],
+          required: false,
+          through: {
+            attributes: ["vorlaufzeit", "gehalten_anId"],
+          },
+          include: [
+            {
+              model: Abschluss_Typ,
+              as: "completionType",
+              attributes: ["name"],
+            },
+            {
+              model: Vorlesung_Status,
+              as: "lectureStatus",
+              attributes: ["name"],
+            },
+          ],
+          where: {
+            id: {
+              [Op.notIn]: sequelize.literal(`
+                (
+                  SELECT vd.vorlesungId
+                  FROM Vorlesung_Dozent vd
+                  INNER JOIN Gehalten_An ga ON ga.id = vd.gehalten_anId
+                  WHERE vd.dozentId = Dozent.id
+                    AND ga.name = 'Provadis'
+                )
+              `),
+            },
+          },
+        },
+        {
+          model: Dozenten_Status,
+          as: "professorStatus",
+          attributes: ["name"],
+        },
+        {
+          model: Vorliebe,
+          as: "preference",
+          attributes: ["name"],
+        },
+      ],
+      order: [
+        ["id", "ASC"],
+        [{ model: Vorlesung, as: "lectures" }, "id", "ASC"],
+      ],
+    });
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    next(
+      new APIError(
+        "Failed to fetch professors and lectures without Provadis",
+        500,
+      ),
+    );
+  }
 };
 
 exports.getLecturewithoutProfessor = async (req, res, next) => {
