@@ -296,3 +296,87 @@ exports.addLectureToProfessor = async (req, res, next) => {
     next(APIError.errorUnknown());
   }
 };
+
+exports.updateProfessor = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const {
+      titel,
+      name,
+      vorname,
+      email,
+      telefonnummer,
+      vorliebeId,
+      dozenten_statusId,
+      prio_bachelor,
+      prio_master,
+    } = req.body;
+    const professor = await Dozent.findByPk(req.params.id);
+    if (!professor) {
+      return next(APIError.errorNotFound());
+    }
+    const existingProfessorWithEmail = await Dozent.findOne({
+      where: {
+        email,
+        id: { [Op.ne]: id },
+      },
+    });
+
+    if (existingProfessorWithEmail) {
+      return next(APIError.errorRessourceAlreadyExists());
+    }
+
+    const existingProfessorWithPhone = await Dozent.findOne({
+      where: {
+        telefonnummer,
+        id: { [Op.ne]: id },
+      },
+    });
+
+    if (existingProfessorWithPhone) {
+      return next(APIError.errorRessourceAlreadyExists());
+    }
+    await professor.update({
+      titel,
+      name,
+      vorname,
+      email,
+      telefonnummer,
+      vorliebeId,
+      dozenten_statusId,
+      prio_bachelor,
+      prio_master,
+    });
+    res.status(200).json({
+      message: "Professor updated successfully",
+      professor,
+    });
+  } catch (error) {
+    console.error(error);
+    next(APIError.errorUnknown());
+  }
+};
+
+exports.deleteProfessor = async (req, res, next) => {
+  const t = await Dozent.sequelize.transaction();
+  try {
+    const { id } = req.params;
+    const professor = await Dozent.findByPk(id, { transaction: t });
+    if (!professor) {
+      await t.rollback();
+      return next(APIError.errorNotFound());
+    }
+
+    await Vorlesung_Dozent.destroy({
+      where: { dozentId: id },
+      transaction: t,
+    });
+    await professor.destroy({ transaction: t });
+    await t.commit();
+    res.status(200).json({ message: "Professor deleted successfully" });
+  } catch (error) {
+    await t.rollback();
+    console.error(error);
+    next(APIError.errorUnknown());
+  }
+};
