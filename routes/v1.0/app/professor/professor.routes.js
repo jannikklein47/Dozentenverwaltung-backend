@@ -604,6 +604,51 @@ router.post(
 
 /**
  * @swagger
+ * /app/professors/assign:
+ *   delete:
+ *     summary: Delete assignment of professor and lecture
+ *     tags: [Professors,Lectures]
+ *     parameters:
+ *       - in: query
+ *         name: professorId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The id of the professor
+ *       - in: query
+ *         name: lectureId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The id of the lecture
+ *     responses:
+ *       200:
+ *         description: Deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.delete(
+  "/assign",
+  validate.validateRemoveLectureFromProfessorQuery,
+  professorController.removeLectureFromProfessor,
+);
+
+/**
+ * @swagger
  * /app/professors:
  *   post:
  *     summary: Create a new professors

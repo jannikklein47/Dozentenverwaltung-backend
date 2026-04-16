@@ -131,3 +131,18 @@ exports.validateAddLectureToProfessorBody = (req, res, next) => {
   req.body = value;
   next();
 };
+
+exports.validateRemoveLectureFromProfessorQuery = (req, res, next) => {
+  const schema = Joi.object({
+    professorId: Joi.number().integer().positive().required(),
+    lectureId: Joi.number().integer().positive().required(),
+  });
+
+  const { error, value } = schema.validate(req.query, { stripUnknown: true });
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
+
+  req.query = value;
+  next();
+};

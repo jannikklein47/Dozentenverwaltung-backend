@@ -297,6 +297,35 @@ exports.addLectureToProfessor = async (req, res, next) => {
   }
 };
 
+exports.removeLectureFromProfessor = async (req, res, next) => {
+  const t = await Dozent.sequelize.transaction();
+  try {
+    const { professorId, lectureId } = req.query;
+
+    if (
+      (await Dozent.findByPk(professorId, { transaction: t })) ||
+      (await Vorlesung.findByPk(lectureId, { transaction: t }))
+    ) {
+      return next(APIError.errorNotFound());
+    }
+
+    await Vorlesung_Dozent.destroy({
+      where: {
+        dozentId: professorId,
+        vorlesungId: lectureId,
+      },
+      transaction: t,
+    });
+
+    await t.commit();
+    res.status(200).json({ success: true });
+  } catch (error) {
+    await t.rollback();
+    console.error(error);
+    next(APIError.errorUnknown());
+  }
+};
+
 exports.updateProfessor = async (req, res, next) => {
   try {
     const { id } = req.params;
