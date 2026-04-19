@@ -94,17 +94,28 @@ exports.getProfessorsWithoutProvadis = async (req, res, next) => {
       total: result.length,
       responseKey: "professors",
       filename: "report-format-2(professoren-ohne-provadis)",
-      csvMapper: (prof) => ({
-        ID: prof.id,
-        Titel: prof.titel || "",
-        Vorname: prof.vorname,
-        Name: prof.name,
-        Email: prof.email || "",
-        Telefonnummer: prof.telefonnummer || "",
-        Status: prof.professorStatus ? prof.professorStatus.name : "",
-        Vorliebe: prof.preference ? prof.preference.name : "",
-        Lectures: prof.lectures ? prof.lectures.map((l) => l.name).join(", ") : "",
-      }),
+      csvMapper: (prof) => {
+        const formattedLectures = prof.lectures && prof.lectures.length > 0
+          ? prof.lectures.map((l) => {
+              const type = l.completionType ? l.completionType.name : "N/A";
+              const status = l.lectureStatus ? l.lectureStatus.name : "N/A";
+              const vorlaufzeit = l.Vorlesung_Dozent ? l.Vorlesung_Dozent.vorlaufzeit : "N/A";
+              return `${l.name} (${l.kuerzel} | Sem: ${l.semester} | Typ: ${type} | Status: ${status} | Vorlaufzeit: ${vorlaufzeit})`;
+            }).join(" ; ")
+          : "Keine Vorlesungen";
+
+        return {
+          ID: prof.id,
+          Titel: prof.titel || "",
+          Vorname: prof.vorname,
+          Name: prof.name,
+          Email: prof.email || "",
+          Telefonnummer: prof.telefonnummer || "",
+          Status: prof.professorStatus ? prof.professorStatus.name : "",
+          Vorliebe: prof.preference ? prof.preference.name : "",
+          Vorlesungen: formattedLectures,
+        };
+      },
     });
   } catch (error) {
     console.error(error);
