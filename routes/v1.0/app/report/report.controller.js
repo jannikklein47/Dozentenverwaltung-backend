@@ -12,6 +12,28 @@ const {
 const Logger = require("../../../../utils/logger");
 const { Op } = require("sequelize");
 
+const { sendAsCSV } = require("../../../../utils/export/csv-exporter");
+const { sendAsJSON } = require("../../../../utils/export/json-exporter");
+
+const handleExportOrResponse = (req, res, options) => {
+  const { data, total, responseKey, filename, csvMapper } = options;
+  const format = req.query.format;
+
+  if (format === "csv") {
+    const flatData = data.map(csvMapper);
+    return sendAsCSV(res, filename, flatData);
+  }
+
+  if (format === "json") {
+    return sendAsJSON(res, filename, data);
+  }
+
+  return res.json({
+    total: total,
+    [responseKey]: data,
+  });
+}
+
 exports.getProfessorsWithoutProvadis = async (req, res, next) => {
   try {
     const result = await Dozent.findAll({
@@ -67,7 +89,34 @@ exports.getProfessorsWithoutProvadis = async (req, res, next) => {
       ],
     });
 
-    res.status(200).json(result);
+    return handleExportOrResponse(req, res, {
+      data: result,
+      total: result.length,
+      responseKey: "professors",
+      filename: "report-format-2(professoren-ohne-provadis)",
+      csvMapper: (prof) => {
+        const formattedLectures = prof.lectures && prof.lectures.length > 0
+          ? prof.lectures.map((l) => {
+              const type = l.completionType ? l.completionType.name : "N/A";
+              const status = l.lectureStatus ? l.lectureStatus.name : "N/A";
+              const vorlaufzeit = l.Vorlesung_Dozent ? l.Vorlesung_Dozent.vorlaufzeit : "N/A";
+              return `${l.name} (${l.kuerzel} | Sem: ${l.semester} | Typ: ${type} | Status: ${status} | Vorlaufzeit: ${vorlaufzeit})`;
+            }).join(" ; ")
+          : "Keine Vorlesungen";
+
+        return {
+          ID: prof.id,
+          Titel: prof.titel || "",
+          Vorname: prof.vorname,
+          Name: prof.name,
+          Email: prof.email || "",
+          Telefonnummer: prof.telefonnummer || "",
+          Status: prof.professorStatus ? prof.professorStatus.name : "",
+          Vorliebe: prof.preference ? prof.preference.name : "",
+          Vorlesungen: formattedLectures,
+        };
+      },
+    });
   } catch (error) {
     console.error(error);
     next(
@@ -115,11 +164,23 @@ exports.getLecturewithoutProfessor = async (req, res, next) => {
       limit,
       offset,
     });
-    res.json({ total: lectures.count, lectures: lectures.rows });
+
+    return handleExportOrResponse(req, res, {
+      data: lectures.rows,
+      total: lectures.count,
+      responseKey: "lectures",
+      filename: "report-format-3(vorlesungen-ohne-dozenten)",
+      csvMapper: (lecture) => ({
+        ID: lecture.id,
+        Name: lecture.name,
+        Semester: lecture.semester,
+        CompletionType: lecture.completionType ? lecture.completionType.name : "",
+        Status: lecture.lectureStatus ? lecture.lectureStatus.name : "",
+      }),
+    });
+
   } catch (error) {
-    Logger.error(
-      `Failed to fetch lectures without professor: ${error.message}`,
-    );
+    Logger.error(`Failed to fetch lectures without professor: ${error.message}`);
     next(new APIError(500, "Error fetching lectures without professor"));
   }
 };
@@ -147,13 +208,8 @@ exports.getLecturewithoutProvadisExperience = async (req, res, next) => {
       raw: true,
     });
 
-    const blacklistLectureIds = lecturesProvadis.map(
-      (assignment) => assignment.vorlesungId,
-    );
-
-    const LecturesWithoutProvadis = lecturesWithoutProvadisProfessor.map(
-      (assignment) => assignment.vorlesungId,
-    );
+    const blacklistLectureIds = lecturesProvadis.map((a) => a.vorlesungId);
+    const LecturesWithoutProvadis = lecturesWithoutProvadisProfessor.map((a) => a.vorlesungId);
 
     const finalLectureIds = LecturesWithoutProvadis.filter(
       (id) => !blacklistLectureIds.includes(id),
@@ -180,12 +236,24 @@ exports.getLecturewithoutProvadisExperience = async (req, res, next) => {
       limit,
       offset,
     });
-    res.json({ total: lectures.count, lectures: lectures.rows });
+
+    return handleExportOrResponse(req, res, {
+      data: lectures.rows,
+      total: lectures.count,
+      responseKey: "lectures",
+      filename: "report-format-4(vorlesungen-ohne-provadis-erfahrung)",
+      csvMapper: (lecture) => ({
+        ID: lecture.id,
+        Name: lecture.name,
+        Semester: lecture.semester,
+        CompletionType: lecture.completionType ? lecture.completionType.name : "",
+        Status: lecture.lectureStatus ? lecture.lectureStatus.name : "",
+      }),
+    });
+
   } catch (error) {
-    Logger.error(
-      `Failed to fetch lectures without professor: ${error.message}`,
-    );
-    next(new APIError(500, "Error fetching lectures without professor"));
+    Logger.error(`Failed to fetch lectures without provadis experience: ${error.message}`);
+    next(new APIError(500, "Error fetching lectures without provadis experience"));
   }
 };
 
@@ -238,14 +306,26 @@ exports.getProfessorWithProvadisLectures = async (req, res, next) => {
       order: [["id", "ASC"]],
     });
 
-    res.json({
+    return handleExportOrResponse(req, res, {
+      data: professorsWithProvadisLectures.rows,
       total: professorsWithProvadisLectures.count,
-      professors: professorsWithProvadisLectures.rows,
+      responseKey: "professors",
+      filename: "report-format-1(professoren-mit-provadis-vorlesungen)",
+      csvMapper: (prof) => ({
+        ID: prof.id,
+        Titel: prof.titel || "",
+        Vorname: prof.vorname,
+        Name: prof.name,
+        Email: prof.email,
+        Telefonnummer: prof.telefonnummer,
+        Status: prof.professorStatus ? prof.professorStatus.name : "",
+        Vorliebe: prof.preference ? prof.preference.name : "",
+        Lectures: prof.lectures ? prof.lectures.map((l) => l.name).join(", ") : "",
+      }),
     });
+
   } catch (error) {
-    Logger.error(
-      `Failed to fetch professors with Provadis lectures: ${error.message}`,
-    );
+    Logger.error(`Failed to fetch professors with Provadis lectures: ${error.message}`);
     next(new APIError(500, "Error fetching professors with Provadis lectures"));
   }
 };
