@@ -89,7 +89,23 @@ exports.getProfessorsWithoutProvadis = async (req, res, next) => {
       ],
     });
 
-    res.status(200).json(result);
+    return handleExportOrResponse(req, res, {
+      data: result,
+      total: result.length,
+      responseKey: "professors",
+      filename: "report-format-2(professoren-ohne-provadis)",
+      csvMapper: (prof) => ({
+        ID: prof.id,
+        Titel: prof.titel || "",
+        Vorname: prof.vorname,
+        Name: prof.name,
+        Email: prof.email || "",
+        Telefonnummer: prof.telefonnummer || "",
+        Status: prof.professorStatus ? prof.professorStatus.name : "",
+        Vorliebe: prof.preference ? prof.preference.name : "",
+        Lectures: prof.lectures ? prof.lectures.map((l) => l.name).join(", ") : "",
+      }),
+    });
   } catch (error) {
     console.error(error);
     next(
