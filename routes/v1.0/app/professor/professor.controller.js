@@ -39,7 +39,16 @@ exports.getAllProfessors = async (req, res, next) => {
       limit,
       offset,
       where: whereConditions,
-      attributes: ["id", "titel", "vorname", "name", "email", "telefonnummer"],
+      attributes: [
+        "id",
+        "titel",
+        "vorname",
+        "name",
+        "email",
+        "telefonnummer",
+        "prio_bachelor",
+        "prio_master",
+      ],
       distinct: true,
       include: [
         {

@@ -681,6 +681,12 @@ router.post(
  *               dozenten_statusId:
  *                 type: integer
  *                 example: 1
+ *               prio_bachelor:
+ *                 type: integer
+ *                 example: 1
+ *               prio_master:
+ *                 type: integer
+ *                 example: 1
  *           example:
  *             titel: "Prof. Dr."
  *             vorname: "Max"
@@ -689,6 +695,8 @@ router.post(
  *             telefonnummer: "0123456789"
  *             vorliebeId: 3
  *             dozenten_statusId: 1
+ *             prio_bachelor: 1
+ *             prio_master: 1
  *     responses:
  *       201:
  *         description: Created

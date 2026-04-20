@@ -24,9 +24,9 @@ const professorBodySchema = Joi.object({
   email: Joi.string().email().max(255).required(),
   telefonnummer: Joi.string().max(255).required(),
   vorliebeId: Joi.number().integer().positive().required(),
-  dozenten_statusId: Joi.number().integer().positive().optional(),
-  prio_bachelor: Joi.number().integer().positive().optional(),
-  prio_master: Joi.number().integer().positive().optional(),
+  dozenten_statusId: Joi.number().integer().positive().required(),
+  prio_bachelor: Joi.number().integer().positive().required(),
+  prio_master: Joi.number().integer().positive().required(),
 });
 
 exports.validateProfessorBody = (req, res, next) => {
