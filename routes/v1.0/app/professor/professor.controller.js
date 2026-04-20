@@ -303,8 +303,8 @@ exports.removeLectureFromProfessor = async (req, res, next) => {
     const { professorId, lectureId } = req.query;
 
     if (
-      (await Dozent.findByPk(professorId, { transaction: t })) ||
-      (await Vorlesung.findByPk(lectureId, { transaction: t }))
+      !(await Dozent.findByPk(professorId, { transaction: t })) ||
+      !(await Vorlesung.findByPk(lectureId, { transaction: t }))
     ) {
       return next(APIError.errorNotFound());
     }
