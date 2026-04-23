@@ -127,6 +127,8 @@ exports.getAllProfessorsForLecture = async (req, res, next) => {
         "name",
         "email",
         "telefonnummer",
+        "prio_bachelor",
+        "prio_master",
         [
           sequelize.literal(`
             (SELECT vorliebeId FROM Vorlesung_Dozent WHERE DozentId = Dozent.id AND VorlesungId = ${sequelize.escape(lectureId)})
