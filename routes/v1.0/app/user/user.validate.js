@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const APIError = require("../../../../utils/error");
+const germanMessages = require("../../../../utils/joi.messages");
 
 const validateUserBody = Joi.object({
   username: Joi.string().min(3).max(254).required(),
@@ -9,6 +10,7 @@ const validateUserBody = Joi.object({
 exports.validateUserBody = (req, res, next) => {
   const { error, value } = validateUserBody.validate(req.body, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -25,6 +27,7 @@ exports.validateUserParams = (req, res, next) => {
     .required()
     .validate(req.params.id, {
       stripUnknown: true,
+      messages: germanMessages,
     });
   if (error) {
     return next(APIError.errorValidation(error.message));
