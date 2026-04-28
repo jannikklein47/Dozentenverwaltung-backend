@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const APIError = require("../../../../utils/error");
+const germanMessages = require("../../../../utils/joi.messages");
 
 const loginschema = Joi.object({
   username: Joi.string().min(3).max(254).required(),
@@ -9,6 +10,7 @@ const loginschema = Joi.object({
 exports.validateLogin = (req, res, next) => {
   const { error, value } = loginschema.validate(req.body, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorWrongCredentials());
@@ -25,6 +27,7 @@ const refreshTokenSchema = Joi.object({
 exports.validateRefreshToken = (req, res, next) => {
   const { error, value } = refreshTokenSchema.validate(req.body, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -45,6 +48,7 @@ const logoutBodySchema = Joi.object({
 exports.validateLogout = (req, res, next) => {
   const { error, value } = logoutBodySchema.validate(req.body, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -53,6 +57,7 @@ exports.validateLogout = (req, res, next) => {
     req.query,
     {
       stripUnknown: true,
+      messages: germanMessages,
     },
   );
   if (queryError) {
@@ -64,13 +69,22 @@ exports.validateLogout = (req, res, next) => {
 };
 
 const changeInitialPasswordSchema = Joi.object({
-  newPassword: Joi.string().min(6).max(128).required(),
+  password: Joi.string()
+    .min(8)
+    .pattern(/[0-9]/, "muss mindestens eine Zahl enthalten")
+    .pattern(/[!@#$%^&*()-+]/, "muss mindestens ein Sonderzeichen enthalten")
+    .pattern(/[A-Z]/, "muss mindestens einen Großbuchstaben enthalten")
+    .required()
+    .messages({
+      "string.pattern.name": "Passwort {#name}",
+    }),
   refreshToken: Joi.string().hex().length(128).required(),
 }).concat(refreshTokenSchema);
 
 exports.validateChangeInitialPassword = (req, res, next) => {
   const { error, value } = changeInitialPasswordSchema.validate(req.body, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
