@@ -98,3 +98,23 @@ exports.validateProfessorLectureFilter = (req, res, next) => {
   req.query = { ...req.query, ...value };
   next();
 };
+
+const lectureUpdateSchema = Joi.object({
+  name: Joi.string().max(255),
+  kuerzel: Joi.string().max(255),
+  semester: Joi.number().integer().min(1).max(12),
+  abschluss_typId: Joi.number().integer().positive(),
+  vorlesung_statusId: Joi.number().integer().positive(),
+});
+
+exports.validateUpdateLectureBody = (req, res, next) => {
+  const { error, value } = lectureUpdateSchema.validate(req.body, {
+    stripUnknown: true,
+  });
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
+
+  req.body = value;
+  next();
+};
