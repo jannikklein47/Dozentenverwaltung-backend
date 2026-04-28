@@ -363,7 +363,7 @@ exports.patchLecture = async (req, res, next) => {
     const lecture = await Vorlesung.findByPk(id);
     if (!lecture) {
       await t.rollback();
-      return next(APIError.errorRessourceNotFound());
+      return next(APIError.errorNotFound());
     }
 
     const existingKuerzel = await Vorlesung.findOne({
@@ -396,8 +396,7 @@ exports.deleteLecture = async (req, res, next) => {
 
     const lecture = await Vorlesung.findByPk(id, { transaction: t });
     if (!lecture) {
-      await t.rollback();
-      return next(APIError.errorRessourceNotFound());
+      return next(APIError.errorNotFound());
     }
 
     await Vorlesung_Dozent.destroy({
