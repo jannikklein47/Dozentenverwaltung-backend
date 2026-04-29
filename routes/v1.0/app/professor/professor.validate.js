@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const APIError = require("../../../../utils/error");
 
-const prioSchema = Joi.number().integer().min(0).max(2);
+const prioSchema = Joi.number().integer().valid(0, 1);
 
 const schema = Joi.object({
   limit: Joi.number().integer().min(1).max(200).default(50),
