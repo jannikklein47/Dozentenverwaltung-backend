@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const APIError = require("../../../../utils/error");
+const germanMessages = require("../../../../utils/joi.messages");
 
 const prioSchema = Joi.number().integer().valid(0, 1);
 
@@ -9,7 +10,10 @@ const schema = Joi.object({
 }).unknown(true);
 
 exports.validateProfessorQuery = (req, res, next) => {
-  const { error, value } = schema.validate(req.query, { stripUnknown: false });
+  const { error, value } = schema.validate(req.query, {
+    stripUnknown: false,
+    messages: germanMessages,
+  });
   if (error) {
     return next(APIError.errorValidation(error.message));
   }
@@ -34,6 +38,7 @@ const professorBodySchema = Joi.object({
 exports.validateProfessorBody = (req, res, next) => {
   const { error, value } = professorBodySchema.validate(req.body, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -58,6 +63,7 @@ const professorBodySchemaOptional = Joi.object({
 exports.validateProfessorBodyOptional = (req, res, next) => {
   const { error, value } = professorBodySchemaOptional.validate(req.body, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -73,6 +79,7 @@ const lectureId = Joi.number().integer().positive().required();
 exports.validateProfessorId = (req, res, next) => {
   const { error, value } = professorId.validate(req.params.id, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -84,6 +91,7 @@ exports.validateProfessorId = (req, res, next) => {
 exports.validateLectureId = (req, res, next) => {
   const { error, value } = lectureId.validate(req.params.id, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -102,6 +110,7 @@ const filterValidations = Joi.object({
 exports.validateProfessorFilter = (req, res, next) => {
   const { error, value } = filterValidations.validate(req.query, {
     stripUnknown: false,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -124,7 +133,7 @@ const validateAddLectureToProfessorBody = Joi.object({
 exports.validateAddLectureToProfessorBody = (req, res, next) => {
   const { error, value } = validateAddLectureToProfessorBody.validate(
     req.body,
-    { stripUnknown: true },
+    { stripUnknown: true, messages: germanMessages },
   );
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -140,7 +149,10 @@ exports.validateRemoveLectureFromProfessorQuery = (req, res, next) => {
     lectureId: Joi.number().integer().positive().required(),
   });
 
-  const { error, value } = schema.validate(req.query, { stripUnknown: true });
+  const { error, value } = schema.validate(req.query, {
+    stripUnknown: true,
+    messages: germanMessages,
+  });
   if (error) {
     return next(APIError.errorValidation(error.message));
   }

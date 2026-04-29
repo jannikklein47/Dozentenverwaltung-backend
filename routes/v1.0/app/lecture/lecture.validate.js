@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const APIError = require("../../../../utils/error");
+const germanMessages = require("../../../../utils/joi.messages");
 
 const schema = Joi.object({
   limit: Joi.number().integer().min(1).max(200).default(50),
@@ -7,7 +8,10 @@ const schema = Joi.object({
 }).unknown(true);
 
 exports.validateLectureQuery = (req, res, next) => {
-  const { error, value } = schema.validate(req.query, { stripUnknown: false });
+  const { error, value } = schema.validate(req.query, {
+    stripUnknown: false,
+    messages: germanMessages,
+  });
   if (error) {
     return next(APIError.errorValidation(error.message));
   }
@@ -32,6 +36,7 @@ const lectureBodySchema = Joi.object({
 exports.validateLectureBody = (req, res, next) => {
   const { error, value } = lectureBodySchema.validate(req.body, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -46,6 +51,7 @@ const professorId = Joi.number().integer().positive().required();
 exports.validateProfessorId = (req, res, next) => {
   const { error, value } = professorId.validate(req.params.id, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -60,6 +66,7 @@ const lectureId = Joi.number().integer().positive().required();
 exports.validateLectureId = (req, res, next) => {
   const { error, value } = lectureId.validate(req.params.id, {
     stripUnknown: true,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
@@ -82,11 +89,32 @@ const dozenten_lectureFilter = Joi.object({
 exports.validateProfessorLectureFilter = (req, res, next) => {
   const { error, value } = dozenten_lectureFilter.validate(req.query, {
     stripUnknown: false,
+    messages: germanMessages,
   });
   if (error) {
     return next(APIError.errorValidation(error.message));
   }
 
   req.query = { ...req.query, ...value };
+  next();
+};
+
+const lectureUpdateSchema = Joi.object({
+  name: Joi.string().max(255),
+  kuerzel: Joi.string().max(255),
+  semester: Joi.number().integer().min(1).max(12),
+  abschluss_typId: Joi.number().integer().positive(),
+  vorlesung_statusId: Joi.number().integer().positive(),
+});
+
+exports.validateUpdateLectureBody = (req, res, next) => {
+  const { error, value } = lectureUpdateSchema.validate(req.body, {
+    stripUnknown: true,
+  });
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
+
+  req.body = value;
   next();
 };

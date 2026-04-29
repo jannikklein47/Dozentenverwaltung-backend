@@ -497,4 +497,111 @@ router.post(
   lectureController.postLecture,
 );
 
+/**
+ * @swagger
+ * /app/lectures/{id}:
+ *   patch:
+ *     summary: Update a lecture by id
+ *     tags: [Lectures]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The id of the lecture
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "Mathematik II"
+ *               kuerzel:
+ *                 type: string
+ *                 example: "Math2"
+ *               semester:
+ *                 type: integer
+ *                 example: 2
+ *               abschluss_typId:
+ *                 type: integer
+ *                 example: 1
+ *               vorlesung_statusId:
+ *                 type: integer
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Lecture updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Vorlesung wurde erfolgreich aktualisiert"
+ *                 lecture:
+ *                   type: object
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Lecture not found
+ *       500:
+ *         description: Internal Server Error
+ */
+router.patch(
+  "/:id",
+  validate.validateLectureId,
+  validate.validateUpdateLectureBody,
+  lectureController.patchLecture,
+);
+
+/**
+ * @swagger
+ * /app/lectures/{id}:
+ *   delete:
+ *     summary: Delete a lecture by id
+ *     tags: [Lectures]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The id of the lecture
+ *     responses:
+ *       200:
+ *         description: Lecture deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Vorlesung erfolgreich gelöscht"
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Lecture not found
+ *       500:
+ *         description: Internal Server Error
+ */
+router.delete(
+  "/:id",
+  validate.validateLectureId,
+  lectureController.deleteLecture,
+);
+
 module.exports = router;
