@@ -2,6 +2,8 @@ const Joi = require("joi");
 const APIError = require("../../../../utils/error");
 const germanMessages = require("../../../../utils/joi.messages");
 
+const prioSchema = Joi.number().integer().valid(0, 1);
+
 const schema = Joi.object({
   limit: Joi.number().integer().min(1).max(200).default(50),
   offset: Joi.number().integer().min(0).default(0),
@@ -29,8 +31,8 @@ const professorBodySchema = Joi.object({
   telefonnummer: Joi.string().max(255).required(),
   vorliebeId: Joi.number().integer().positive().required(),
   dozenten_statusId: Joi.number().integer().positive().required(),
-  prio_bachelor: Joi.number().integer().valid(0, 1).required(),
-  prio_master: Joi.number().integer().valid(0, 1).required(),
+  prio_bachelor: prioSchema.required(),
+  prio_master: prioSchema.required(),
 });
 
 exports.validateProfessorBody = (req, res, next) => {
@@ -54,8 +56,8 @@ const professorBodySchemaOptional = Joi.object({
   telefonnummer: Joi.string().max(255).optional(),
   vorliebeId: Joi.number().integer().positive().optional(),
   dozenten_statusId: Joi.number().integer().positive().optional(),
-  prio_bachelor: Joi.number().integer().positive().optional(),
-  prio_master: Joi.number().integer().positive().optional(),
+  prio_bachelor: prioSchema.optional(),
+  prio_master: prioSchema.optional(),
 });
 
 exports.validateProfessorBodyOptional = (req, res, next) => {

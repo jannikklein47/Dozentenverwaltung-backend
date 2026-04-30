@@ -435,7 +435,7 @@ router.get(
  *                 example: 1
  *               prio_master:
  *                 type: integer
- *                 example: 2
+ *                 example: 0
  *           example:
  *             titel: "Prof. Dr."
  *             vorname: "Max"
@@ -445,7 +445,7 @@ router.get(
  *             vorliebeId: 3
  *             dozenten_statusId: 1
  *             prio_bachelor: 1
- *             prio_master: 2
+ *             prio_master: 0
  *     responses:
  *       200:
  *         description: Updated
@@ -489,7 +489,7 @@ router.get(
  *                       example: 1
  *                     prio_master:
  *                       type: integer
- *                       example: 2
+ *                       example: 0
  *       400:
  *         description: Bad Request
  *       401:

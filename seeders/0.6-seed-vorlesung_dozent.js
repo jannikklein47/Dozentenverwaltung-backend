@@ -131,15 +131,6 @@ module.exports = {
         updatedAt: now,
       }, // Deep Learning
       {
-        vorlesungId: 56,
-        dozentId: 3,
-        gehalten_anId: 1,
-        vorliebeId: null,
-        vorlaufzeit: "4",
-        createdAt: now,
-        updatedAt: now,
-      }, // Einführung KI (Bachelor)
-      {
         vorlesungId: 123,
         dozentId: 3,
         gehalten_anId: 2,
@@ -271,6 +262,15 @@ module.exports = {
         createdAt: now,
         updatedAt: now,
       }, // Englisch I
+      {
+        vorlesungId: 118,
+        dozentId: 6,
+        gehalten_anId: 1,
+        vorliebeId: null,
+        vorlaufzeit: "4",
+        createdAt: now,
+        updatedAt: now,
+      }, // Leadership in Tech
 
       // --- DOZENT 7: Dr. Schulz (Master / Theory) ---
       {
@@ -550,6 +550,15 @@ module.exports = {
         createdAt: now,
         updatedAt: now,
       }, // IT-Recht Vertiefung
+      {
+        vorlesungId: 108,
+        dozentId: 14,
+        gehalten_anId: 2,
+        vorliebeId: null,
+        vorlaufzeit: "M",
+        createdAt: now,
+        updatedAt: now,
+      }, // IT-Governance & Compliance
 
       // Markus Schwarz (Bank/Finance)
       {
@@ -601,15 +610,6 @@ module.exports = {
       }, // Digital Transformation
 
       // Patrick Krüger (Security Spezi)
-      {
-        vorlesungId: 63,
-        dozentId: 17,
-        gehalten_anId: 2,
-        vorliebeId: null,
-        vorlaufzeit: "M",
-        createdAt: now,
-        updatedAt: now,
-      }, // IT Forensik
       {
         vorlesungId: 106,
         dozentId: 17,
@@ -1104,24 +1104,6 @@ module.exports = {
       }, // Meier macht React
 
       {
-        vorlesungId: 33,
-        dozentId: 17,
-        gehalten_anId: 2,
-        vorliebeId: null,
-        vorlaufzeit: "M",
-        createdAt: now,
-        updatedAt: now,
-      }, // Krüger macht IT-Sec Grund
-      {
-        vorlesungId: 43,
-        dozentId: 17,
-        gehalten_anId: 2,
-        vorliebeId: null,
-        vorlaufzeit: "M",
-        createdAt: now,
-        updatedAt: now,
-      }, // Krüger macht Crypto
-      {
         vorlesungId: 128,
         dozentId: 17,
         gehalten_anId: 2,
@@ -1214,15 +1196,6 @@ module.exports = {
         updatedAt: now,
       }, // Schröder macht Requirements
 
-      {
-        vorlesungId: 55,
-        dozentId: 3,
-        gehalten_anId: 1,
-        vorliebeId: null,
-        vorlaufzeit: "4",
-        createdAt: now,
-        updatedAt: now,
-      }, // Weber macht Big Data
       {
         vorlesungId: 56,
         dozentId: 12,
@@ -1361,15 +1334,6 @@ module.exports = {
         createdAt: now,
         updatedAt: now,
       }, // Praxisprojekt 1 Hoffmann
-      {
-        vorlesungId: 72,
-        dozentId: 3,
-        gehalten_anId: 1,
-        vorliebeId: null,
-        vorlaufzeit: "4",
-        createdAt: now,
-        updatedAt: now,
-      }, // Praxisprojekt 2 Weber
       {
         vorlesungId: 72,
         dozentId: 4,
@@ -1547,7 +1511,7 @@ module.exports = {
         vorlesungId: 37,
         dozentId: 1,
         gehalten_anId: 1,
-        vorliebeId: 1,
+        vorliebeId: 2,
         vorlaufzeit: "S",
         createdAt: now,
         updatedAt: now,
