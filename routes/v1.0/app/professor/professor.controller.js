@@ -340,6 +340,7 @@ exports.removeLectureFromProfessor = async (req, res, next) => {
 exports.updateProfessor = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const { email } = req.body;
     const professor = await Dozent.findByPk(req.params.id);
     if (!professor) {
       return next(APIError.errorNotFound());
