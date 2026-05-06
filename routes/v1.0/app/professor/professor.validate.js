@@ -125,13 +125,34 @@ exports.validateProfessorFilter = (req, res, next) => {
 const validateAddLectureToProfessorBody = Joi.object({
   lectureId: Joi.number().integer().positive().required(),
   professorId: Joi.number().integer().positive().required(),
-  gehalten_anId: Joi.number().integer().positive().optional(),
-  vorliebeId: Joi.number().integer().positive().optional(),
+  gehalten_anId: Joi.number().integer().positive().required(),
+  vorliebeId: Joi.number().integer().positive().allow(null).optional(),
   vorlaufzeit: Joi.string().valid("S", "4", "M").optional(),
 });
 
 exports.validateAddLectureToProfessorBody = (req, res, next) => {
   const { error, value } = validateAddLectureToProfessorBody.validate(
+    req.body,
+    { stripUnknown: true, messages: germanMessages },
+  );
+  if (error) {
+    return next(APIError.errorValidation(error.message));
+  }
+
+  req.body = value;
+  next();
+};
+
+const validateUpdateLectureToProfessorBody = Joi.object({
+  lectureId: Joi.number().integer().positive().required(),
+  professorId: Joi.number().integer().positive().required(),
+  gehalten_anId: Joi.number().integer().positive().optional(),
+  vorliebeId: Joi.number().integer().positive().allow(null).optional(),
+  vorlaufzeit: Joi.string().valid("S", "4", "M").optional(),
+}).or("gehalten_anId", "vorliebeId", "vorlaufzeit");
+
+exports.validateUpdateLectureToProfessorBody = (req, res, next) => {
+  const { error, value } = validateUpdateLectureToProfessorBody.validate(
     req.body,
     { stripUnknown: true, messages: germanMessages },
   );

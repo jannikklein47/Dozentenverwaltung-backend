@@ -281,26 +281,94 @@ exports.postProfessor = async (req, res, next) => {
 exports.addLectureToProfessor = async (req, res, next) => {
   const t = await Dozent.sequelize.transaction();
   try {
+    const { professorId, lectureId, gehalten_anId, vorliebeId, vorlaufzeit } =
+      req.body;
+
+    const [professor, lecture, existingAssignment] = await Promise.all([
+      Dozent.findByPk(professorId, { transaction: t }),
+      Vorlesung.findByPk(lectureId, { transaction: t }),
+      Vorlesung_Dozent.findOne({
+        where: {
+          dozentId: professorId,
+          vorlesungId: lectureId,
+        },
+        transaction: t,
+      }),
+    ]);
+
     if (
-      (await Dozent.findByPk(req.body.dozentId, { transaction: t })) ||
-      (await Vorlesung.findByPk(req.body.vorlesungId, { transaction: t }))
+      !professor ||
+      !lecture
     ) {
+      await t.rollback();
       return next(APIError.errorNotFound());
     }
 
-    await Vorlesung_Dozent.create(
+    if (existingAssignment) {
+      await t.rollback();
+      return next(APIError.errorRessourceAlreadyExists());
+    }
+
+    const assignment = await Vorlesung_Dozent.create(
       {
-        vorlesungId: req.body.lectureId,
-        dozentId: req.body.professorId,
-        gehalten_anId: req.body.gehalten_anId,
-        vorliebeId: req.body.vorliebeId || null,
-        vorlaufzeit: req.body.vorlaufzeit,
+        vorlesungId: lectureId,
+        dozentId: professorId,
+        gehalten_anId,
+        vorliebeId: vorliebeId ?? null,
+        vorlaufzeit,
       },
       { transaction: t },
     );
 
     await t.commit();
-    res.status(201).json({ success: true });
+    res.status(201).json({ success: true, assignment });
+  } catch (error) {
+    await t.rollback();
+    console.error(error);
+    next(APIError.errorUnknown());
+  }
+};
+
+exports.updateLectureToProfessor = async (req, res, next) => {
+  const t = await Dozent.sequelize.transaction();
+  try {
+    const { professorId, lectureId } = req.body;
+
+    const [professor, lecture, assignment] = await Promise.all([
+      Dozent.findByPk(professorId, { transaction: t }),
+      Vorlesung.findByPk(lectureId, { transaction: t }),
+      Vorlesung_Dozent.findOne({
+        where: {
+          dozentId: professorId,
+          vorlesungId: lectureId,
+        },
+        transaction: t,
+      }),
+    ]);
+
+    if (!professor || !lecture || !assignment) {
+      await t.rollback();
+      return next(APIError.errorNotFound());
+    }
+
+    const updatePayload = {};
+
+    if (Object.prototype.hasOwnProperty.call(req.body, "gehalten_anId")) {
+      updatePayload.gehalten_anId = req.body.gehalten_anId;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(req.body, "vorliebeId")) {
+      updatePayload.vorliebeId = req.body.vorliebeId;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(req.body, "vorlaufzeit")) {
+      updatePayload.vorlaufzeit = req.body.vorlaufzeit;
+    }
+
+    await assignment.update(updatePayload, { transaction: t });
+
+    await t.commit();
+    res.status(200).json({ success: true, assignment });
   } catch (error) {
     await t.rollback();
     console.error(error);
@@ -313,20 +381,24 @@ exports.removeLectureFromProfessor = async (req, res, next) => {
   try {
     const { professorId, lectureId } = req.query;
 
-    if (
-      !(await Dozent.findByPk(professorId, { transaction: t })) ||
-      !(await Vorlesung.findByPk(lectureId, { transaction: t }))
-    ) {
+    const [professor, lecture, assignment] = await Promise.all([
+      Dozent.findByPk(professorId, { transaction: t }),
+      Vorlesung.findByPk(lectureId, { transaction: t }),
+      Vorlesung_Dozent.findOne({
+        where: {
+          dozentId: professorId,
+          vorlesungId: lectureId,
+        },
+        transaction: t,
+      }),
+    ]);
+
+    if (!professor || !lecture || !assignment) {
+      await t.rollback();
       return next(APIError.errorNotFound());
     }
 
-    await Vorlesung_Dozent.destroy({
-      where: {
-        dozentId: professorId,
-        vorlesungId: lectureId,
-      },
-      transaction: t,
-    });
+    await assignment.destroy({ transaction: t });
 
     await t.commit();
     res.status(200).json({ success: true });

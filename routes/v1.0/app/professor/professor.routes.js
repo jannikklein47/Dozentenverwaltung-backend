@@ -391,6 +391,64 @@ router.get(
 
 /**
  * @swagger
+ * /app/professors/assign:
+ *   patch:
+ *     summary: Update an existing assignment of professor and lecture
+ *     tags: [Professors,Lectures]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               professorId:
+ *                 type: integer
+ *                 example: 1
+ *               lectureId:
+ *                 type: integer
+ *                 example: 1
+ *               gehalten_anId:
+ *                 type: integer
+ *                 example: 2
+ *               vorliebeId:
+ *                 type: integer
+ *                 nullable: true
+ *                 example: 3
+ *               vorlaufzeit:
+ *                 type: string
+ *                 example: "4"
+ *     responses:
+ *       200:
+ *         description: Updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Assignment not found
+ *       500:
+ *         description: Internal Server Error
+ */
+router.patch(
+  "/assign",
+  // checkauth,
+  validate.validateUpdateLectureToProfessorBody,
+  professorController.updateLectureToProfessor,
+);
+
+/**
+ * @swagger
  * /app/professors/{id}:
  *   patch:
  *     summary: Update an existing professor
@@ -543,6 +601,8 @@ router.patch(
  *         description: Unauthorized
  *       403:
  *         description: Forbidden
+ *       404:
+ *         description: Assignment not found
  *       500:
  *         description: Internal Server Error
  */
@@ -637,6 +697,10 @@ router.delete(
  *         description: Unauthorized
  *       403:
  *         description: Forbidden
+ *       404:
+ *         description: Professor or lecture not found
+ *       409:
+ *         description: Assignment already exists
  *       500:
  *         description: Internal Server Error
  */
