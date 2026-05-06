@@ -358,11 +358,9 @@ exports.postLecture = async (req, res, next) => {
 
 exports.patchLecture = async (req, res, next) => {
   try {
-    t = await Vorlesung.sequelize.transaction();
     const { id } = req.params;
     const lecture = await Vorlesung.findByPk(id);
     if (!lecture) {
-      await t.rollback();
       return next(APIError.errorNotFound());
     }
 
@@ -374,7 +372,6 @@ exports.patchLecture = async (req, res, next) => {
     });
 
     if (existingKuerzel) {
-      await t.rollback();
       return next(APIError.errorRessourceAlreadyExists());
     }
 
