@@ -48,12 +48,12 @@ module.exports = {
       {
         vorlesungId: 139,
         dozentId: 1,
-        gehalten_anId: 2,
+        gehalten_anId: 3,
         vorliebeId: null,
         vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // Innovation Mgmt
+      }, // Innovation Mgmt (noch nie gehalten)
 
       // --- DOZENT 2: Prof. Schmidt (Bachelor Fokus) ---
       {
@@ -133,12 +133,12 @@ module.exports = {
       {
         vorlesungId: 123,
         dozentId: 3,
-        gehalten_anId: 2,
+        gehalten_anId: 3,
         vorliebeId: null,
         vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // Computer Vision (Extern)
+      }, // Computer Vision (noch nie gehalten)
 
       // --- DOZENT 4: Prof. Klein (Allrounder / Security) ---
       {
@@ -256,12 +256,12 @@ module.exports = {
       {
         vorlesungId: 6,
         dozentId: 6,
-        gehalten_anId: 2,
+        gehalten_anId: 3,
         vorliebeId: null,
         vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // Englisch I
+      }, // Englisch I (noch nie gehalten)
       {
         vorlesungId: 118,
         dozentId: 6,
@@ -439,12 +439,12 @@ module.exports = {
       {
         vorlesungId: 74,
         dozentId: 11,
-        gehalten_anId: 2,
+        gehalten_anId: 3,
         vorliebeId: null,
         vorlaufzeit: "M",
         createdAt: now,
         updatedAt: now,
-      }, // Android
+      }, // Android (noch nie gehalten)
       {
         vorlesungId: 75,
         dozentId: 11,
