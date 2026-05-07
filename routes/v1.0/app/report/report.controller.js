@@ -16,9 +16,6 @@ const { Op } = require("sequelize");
 const { sendAsCSV } = require("../../../../utils/export/csv-exporter");
 const { sendAsJSON } = require("../../../../utils/export/json-exporter");
 
-const buildGivenName = (professor) =>
-  [professor.vorname, professor.zweiter_vorname].filter(Boolean).join(" ");
-
 const handleExportOrResponse = (req, res, options) => {
   const { data, total, responseKey, filename, csvMapper } = options;
   const format = req.query.format;
@@ -111,7 +108,7 @@ exports.getProfessorsWithoutProvadis = async (req, res, next) => {
         return {
           ID: prof.id,
           Titel: prof.titel || "",
-          Vorname: buildGivenName(prof),
+          Vorname: prof.vorname,
           Name: prof.name,
           Email: prof.email || "",
           Telefonnummer: prof.telefonnummer || "",
@@ -305,7 +302,6 @@ exports.getProfessorWithProvadisLectures = async (req, res, next) => {
         "id",
         "titel",
         "vorname",
-        "zweiter_vorname",
         "name",
         "email",
         "telefonnummer",
@@ -358,7 +354,7 @@ exports.getProfessorWithProvadisLectures = async (req, res, next) => {
       csvMapper: (prof) => ({
         ID: prof.id,
         Titel: prof.titel || "",
-        Vorname: buildGivenName(prof),
+        Vorname: prof.vorname,
         Name: prof.name,
         Email: prof.email,
         Telefonnummer: prof.telefonnummer,

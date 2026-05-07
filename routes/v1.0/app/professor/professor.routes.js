@@ -124,10 +124,6 @@ router.get(
  *                     vorname:
  *                       type: string
  *                       example: "Thomas"
- *                     zweiter_vorname:
- *                       type: string
- *                       nullable: true
- *                       example: "Karl"
  *                     name:
  *                       type: string
  *                       example: "Mueller"
@@ -249,10 +245,6 @@ router.get(
  *                     vorname:
  *                       type: string
  *                       example: "Thomas"
- *                     zweiter_vorname:
- *                       type: string
- *                       nullable: true
- *                       example: "Karl"
  *                     name:
  *                       type: string
  *                       example: "Mueller"
@@ -360,10 +352,6 @@ router.get(
  *                     vorname:
  *                       type: string
  *                       example: "Thomas"
- *                     zweiter_vorname:
- *                       type: string
- *                       nullable: true
- *                       example: "Karl"
  *                     name:
  *                       type: string
  *                       example: "Mueller"
@@ -485,10 +473,6 @@ router.patch(
  *               vorname:
  *                 type: string
  *                 example: "Max"
- *               zweiter_vorname:
- *                 type: string
- *                 nullable: true
- *                 example: "Karl"
  *               name:
  *                 type: string
  *                 example: "Mustermann"
@@ -513,7 +497,6 @@ router.patch(
  *           example:
  *             titel: "Prof. Dr."
  *             vorname: "Max"
- *             zweiter_vorname: "Karl"
  *             name: "Mustermann"
  *             email: "Max.Mustermann@test.de"
  *             telefonnummer: "0123456789"
@@ -547,10 +530,6 @@ router.patch(
  *                     vorname:
  *                       type: string
  *                       example: "Max"
- *                     zweiter_vorname:
- *                       type: string
- *                       nullable: true
- *                       example: "Karl"
  *                     email:
  *                       type: string
  *                       example: "Max.Mustermann@test.de"
@@ -751,10 +730,6 @@ router.post(
  *               vorname:
  *                 type: string
  *                 example: "Max"
- *               zweiter_vorname:
- *                 type: string
- *                 nullable: true
- *                 example: "Karl"
  *               name:
  *                 type: string
  *                 example: "Mustermann"
@@ -779,7 +754,6 @@ router.post(
  *           example:
  *             titel: "Prof. Dr."
  *             vorname: "Max"
- *             zweiter_vorname: "Karl"
  *             name: "Mustermann"
  *             email: "Max.Mustermann@test.de"
  *             telefonnummer: "0123456789"
@@ -807,10 +781,6 @@ router.post(
  *                 vorname:
  *                   type: string
  *                   example: "Max"
- *                 zweiter_vorname:
- *                   type: string
- *                   nullable: true
- *                   example: "Karl"
  *                 email:
  *                   type: string
  *                   example: "Max.Mustermann@test.de"
@@ -836,7 +806,6 @@ router.post(
  *               titel: "Prof. Dr."
  *               name: "Mustermann"
  *               vorname: "Max"
- *               zweiter_vorname: "Karl"
  *               email: "Max.Mustermann@test.de"
  *               telefonnummer: "0123456789"
  *               vorliebeId: 3
