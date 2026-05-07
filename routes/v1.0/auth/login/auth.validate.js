@@ -61,7 +61,7 @@ exports.validateLogout = (req, res, next) => {
     },
   );
   if (queryError) {
-    return next(APIError.errorValidation(error.message.replaceAll('"', "")));
+    return next(APIError.errorValidation(queryError.message.replaceAll('"', "")));
   }
   req.body = value;
   req.query = queryValue;
