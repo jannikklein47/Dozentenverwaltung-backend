@@ -12,7 +12,7 @@ exports.validateUsernameBody = (req, res, next) => {
     messages: germanMessages,
   });
   if (error) {
-    return next(APIError.errorValidation(error.message));
+    return next(APIError.errorValidation(error.message.replaceAll('"', "")));
   }
   req.body = value;
   next();
@@ -38,7 +38,7 @@ exports.validatePasswordBody = (req, res, next) => {
     messages: germanMessages,
   });
   if (error) {
-    return next(APIError.errorValidation(error.message));
+    return next(APIError.errorValidation(error.message.replaceAll('"', "")));
   }
   req.body = value;
   next();

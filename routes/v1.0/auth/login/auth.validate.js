@@ -30,7 +30,7 @@ exports.validateRefreshToken = (req, res, next) => {
     messages: germanMessages,
   });
   if (error) {
-    return next(APIError.errorValidation(error.message));
+    return next(APIError.errorValidation(error.message.replaceAll('"', "")));
   }
 
   req.body = value;
@@ -51,7 +51,7 @@ exports.validateLogout = (req, res, next) => {
     messages: germanMessages,
   });
   if (error) {
-    return next(APIError.errorValidation(error.message));
+    return next(APIError.errorValidation(error.message.replaceAll('"', "")));
   }
   const { error: queryError, value: queryValue } = logoutSchema.validate(
     req.query,
@@ -61,7 +61,7 @@ exports.validateLogout = (req, res, next) => {
     },
   );
   if (queryError) {
-    return next(APIError.errorValidation(queryError.message));
+    return next(APIError.errorValidation(queryError.message.replaceAll('"', "")));
   }
   req.body = value;
   req.query = queryValue;
@@ -87,7 +87,7 @@ exports.validateChangeInitialPassword = (req, res, next) => {
     messages: germanMessages,
   });
   if (error) {
-    return next(APIError.errorValidation(error.message));
+    return next(APIError.errorValidation(error.message.replaceAll('"', "")));
   }
   req.body = value;
   next();

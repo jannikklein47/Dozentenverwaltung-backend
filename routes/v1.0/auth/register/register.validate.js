@@ -5,7 +5,7 @@ const germanMessages = require("../../../../utils/joi.messages");
 const registerSchema = Joi.object({
   username: Joi.string().email().max(255).required().label("Email"),
 
-  password: Joi.string()
+  password: Joi.string().label("Passwort")
     .min(8)
     .pattern(/[0-9]/, "muss mindestens eine Zahl enthalten")
     .pattern(/[!@#$%^&*()-+]/, "muss mindestens ein Sonderzeichen enthalten")
@@ -22,7 +22,7 @@ exports.validateRegisterBody = (req, res, next) => {
     messages: germanMessages,
   });
   if (error) {
-    return next(APIError.errorValidation(error.message));
+    return next(APIError.errorValidation(error.message.replaceAll('"', "")));
   }
   req.body = value;
   next();
