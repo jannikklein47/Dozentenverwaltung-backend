@@ -9,6 +9,7 @@ module.exports = {
       [
         { name: "Provadis", createdAt: now, updatedAt: now },
         { name: "Extern", createdAt: now, updatedAt: now },
+        { name: "Noch nie gehalten", createdAt: now, updatedAt: now },
       ],
       {},
     );
