@@ -78,7 +78,7 @@ exports.getAllLectures = async (req, res, next) => {
         {
           model: Dozent,
           as: "professors",
-          attributes: ["id", "vorname", "name"],
+          attributes: ["id", "vorname", "zweiter_vorname", "name"],
           through: { attributes: ["vorlaufzeit", "gehalten_anId"] },
           required: false,
         },
@@ -122,7 +122,7 @@ exports.getLectureById = async (req, res, next) => {
         {
           model: Dozent,
           as: "professors",
-          attributes: ["id", "vorname", "name"],
+          attributes: ["id", "vorname", "zweiter_vorname", "name"],
           through: { attributes: ["vorlaufzeit"] },
         },
         {
@@ -259,7 +259,7 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
         {
           model: Dozent,
           as: "professors",
-          attributes: ["id", "vorname", "name"],
+          attributes: ["id", "vorname", "zweiter_vorname", "name"],
           through: {
             attributes: ["vorliebeId", "gehalten_anId", "vorlaufzeit"],
           },

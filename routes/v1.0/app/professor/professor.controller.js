@@ -22,6 +22,7 @@ exports.getAllProfessors = async (req, res, next) => {
       whereConditions[Op.and] = terms.map((term) => ({
         [Op.or]: [
           { vorname: { [Op.like]: `%${term}%` } },
+          { zweiter_vorname: { [Op.like]: `%${term}%` } },
           { name: { [Op.like]: `%${term}%` } },
         ],
       }));
@@ -43,6 +44,7 @@ exports.getAllProfessors = async (req, res, next) => {
         "id",
         "titel",
         "vorname",
+        "zweiter_vorname",
         "name",
         "email",
         "telefonnummer",
@@ -103,6 +105,7 @@ exports.getAllProfessorsForLecture = async (req, res, next) => {
       whereConditions[Op.and] = terms.map((term) => ({
         [Op.or]: [
           { vorname: { [Op.like]: `%${term}%` } },
+          { zweiter_vorname: { [Op.like]: `%${term}%` } },
           { name: { [Op.like]: `%${term}%` } },
         ],
       }));
@@ -124,6 +127,7 @@ exports.getAllProfessorsForLecture = async (req, res, next) => {
         "id",
         "titel",
         "vorname",
+        "zweiter_vorname",
         "name",
         "email",
         "telefonnummer",
@@ -244,6 +248,7 @@ exports.postProfessor = async (req, res, next) => {
       titel,
       name,
       vorname,
+      zweiter_vorname,
       email,
       telefonnummer,
       vorliebeId,
@@ -263,6 +268,7 @@ exports.postProfessor = async (req, res, next) => {
       titel,
       name,
       vorname,
+      zweiter_vorname: zweiter_vorname || null,
       email,
       telefonnummer,
       vorliebeId,
@@ -413,6 +419,7 @@ exports.updateProfessor = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { email } = req.body;
+    const updatePayload = { ...req.body };
     const professor = await Dozent.findByPk(req.params.id);
     if (!professor) {
       return next(APIError.errorNotFound());
@@ -438,7 +445,15 @@ exports.updateProfessor = async (req, res, next) => {
     if (existingProfessorWithPhone) {
       return next(APIError.errorRessourceAlreadyExists());
     }
-    await professor.update(req.body);
+
+    if (
+      Object.prototype.hasOwnProperty.call(updatePayload, "zweiter_vorname") &&
+      !updatePayload.zweiter_vorname
+    ) {
+      updatePayload.zweiter_vorname = null;
+    }
+
+    await professor.update(updatePayload);
     res.status(200).json({
       message: "Professor updated successfully",
       professor,

@@ -148,6 +148,10 @@ router.get(
  *                             vorname:
  *                               type: string
  *                               example: "Daniel"
+ *                             zweiter_vorname:
+ *                               type: string
+ *                               nullable: true
+ *                               example: "Paul"
  *                             name:
  *                               type: string
  *                               example: "Wolf"
@@ -226,6 +230,10 @@ router.get(
  *                             vorname:
  *                               type: string
  *                               example: "Daniel"
+ *                             zweiter_vorname:
+ *                               type: string
+ *                               nullable: true
+ *                               example: "Paul"
  *                             name:
  *                               type: string
  *                               example: "Wolf"
@@ -375,6 +383,10 @@ router.get(
  *                             vorname:
  *                               type: string
  *                               example: "Daniel"
+ *                             zweiter_vorname:
+ *                               type: string
+ *                               nullable: true
+ *                               example: "Paul"
  *                             name:
  *                               type: string
  *                               example: "Wolf"

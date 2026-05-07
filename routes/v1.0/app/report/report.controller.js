@@ -3,6 +3,7 @@ const {
   Dozent,
   Vorlesung,
   Vorlesung_Dozent,
+  Gehalten_An,
   Abschluss_Typ,
   Vorlesung_Status,
   Vorliebe,
@@ -14,6 +15,9 @@ const { Op } = require("sequelize");
 
 const { sendAsCSV } = require("../../../../utils/export/csv-exporter");
 const { sendAsJSON } = require("../../../../utils/export/json-exporter");
+
+const buildGivenName = (professor) =>
+  [professor.vorname, professor.zweiter_vorname].filter(Boolean).join(" ");
 
 const handleExportOrResponse = (req, res, options) => {
   const { data, total, responseKey, filename, csvMapper } = options;
@@ -107,7 +111,7 @@ exports.getProfessorsWithoutProvadis = async (req, res, next) => {
         return {
           ID: prof.id,
           Titel: prof.titel || "",
-          Vorname: prof.vorname,
+          Vorname: buildGivenName(prof),
           Name: prof.name,
           Email: prof.email || "",
           Telefonnummer: prof.telefonnummer || "",
@@ -191,18 +195,34 @@ exports.getLecturewithoutProvadisExperience = async (req, res, next) => {
     const offset = parseInt(req.query.offset) || 0;
 
     const lecturesProvadis = await Vorlesung_Dozent.findAll({
-      where: {
-        gehalten_anid: 1,
-      },
+      include: [
+        {
+          model: Gehalten_An,
+          attributes: [],
+          required: true,
+          where: {
+            name: "Provadis",
+          },
+        },
+      ],
       attributes: ["vorlesungId"],
       group: ["vorlesungId"],
       raw: true,
     });
 
     const lecturesWithoutProvadisProfessor = await Vorlesung_Dozent.findAll({
-      where: {
-        gehalten_anid: 2,
-      },
+      include: [
+        {
+          model: Gehalten_An,
+          attributes: [],
+          required: true,
+          where: {
+            name: {
+              [Op.ne]: "Provadis",
+            },
+          },
+        },
+      ],
       attributes: ["vorlesungId"],
       group: ["vorlesungId"],
       raw: true,
@@ -261,11 +281,35 @@ exports.getProfessorWithProvadisLectures = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 50;
     const offset = parseInt(req.query.offset) || 0;
+    const provadisType = await Gehalten_An.findOne({
+      where: {
+        name: "Provadis",
+      },
+      attributes: ["id"],
+    });
+
+    if (!provadisType) {
+      return handleExportOrResponse(req, res, {
+        data: [],
+        total: 0,
+        responseKey: "professors",
+        filename: "report-format-1(professoren-mit-provadis-vorlesungen)",
+        csvMapper: () => ({}),
+      });
+    }
 
     const professorsWithProvadisLectures = await Dozent.findAndCountAll({
       limit,
       offset,
-      attributes: ["id", "titel", "vorname", "name", "email", "telefonnummer"],
+      attributes: [
+        "id",
+        "titel",
+        "vorname",
+        "zweiter_vorname",
+        "name",
+        "email",
+        "telefonnummer",
+      ],
       distinct: true,
       include: [
         {
@@ -276,7 +320,7 @@ exports.getProfessorWithProvadisLectures = async (req, res, next) => {
           through: {
             attributes: ["vorlaufzeit"],
             where: {
-              gehalten_anId: 1,
+              gehalten_anId: provadisType.id,
             },
           },
           include: [
@@ -314,7 +358,7 @@ exports.getProfessorWithProvadisLectures = async (req, res, next) => {
       csvMapper: (prof) => ({
         ID: prof.id,
         Titel: prof.titel || "",
-        Vorname: prof.vorname,
+        Vorname: buildGivenName(prof),
         Name: prof.name,
         Email: prof.email,
         Telefonnummer: prof.telefonnummer,

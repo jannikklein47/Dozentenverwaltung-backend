@@ -187,6 +187,10 @@ router.get(
  *                       vorname:
  *                         type: string
  *                         example: "Thomas"
+ *                       zweiter_vorname:
+ *                         type: string
+ *                         nullable: true
+ *                         example: "Karl"
  *                       name:
  *                         type: string
  *                         example: "Müller"
