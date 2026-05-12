@@ -49,7 +49,7 @@ exports.validateProfessorBody = (req, res, next) => {
 };
 
 const professorBodySchemaOptional = Joi.object({
-  titel: Joi.string().max(255).optional(),
+  titel: Joi.string().max(255).allow("").optional(),
   name: Joi.string().max(255).optional(),
   vorname: Joi.string().max(255).optional(),
   email: Joi.string().email().max(255).optional(),
