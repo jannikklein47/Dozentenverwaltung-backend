@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "start": "npx sequelize-cli db:migrate && node index.js",
-    "start-load-data": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && node index.js",
+    "start-load-data": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "start-prod": "node index.js"
   },
   "author": "",
