@@ -422,6 +422,184 @@ router.get(
 
 /**
  * @swagger
+ * /app/lectures/including/{id}:
+ *   get:
+ *     summary: Get all lectures including those held by a specific professor
+ *     tags: [Lectures]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The id of the professor whose lectures are always included
+ *       - in: query
+ *         name: term
+ *         schema:
+ *           type: string
+ *         description: A search term to filter lectures by name
+ *       - in: query
+ *         name: vorlesung_statusId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Vorlesung_Status
+ *       - in: query
+ *         name: abschluss_typId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Abschluss_Typ
+ *       - in: query
+ *         name: vorliebeId
+ *         schema:
+ *           type: integer
+ *         description: The id of the Vorliebe (only applied to the professor's lectures)
+ *       - in: query
+ *         name: semester
+ *         schema:
+ *           type: integer
+ *         description: The semester number
+ *       - in: query
+ *         name: gehalten_anId
+ *         schema:
+ *           type: integer
+ *         description: The id of Gehalten_An (applied to both professor's and general lectures)
+ *       - in: query
+ *         name: vorlaufzeit
+ *         schema:
+ *           type: string
+ *         description: "The lead time a professor needs before lecturing; S, 4, or M (applied to both professor's and general lectures)"
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: The number of lectures to return (applied after merge)
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *         description: The number of lectures to skip before collecting the result set (applied after merge)
+ *     responses:
+ *       200:
+ *         description: >
+ *           Merged list of lectures. Professor lectures appear first with
+ *           professor-specific attributes (vorliebeId, gehalten_anId,
+ *           vorliebeName, gehalten_anName, vorlaufzeit), followed by
+ *           non-duplicate general lectures.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 total:
+ *                   type: integer
+ *                   example: 10
+ *                   description: Total number of lectures after merge (before pagination)
+ *                 lectures:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       name:
+ *                         type: string
+ *                         example: "Einführung in die Informatik"
+ *                       kuerzel:
+ *                         type: string
+ *                         example: "EIDI"
+ *                       semester:
+ *                         type: integer
+ *                         example: 1
+ *                       vorliebeId:
+ *                         type: integer
+ *                         nullable: true
+ *                         example: 1
+ *                         description: Only present for professor's own lectures
+ *                       gehalten_anId:
+ *                         type: integer
+ *                         nullable: true
+ *                         example: 1
+ *                         description: Only present for professor's own lectures
+ *                       vorliebeName:
+ *                         type: string
+ *                         nullable: true
+ *                         example: "A"
+ *                         description: Only present for professor's own lectures
+ *                       gehalten_anName:
+ *                         type: string
+ *                         nullable: true
+ *                         example: "Intern"
+ *                         description: Only present for professor's own lectures
+ *                       vorlaufzeit:
+ *                         type: string
+ *                         nullable: true
+ *                         example: "M"
+ *                         description: Only present for professor's own lectures
+ *                       professors:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             id:
+ *                               type: integer
+ *                               example: 1
+ *                             vorname:
+ *                               type: string
+ *                               example: "Daniel"
+ *                             name:
+ *                               type: string
+ *                               example: "Wolf"
+ *                             Vorlesung_Dozent:
+ *                               type: object
+ *                               properties:
+ *                                 vorliebeId:
+ *                                   type: integer
+ *                                   example: 1
+ *                                 gehalten_anId:
+ *                                   type: integer
+ *                                   example: 1
+ *                                 vorlaufzeit:
+ *                                   type: string
+ *                                   example: "M"
+ *                       completionType:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                             example: 1
+ *                           name:
+ *                             type: string
+ *                             example: "Bachelor"
+ *                       lectureStatus:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                             example: 1
+ *                           name:
+ *                             type: string
+ *                             example: "Offen"
+ *       400:
+ *         description: Bad Request
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       500:
+ *         description: Internal Server Error
+ */
+router.get(
+  "/including/:id/",
+  // checkauth,
+  validate.validateLectureQuery,
+  validate.validateProfessorId,
+  validate.validateProfessorLectureFilter,
+  lectureController.getLecturesIncludingProfessor,
+);
+
+/**
+ * @swagger
  * /app/lectures:
  *   post:
  *     summary: Create a new lecture
