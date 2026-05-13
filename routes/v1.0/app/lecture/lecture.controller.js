@@ -51,9 +51,14 @@ exports.getAllLectures = async (req, res, next) => {
 
     if (term) {
       const terms = term.trim().split(/\s+/);
-      whereConditions[Op.or] = terms.map((t) => ({
-        name: { [Op.like]: `%${t}%` },
-      }));
+      whereConditions[Op.or] = [
+        {
+          [Op.and]: terms.map((t) => ({
+            name: { [Op.like]: `%${t}%` },
+          })),
+        },
+        { kuerzel: { [Op.like]: `%${term}%` } },
+      ];
     }
 
     if (vorlesung_statusId) {
@@ -187,9 +192,14 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
 
     if (term) {
       const terms = term.trim().split(/\s+/);
-      whereConditions[Op.or] = terms.map((t) => ({
-        name: { [Op.like]: `%${t}%` },
-      }));
+      whereConditions[Op.or] = [
+        {
+          [Op.and]: terms.map((t) => ({
+            name: { [Op.like]: `%${t}%` },
+          })),
+        },
+        { kuerzel: { [Op.like]: `%${term}%` } },
+      ];
     }
 
     if (vorlesung_statusId) {
@@ -291,7 +301,7 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
 
 exports.getLecturesIncludingProfessor = async (req, res, next) => {
   try {
-    const limit  = parseInt(req.query.limit)  || 50;
+    const limit = parseInt(req.query.limit) || 50;
     const offset = parseInt(req.query.offset) || 0;
     const professorId = parseInt(req.params.id);
 
@@ -307,29 +317,80 @@ exports.getLecturesIncludingProfessor = async (req, res, next) => {
 
     //Professor lectures (always included, filtered by professor-specific fields)
     let profSubQuery = `WHERE DozentId = ${sequelize.escape(professorId)}`;
-    if (gehalten_anId) profSubQuery += ` AND gehalten_anId = ${sequelize.escape(gehalten_anId)}`;
-    if (vorliebeId)    profSubQuery += ` AND vorliebeId = ${sequelize.escape(vorliebeId)}`;
-    if (vorlaufzeit)   profSubQuery += ` AND vorlaufzeit = ${sequelize.escape(vorlaufzeit)}`;
+    if (gehalten_anId)
+      profSubQuery += ` AND gehalten_anId = ${sequelize.escape(gehalten_anId)}`;
+    if (vorliebeId)
+      profSubQuery += ` AND vorliebeId = ${sequelize.escape(vorliebeId)}`;
+    if (vorlaufzeit)
+      profSubQuery += ` AND vorlaufzeit = ${sequelize.escape(vorlaufzeit)}`;
 
     const profWhere = {
-      id: { [Op.in]: sequelize.literal(`(SELECT VorlesungId FROM Vorlesung_Dozent ${profSubQuery})`) },
+      id: {
+        [Op.in]: sequelize.literal(
+          `(SELECT VorlesungId FROM Vorlesung_Dozent ${profSubQuery})`,
+        ),
+      },
     };
 
     const { rows: profRows } = await Vorlesung.findAndCountAll({
       attributes: [
-        "id", "name", "kuerzel", "semester",
-        [sequelize.literal(`(SELECT vorliebeId   FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`), "vorliebeId"],
-        [sequelize.literal(`(SELECT gehalten_anId FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`), "gehalten_anId"],
-        [sequelize.literal(`(SELECT v.name FROM Vorliebe v JOIN Vorlesung_Dozent vd ON v.id = vd.vorliebeId WHERE vd.VorlesungId = Vorlesung.id AND vd.DozentId = ${sequelize.escape(professorId)} LIMIT 1)`), "vorliebeName"],
-        [sequelize.literal(`(SELECT g.name FROM Gehalten_An g JOIN Vorlesung_Dozent vd ON g.id = vd.gehalten_anId WHERE vd.VorlesungId = Vorlesung.id AND vd.DozentId = ${sequelize.escape(professorId)} LIMIT 1)`), "gehalten_anName"],
-        [sequelize.literal(`(SELECT vorlaufzeit  FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`), "vorlaufzeit"],
+        "id",
+        "name",
+        "kuerzel",
+        "semester",
+        [
+          sequelize.literal(
+            `(SELECT vorliebeId   FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
+          ),
+          "vorliebeId",
+        ],
+        [
+          sequelize.literal(
+            `(SELECT gehalten_anId FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
+          ),
+          "gehalten_anId",
+        ],
+        [
+          sequelize.literal(
+            `(SELECT v.name FROM Vorliebe v JOIN Vorlesung_Dozent vd ON v.id = vd.vorliebeId WHERE vd.VorlesungId = Vorlesung.id AND vd.DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
+          ),
+          "vorliebeName",
+        ],
+        [
+          sequelize.literal(
+            `(SELECT g.name FROM Gehalten_An g JOIN Vorlesung_Dozent vd ON g.id = vd.gehalten_anId WHERE vd.VorlesungId = Vorlesung.id AND vd.DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
+          ),
+          "gehalten_anName",
+        ],
+        [
+          sequelize.literal(
+            `(SELECT vorlaufzeit  FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
+          ),
+          "vorlaufzeit",
+        ],
       ],
       distinct: true,
       where: profWhere,
       include: [
-        { model: Dozent,          as: "professors",     attributes: ["id", "vorname", "name"], through: { attributes: ["vorliebeId", "gehalten_anId", "vorlaufzeit"] }, required: false },
-        { model: Abschluss_Typ,   as: "completionType", attributes: ["name", "id"] },
-        { model: Vorlesung_Status, as: "lectureStatus",  attributes: ["name", "id"] },
+        {
+          model: Dozent,
+          as: "professors",
+          attributes: ["id", "vorname", "name"],
+          through: {
+            attributes: ["vorliebeId", "gehalten_anId", "vorlaufzeit"],
+          },
+          required: false,
+        },
+        {
+          model: Abschluss_Typ,
+          as: "completionType",
+          attributes: ["name", "id"],
+        },
+        {
+          model: Vorlesung_Status,
+          as: "lectureStatus",
+          attributes: ["name", "id"],
+        },
       ],
       order: [["id", "ASC"]],
     });
@@ -339,42 +400,63 @@ exports.getLecturesIncludingProfessor = async (req, res, next) => {
 
     //All lectures matching the general filters
     const genClauses = [];
-    if (vorlaufzeit)  genClauses.push(`vorlaufzeit = ${sequelize.escape(vorlaufzeit)}`);
-    if (gehalten_anId) genClauses.push(`gehalten_anId = ${sequelize.escape(gehalten_anId)}`);
+    if (vorlaufzeit)
+      genClauses.push(`vorlaufzeit = ${sequelize.escape(vorlaufzeit)}`);
+    if (gehalten_anId)
+      genClauses.push(`gehalten_anId = ${sequelize.escape(gehalten_anId)}`);
 
-    const genSubSql = genClauses.length > 0 ? `WHERE ${genClauses.join(" AND ")}` : "";
-    const genWhere  = genClauses.length > 0
-      ? { id: { [Op.in]: sequelize.literal(`(SELECT VorlesungId FROM Vorlesung_Dozent ${genSubSql})`) } }
-      : {};
+    const genSubSql =
+      genClauses.length > 0 ? `WHERE ${genClauses.join(" AND ")}` : "";
+    const genWhere =
+      genClauses.length > 0
+        ? {
+            id: {
+              [Op.in]: sequelize.literal(
+                `(SELECT VorlesungId FROM Vorlesung_Dozent ${genSubSql})`,
+              ),
+            },
+          }
+        : {};
 
     if (term) {
       const terms = term.trim().split(/\s+/);
       genWhere[Op.or] = terms.map((t) => ({ name: { [Op.like]: `%${t}%` } }));
     }
     if (vorlesung_statusId) genWhere.vorlesung_statusId = vorlesung_statusId;
-    if (abschluss_typId)    genWhere.abschluss_typId    = abschluss_typId;
-    if (semester)           genWhere.semester           = semester;
+    if (abschluss_typId) genWhere.abschluss_typId = abschluss_typId;
+    if (semester) genWhere.semester = semester;
 
     const { rows: allRows } = await Vorlesung.findAndCountAll({
       attributes: ["id", "name", "kuerzel", "semester"],
       distinct: true,
       where: genWhere,
       include: [
-        { model: Dozent,          as: "professors",     attributes: ["id", "vorname", "name"], through: { attributes: ["vorlaufzeit", "gehalten_anId"] }, required: false },
-        { model: Abschluss_Typ,   as: "completionType", attributes: ["name", "id"] },
-        { model: Vorlesung_Status, as: "lectureStatus",  attributes: ["name", "id"] },
+        {
+          model: Dozent,
+          as: "professors",
+          attributes: ["id", "vorname", "name"],
+          through: { attributes: ["vorlaufzeit", "gehalten_anId"] },
+          required: false,
+        },
+        {
+          model: Abschluss_Typ,
+          as: "completionType",
+          attributes: ["name", "id"],
+        },
+        {
+          model: Vorlesung_Status,
+          as: "lectureStatus",
+          attributes: ["name", "id"],
+        },
       ],
       order: [["id", "ASC"]],
     });
 
     //Merge: professor lectures first, then non-duplicate general lectures
-    const merged = [
-      ...profRows,
-      ...allRows.filter((r) => !profIds.has(r.id)),
-    ];
+    const merged = [...profRows, ...allRows.filter((r) => !profIds.has(r.id))];
 
     // Apply pagination AFTER merge
-    const total  = merged.length;
+    const total = merged.length;
     const sliced = merged.slice(offset, offset + limit);
 
     res.status(200).json({ total, lectures: sliced });
