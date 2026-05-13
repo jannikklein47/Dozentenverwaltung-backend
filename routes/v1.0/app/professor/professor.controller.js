@@ -8,7 +8,7 @@ const {
   sequelize,
 } = require("../../../../models");
 
-const { Op } = require("sequelize");
+const { Op, where, fn, col } = require("sequelize");
 
 exports.getAllProfessors = async (req, res, next) => {
   try {
@@ -18,13 +18,14 @@ exports.getAllProfessors = async (req, res, next) => {
     const whereConditions = {};
 
     if (req.query.term) {
-      const terms = req.query.term.trim().split(/\s+/);
-      whereConditions[Op.and] = terms.map((term) => ({
-        [Op.or]: [
-          { vorname: { [Op.like]: `%${term}%` } },
-          { name: { [Op.like]: `%${term}%` } },
-        ],
-      }));
+      const term = req.query.term.trim();
+      whereConditions[Op.or] = [
+        { vorname: { [Op.like]: `%${term}%` } },
+        { name: { [Op.like]: `%${term}%` } },
+        where(fn("concat", col("Dozent.vorname"), " ", col("Dozent.name")), {
+          [Op.like]: `%${term}%`,
+        }),
+      ];
     }
 
     if (req.query.dozenten_statusId) {
@@ -296,10 +297,7 @@ exports.addLectureToProfessor = async (req, res, next) => {
       }),
     ]);
 
-    if (
-      !professor ||
-      !lecture
-    ) {
+    if (!professor || !lecture) {
       await t.rollback();
       return next(APIError.errorNotFound());
     }
