@@ -192,9 +192,14 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
 
     if (term) {
       const terms = term.trim().split(/\s+/);
-      whereConditions[Op.or] = terms.map((t) => ({
-        name: { [Op.like]: `%${t}%` },
-      }));
+      whereConditions[Op.or] = [
+        {
+          [Op.and]: terms.map((t) => ({
+            name: { [Op.like]: `%${t}%` },
+          })),
+        },
+        { kuerzel: { [Op.like]: `%${term}%` } },
+      ];
     }
 
     if (vorlesung_statusId) {

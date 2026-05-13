@@ -100,13 +100,14 @@ exports.getAllProfessorsForLecture = async (req, res, next) => {
     };
 
     if (req.query.term) {
-      const terms = req.query.term.trim().split(/\s+/);
-      whereConditions[Op.and] = terms.map((term) => ({
-        [Op.or]: [
-          { vorname: { [Op.like]: `%${term}%` } },
-          { name: { [Op.like]: `%${term}%` } },
-        ],
-      }));
+      const term = req.query.term.trim();
+      whereConditions[Op.or] = [
+        { vorname: { [Op.like]: `%${term}%` } },
+        { name: { [Op.like]: `%${term}%` } },
+        where(fn("concat", col("Dozent.vorname"), " ", col("Dozent.name")), {
+          [Op.like]: `%${term}%`,
+        }),
+      ];
     }
 
     if (req.query.dozenten_statusId) {
