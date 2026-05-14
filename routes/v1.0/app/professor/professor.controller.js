@@ -471,3 +471,80 @@ exports.deleteProfessor = async (req, res, next) => {
     next(APIError.errorUnknown());
   }
 };
+
+exports.getProfessorsIncludingLecture = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 50;
+    const offset = parseInt(req.query.offset) || 0;
+    const lectureId = parseInt(req.params.id);
+
+    const { term, dozenten_statusId, vorliebeId } = req.query;
+
+    // 1. Hole alle Dozenten, die BEREITS ZUGEWIESEN sind (werden immer angezeigt)
+    const assignedWhere = {
+      id: {
+        [Op.in]: sequelize.literal(`(SELECT DozentId FROM Vorlesung_Dozent WHERE VorlesungId = ${sequelize.escape(lectureId)})`),
+      },
+    };
+
+    const { rows: assignedRows } = await Dozent.findAndCountAll({
+      attributes: ["id", "titel", "vorname", "name", "email", "telefonnummer", "prio_bachelor", "prio_master"],
+      distinct: true,
+      where: assignedWhere,
+      include: [
+        { model: Dozenten_Status, as: "professorStatus", attributes: ["name", "id"] },
+        { model: Vorliebe, as: "preference", attributes: ["name", "id"] },
+      ],
+      order: [["id", "ASC"]],
+    });
+
+    const assignedIds = new Set(assignedRows.map((r) => r.id));
+
+    // 2. Allgemeine Filter für die RESTLICHEN Dozenten
+    const genWhere = {};
+    if (term) {
+      const terms = term.trim().split(/\s+/);
+      genWhere[Op.or] = [
+        { vorname: { [Op.like]: `%${term}%` } },
+        { name: { [Op.like]: `%${term}%` } },
+        where(fn("concat", col("Dozent.vorname"), " ", col("Dozent.name")), {
+          [Op.like]: `%${term}%`,
+        }),
+      ];
+    }
+
+    if (dozenten_statusId) {
+      genWhere.dozenten_statusId = dozenten_statusId;
+    }
+
+    // HIER IST DEIN GEWÜNSCHTER FILTER:
+    // Wenn z.B. nach "Bachelor" (1) gefiltert wird, schließe automatisch "Alles" (3) mit ein!
+    if (vorliebeId) {
+      genWhere.vorliebeId = {
+        [Op.in]: [vorliebeId, 3], // 3 ist die ID für "Alles"
+      };
+    }
+
+    const { rows: allRows } = await Dozent.findAndCountAll({
+      attributes: ["id", "titel", "vorname", "name", "email", "telefonnummer", "prio_bachelor", "prio_master"],
+      distinct: true,
+      where: genWhere,
+      include: [
+        { model: Dozenten_Status, as: "professorStatus", attributes: ["name", "id"] },
+        { model: Vorliebe, as: "preference", attributes: ["name", "id"] },
+      ],
+      order: [["id", "ASC"]],
+    });
+
+    // 3. Zusammenführen: Zuerst zugewiesene, dann die passenden restlichen (ohne Duplikate)
+    const merged = [...assignedRows, ...allRows.filter((r) => !assignedIds.has(r.id))];
+
+    const total = merged.length;
+    const sliced = merged.slice(offset, offset + limit);
+
+    res.status(200).json({ total, professors: sliced });
+  } catch (error) {
+    console.error(error);
+    next(APIError.errorUnknown());
+  }
+};

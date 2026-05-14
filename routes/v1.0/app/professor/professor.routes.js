@@ -829,3 +829,11 @@ router.post(
 );
 
 module.exports = router;
+
+router.get(
+  "/including/:id",
+  validate.validateLectureId,
+  validate.validateProfessorQuery,
+  validate.validateProfessorFilter,
+  professorController.getProfessorsIncludingLecture
+);
