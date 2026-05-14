@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "gehalten_anId",
         type: DataTypes.INTEGER,
       });
-      Vorlesung_Dozent.belongsTo(models.Vorliebe, {
-        foreignKey: "vorliebeId",
-        type: DataTypes.INTEGER,
-      });
     }
   }
   Vorlesung_Dozent.init(
@@ -34,10 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       gehalten_anId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-      },
-      vorliebeId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
       },
       vorlaufzeit: {
         type: DataTypes.ENUM("S", "4", "M"),
