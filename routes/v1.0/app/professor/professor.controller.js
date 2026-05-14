@@ -133,18 +133,6 @@ exports.getAllProfessorsForLecture = async (req, res, next) => {
         "prio_master",
         [
           sequelize.literal(`
-            (SELECT vorliebeId FROM Vorlesung_Dozent WHERE DozentId = Dozent.id AND VorlesungId = ${sequelize.escape(lectureId)})
-          `),
-          "lectureVorliebeId",
-        ],
-        [
-          sequelize.literal(`
-            (SELECT v.name FROM Vorliebe v JOIN Vorlesung_Dozent vd on v.id = vd.vorliebeId WHERE vd.DozentId = Dozent.id AND vd.VorlesungId = ${sequelize.escape(lectureId)})
-         `),
-          "lectureVorliebeName",
-        ],
-        [
-          sequelize.literal(`
             (SELECT gehalten_anId FROM Vorlesung_Dozent WHERE DozentId = Dozent.id AND VorlesungId = ${sequelize.escape(lectureId)})
           `),
           "lectureGehalten_anId",
@@ -283,8 +271,7 @@ exports.postProfessor = async (req, res, next) => {
 exports.addLectureToProfessor = async (req, res, next) => {
   const t = await Dozent.sequelize.transaction();
   try {
-    const { professorId, lectureId, gehalten_anId, vorliebeId, vorlaufzeit } =
-      req.body;
+    const { professorId, lectureId, gehalten_anId, vorlaufzeit } = req.body;
 
     const [professor, lecture, existingAssignment] = await Promise.all([
       Dozent.findByPk(professorId, { transaction: t }),
@@ -313,7 +300,6 @@ exports.addLectureToProfessor = async (req, res, next) => {
         vorlesungId: lectureId,
         dozentId: professorId,
         gehalten_anId,
-        vorliebeId: vorliebeId ?? null,
         vorlaufzeit,
       },
       { transaction: t },
@@ -354,10 +340,6 @@ exports.updateLectureToProfessor = async (req, res, next) => {
 
     if (Object.prototype.hasOwnProperty.call(req.body, "gehalten_anId")) {
       updatePayload.gehalten_anId = req.body.gehalten_anId;
-    }
-
-    if (Object.prototype.hasOwnProperty.call(req.body, "vorliebeId")) {
-      updatePayload.vorliebeId = req.body.vorliebeId;
     }
 
     if (Object.prototype.hasOwnProperty.call(req.body, "vorlaufzeit")) {

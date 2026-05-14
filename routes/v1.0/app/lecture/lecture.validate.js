@@ -82,7 +82,6 @@ const dozenten_lectureFilter = Joi.object({
   abschluss_typId: Joi.number().integer().positive().optional(),
   semester: Joi.number().integer().positive().optional(),
   gehalten_anId: Joi.number().integer().positive().optional(),
-  vorliebeId: Joi.number().integer().positive().optional(),
   vorlaufzeit: Joi.string().valid("S", "4", "M").optional(),
 }).unknown(true);
 
