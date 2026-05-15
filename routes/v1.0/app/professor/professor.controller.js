@@ -480,7 +480,6 @@ exports.getProfessorsIncludingLecture = async (req, res, next) => {
 
     const { term, dozenten_statusId, vorliebeId } = req.query;
 
-    // 1. Hole alle Dozenten, die BEREITS ZUGEWIESEN sind (werden immer angezeigt)
     const assignedWhere = {
       id: {
         [Op.in]: sequelize.literal(`(SELECT DozentId FROM Vorlesung_Dozent WHERE VorlesungId = ${sequelize.escape(lectureId)})`),
@@ -500,7 +499,6 @@ exports.getProfessorsIncludingLecture = async (req, res, next) => {
 
     const assignedIds = new Set(assignedRows.map((r) => r.id));
 
-    // 2. Allgemeine Filter für die RESTLICHEN Dozenten
     const genWhere = {};
     if (term) {
       const terms = term.trim().split(/\s+/);
@@ -517,11 +515,9 @@ exports.getProfessorsIncludingLecture = async (req, res, next) => {
       genWhere.dozenten_statusId = dozenten_statusId;
     }
 
-    // HIER IST DEIN GEWÜNSCHTER FILTER:
-    // Wenn z.B. nach "Bachelor" (1) gefiltert wird, schließe automatisch "Alles" (3) mit ein!
     if (vorliebeId) {
       genWhere.vorliebeId = {
-        [Op.in]: [vorliebeId, 3], // 3 ist die ID für "Alles"
+        [Op.in]: [vorliebeId, 3],
       };
     }
 
@@ -536,7 +532,6 @@ exports.getProfessorsIncludingLecture = async (req, res, next) => {
       order: [["id", "ASC"]],
     });
 
-    // 3. Zusammenführen: Zuerst zugewiesene, dann die passenden restlichen (ohne Duplikate)
     const merged = [...assignedRows, ...allRows.filter((r) => !assignedIds.has(r.id))];
 
     const total = merged.length;
