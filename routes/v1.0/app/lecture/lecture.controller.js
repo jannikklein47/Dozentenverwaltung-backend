@@ -308,6 +308,18 @@ exports.getLecturesIncludingProfessor = async (req, res, next) => {
       },
     };
 
+    if (term) {
+      const terms = term.trim().split(/\s+/);
+      profWhere[Op.or] = [
+        {
+          [Op.and]: terms.map((t) => ({
+            name: { [Op.like]: `%${t}%` },
+          })),
+        },
+        { kuerzel: { [Op.like]: `%${term}%` } },
+      ];
+    }
+
     const { rows: profRows } = await Vorlesung.findAndCountAll({
       attributes: [
         "id",
