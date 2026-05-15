@@ -126,7 +126,6 @@ const validateAddLectureToProfessorBody = Joi.object({
   lectureId: Joi.number().integer().positive().required(),
   professorId: Joi.number().integer().positive().required(),
   gehalten_anId: Joi.number().integer().positive().required(),
-  vorliebeId: Joi.number().integer().positive().allow(null).optional(),
   vorlaufzeit: Joi.string().valid("S", "4", "M").optional(),
 });
 
@@ -147,9 +146,8 @@ const validateUpdateLectureToProfessorBody = Joi.object({
   lectureId: Joi.number().integer().positive().required(),
   professorId: Joi.number().integer().positive().required(),
   gehalten_anId: Joi.number().integer().positive().optional(),
-  vorliebeId: Joi.number().integer().positive().allow(null).optional(),
   vorlaufzeit: Joi.string().valid("S", "4", "M").optional(),
-}).or("gehalten_anId", "vorliebeId", "vorlaufzeit");
+}).or("gehalten_anId", "vorlaufzeit");
 
 exports.validateUpdateLectureToProfessorBody = (req, res, next) => {
   const { error, value } = validateUpdateLectureToProfessorBody.validate(

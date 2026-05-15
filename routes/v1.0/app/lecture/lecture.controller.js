@@ -164,7 +164,6 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
       abschluss_typId,
       semester,
       gehalten_anId,
-      vorliebeId,
       vorlaufzeit,
     } = req.query;
 
@@ -172,9 +171,6 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
 
     if (gehalten_anId) {
       subQueryConditions += ` AND gehalten_anId = ${sequelize.escape(gehalten_anId)}`;
-    }
-    if (vorliebeId) {
-      subQueryConditions += ` AND vorliebeId = ${sequelize.escape(vorliebeId)}`;
     }
     if (vorlaufzeit) {
       subQueryConditions += ` AND vorlaufzeit = ${sequelize.escape(vorlaufzeit)}`;
@@ -224,26 +220,9 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
         "semester",
         [
           sequelize.literal(
-            `(SELECT vorliebeId FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
-          ),
-          "vorliebeId",
-        ],
-        [
-          sequelize.literal(
             `(SELECT gehalten_anId FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
           ),
           "gehalten_anId",
-        ],
-        [
-          sequelize.literal(`(
-        SELECT v.name 
-        FROM Vorliebe v
-        JOIN Vorlesung_Dozent vd ON v.id = vd.vorliebeId
-        WHERE vd.VorlesungId = Vorlesung.id 
-        AND vd.DozentId = ${sequelize.escape(professorId)}
-        LIMIT 1
-      )`),
-          "vorliebeName",
         ],
         [
           sequelize.literal(`(
@@ -271,7 +250,7 @@ exports.getLecturesOfProfessor = async (req, res, next) => {
           as: "professors",
           attributes: ["id", "vorname", "name"],
           through: {
-            attributes: ["vorliebeId", "gehalten_anId", "vorlaufzeit"],
+            attributes: ["gehalten_anId", "vorlaufzeit"],
           },
           required: false,
         },
@@ -311,7 +290,6 @@ exports.getLecturesIncludingProfessor = async (req, res, next) => {
       abschluss_typId,
       semester,
       gehalten_anId,
-      vorliebeId,
       vorlaufzeit,
     } = req.query;
 
@@ -319,8 +297,6 @@ exports.getLecturesIncludingProfessor = async (req, res, next) => {
     let profSubQuery = `WHERE DozentId = ${sequelize.escape(professorId)}`;
     if (gehalten_anId)
       profSubQuery += ` AND gehalten_anId = ${sequelize.escape(gehalten_anId)}`;
-    if (vorliebeId)
-      profSubQuery += ` AND vorliebeId = ${sequelize.escape(vorliebeId)}`;
     if (vorlaufzeit)
       profSubQuery += ` AND vorlaufzeit = ${sequelize.escape(vorlaufzeit)}`;
 
@@ -340,21 +316,9 @@ exports.getLecturesIncludingProfessor = async (req, res, next) => {
         "semester",
         [
           sequelize.literal(
-            `(SELECT vorliebeId   FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
-          ),
-          "vorliebeId",
-        ],
-        [
-          sequelize.literal(
             `(SELECT gehalten_anId FROM Vorlesung_Dozent WHERE VorlesungId = Vorlesung.id AND DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
           ),
           "gehalten_anId",
-        ],
-        [
-          sequelize.literal(
-            `(SELECT v.name FROM Vorliebe v JOIN Vorlesung_Dozent vd ON v.id = vd.vorliebeId WHERE vd.VorlesungId = Vorlesung.id AND vd.DozentId = ${sequelize.escape(professorId)} LIMIT 1)`,
-          ),
-          "vorliebeName",
         ],
         [
           sequelize.literal(
@@ -377,7 +341,7 @@ exports.getLecturesIncludingProfessor = async (req, res, next) => {
           as: "professors",
           attributes: ["id", "vorname", "name"],
           through: {
-            attributes: ["vorliebeId", "gehalten_anId", "vorlaufzeit"],
+            attributes: ["gehalten_anId", "vorlaufzeit"],
           },
           required: false,
         },
